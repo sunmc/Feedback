@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.WtdataMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Wtdata" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="BizObjectId" property="bizobjectid" jdbcType="CHAR" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="descripe" property="descripe" jdbcType="VARCHAR" />
+    <result column="BelongTo" property="belongto" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, BizObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, 
+    State, DeleteFlag, value, text, descripe, BelongTo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_WTData
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <select id="selectByFlag"  resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_WTData
+    where BelongTo = #{belongTo,jdbcType=CHAR} and DeleteFlag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from I_WTData
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.Wtdata" >
+    insert into I_WTData (ObjectId, ParentObjectId, BizObjectId, 
+      CreateBy, CreateTime, UpdateBy, 
+      UpdateTime, State, DeleteFlag, 
+      value, text, descripe, 
+      BelongTo)
+    values (NEWID(), #{parentobjectid,jdbcType=CHAR}, #{bizobjectid,jdbcType=CHAR}, 
+      #{createby,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, 
+      #{value,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{descripe,jdbcType=VARCHAR}, 
+      #{belongto,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Wtdata" >
+    insert into I_WTData
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ObjectId,
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="bizobjectid != null" >
+        BizObjectId,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="descripe != null" >
+        descripe,
+      </if>
+      <if test="belongto != null" >
+        BelongTo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        NEWID(),
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="bizobjectid != null" >
+        #{bizobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="descripe != null" >
+        #{descripe,jdbcType=VARCHAR},
+      </if>
+      <if test="belongto != null" >
+        #{belongto,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Wtdata" >
+    update I_WTData
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="bizobjectid != null" >
+        BizObjectId = #{bizobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UpdateBy = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="descripe != null" >
+        descripe = #{descripe,jdbcType=VARCHAR},
+      </if>
+      <if test="belongto != null" >
+        BelongTo = #{belongto,jdbcType=CHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Wtdata" >
+    update I_WTData
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      BizObjectId = #{bizobjectid,jdbcType=CHAR},
+      CreateBy = #{createby,jdbcType=CHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UpdateBy = #{updateby,jdbcType=CHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=INTEGER},
+      DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      value = #{value,jdbcType=INTEGER},
+      text = #{text,jdbcType=VARCHAR},
+      descripe = #{descripe,jdbcType=VARCHAR},
+      BelongTo = #{belongto,jdbcType=CHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.User" >
+    <id column="ObjectID" property="objectid" jdbcType="CHAR" />
+    <result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="Gender" property="gender" jdbcType="INTEGER" />
+    <result column="EntryDate" property="entrydate" jdbcType="TIMESTAMP" />
+    <result column="DepartureDate" property="departuredate" jdbcType="TIMESTAMP" />
+    <result column="ServiceState" property="servicestate" jdbcType="INTEGER" />
+    <result column="Email" property="email" jdbcType="NVARCHAR" />
+    <result column="Email2" property="email2" jdbcType="NVARCHAR" />
+    <result column="Appellation" property="appellation" jdbcType="NVARCHAR" />
+    <result column="EmployeeNumber" property="employeenumber" jdbcType="NVARCHAR" />
+    <result column="EmployeeRank" property="employeerank" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="NVARCHAR" />
+    <result column="Password" property="password" jdbcType="NVARCHAR" />
+    <result column="Mobile" property="mobile" jdbcType="NVARCHAR" />
+    <result column="ImageName" property="imagename" jdbcType="NVARCHAR" />
+    <result column="WeChatAccount" property="wechataccount" jdbcType="NVARCHAR" />
+    <result column="IsConsoleUser" property="isconsoleuser" jdbcType="INTEGER" />
+    <result column="FacsimileTelephoneNumber" property="facsimiletelephonenumber" jdbcType="NVARCHAR" />
+    <result column="IpPhone" property="ipphone" jdbcType="NVARCHAR" />
+    <result column="HomePhone" property="homephone" jdbcType="NVARCHAR" />
+    <result column="OfficePhone" property="officephone" jdbcType="NVARCHAR" />
+    <result column="Pager" property="pager" jdbcType="NVARCHAR" />
+    <result column="QQ" property="qq" jdbcType="NVARCHAR" />
+    <result column="RTX" property="rtx" jdbcType="NVARCHAR" />
+    <result column="MSN" property="msn" jdbcType="NVARCHAR" />
+    <result column="Skype" property="skype" jdbcType="NVARCHAR" />
+    <result column="Country" property="country" jdbcType="NVARCHAR" />
+    <result column="CountryName" property="countryname" jdbcType="NVARCHAR" />
+    <result column="Province" property="province" jdbcType="NVARCHAR" />
+    <result column="City" property="city" jdbcType="NVARCHAR" />
+    <result column="Street" property="street" jdbcType="NVARCHAR" />
+    <result column="PostOfficeBox" property="postofficebox" jdbcType="NVARCHAR" />
+    <result column="PostalCode" property="postalcode" jdbcType="NVARCHAR" />
+    <result column="IDNumber" property="idnumber" jdbcType="NVARCHAR" />
+    <result column="SID" property="sid" jdbcType="NVARCHAR" />
+    <result column="MobileType" property="mobiletype" jdbcType="INTEGER" />
+    <result column="DeviceToken" property="devicetoken" jdbcType="NVARCHAR" />
+    <result column="PrivacyLevel" property="privacylevel" jdbcType="INTEGER" />
+    <result column="Notification" property="notification" jdbcType="INTEGER" />
+    <result column="CalendarId" property="calendarid" jdbcType="NVARCHAR" />
+    <result column="DefaultLanguage" property="defaultlanguage" jdbcType="NVARCHAR" />
+    <result column="ParentID" property="parentid" jdbcType="CHAR" />
+    <result column="SourceParentID" property="sourceparentid" jdbcType="NVARCHAR" />
+    <result column="CompanyID" property="companyid" jdbcType="NVARCHAR" />
+    <result column="Admin" property="admin" jdbcType="INTEGER" />
+    <result column="SystemID" property="systemid" jdbcType="NVARCHAR" />
+    <result column="Visibility" property="visibility" jdbcType="INTEGER" />
+    <result column="CategoryID" property="categoryid" jdbcType="CHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="NVARCHAR" />
+    <result column="Description" property="description" jdbcType="NVARCHAR" />
+    <result column="Code" property="code" jdbcType="NVARCHAR" />
+    <result column="ManagerID" property="managerid" jdbcType="NVARCHAR" />
+    <result column="ViceManagerID" property="vicemanagerid" jdbcType="NVARCHAR" />
+    <result column="SecretaryID" property="secretaryid" jdbcType="NVARCHAR" />
+    <result column="SupervisorID" property="supervisorid" jdbcType="NVARCHAR" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="SortKey" property="sortkey" jdbcType="INTEGER" />
+    <result column="WorkflowCode" property="workflowcode" jdbcType="NVARCHAR" />
+    <result column="ParentObjectID" property="parentobjectid" jdbcType="CHAR" />
+    <result column="ParentPropertyName" property="parentpropertyname" jdbcType="NVARCHAR" />
+    <result column="ParentIndex" property="parentindex" jdbcType="INTEGER" />
+    <result column="bmmc" property="bmmc" jdbcType="NVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bean.UserWithBLOBs" extends="BaseResultMap" >
+    <result column="Picture" property="picture" jdbcType="LONGVARBINARY" />
+    <result column="Attachment" property="attachment" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectID, Birthday, Gender, EntryDate, DepartureDate, ServiceState, Email, Email2, 
+    Appellation, EmployeeNumber, EmployeeRank, Title, Password, Mobile, ImageName, WeChatAccount, 
+    IsConsoleUser, FacsimileTelephoneNumber, IpPhone, HomePhone, OfficePhone, Pager, 
+    QQ, RTX, MSN, Skype, Country, CountryName, Province, City, Street, PostOfficeBox, 
+    PostalCode, IDNumber, SID, MobileType, DeviceToken, PrivacyLevel, Notification, CalendarId, 
+    DefaultLanguage, ParentID, SourceParentID, CompanyID, Admin, SystemID, Visibility, 
+    CategoryID, State, Name, Description, Code, ManagerID, ViceManagerID, SecretaryID, 
+    SupervisorID, CreatedTime, ModifiedTime, SortKey, WorkflowCode, ParentObjectID, ParentPropertyName, 
+    ParentIndex
+  </sql>
+  <sql id="Blob_Column_List" >
+    Picture, Attachment
+  </sql>
+  <select id="search" resultMap="BaseResultMap" parameterType="String">
+	  select  a.* ,
+		(case when b3.name is not null then b3.name else (case when b2.name is not null then b2.name else (case when b1.name is not null then b1.name else (case when b.name is not null then b.name else '' end)end)end)end) bmmc
+		from OT_User a 
+		left join h3cloud.dbo.OT_OrganizationUnit b on a.ParentID = b.ObjectID
+		left join h3cloud.dbo.OT_OrganizationUnit b1 on b.ParentID = b1.ObjectID
+		left join h3cloud.dbo.OT_OrganizationUnit b2 on b1.ParentID = b2.ObjectID
+		left join h3cloud.dbo.OT_OrganizationUnit b3 on b2.ParentID = b3.ObjectID
+      where a.name like #{text,jdbcType=NVARCHAR} or a.code like #{text,jdbcType=NVARCHAR} order by a.name
+  </select>
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.bean.User">
+      select
+      <include refid="Base_Column_List" />
+      from OT_User
+      where 1=1
+      <if test="objectid != null" >
+        and ObjectID = #{objectid,jdbcType=CHAR}
+      </if>
+      <if test="birthday != null" >
+        and Birthday = #{birthday,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gender != null" >
+        and Gender = #{gender,jdbcType=INTEGER}
+      </if>
+      <if test="entrydate != null" >
+        and EntryDate = #{entrydate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="departuredate != null" >
+       and  DepartureDate = #{departuredate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="servicestate != null" >
+        and ServiceState = #{servicestate,jdbcType=INTEGER}
+      </if>
+      <if test="email != null" >
+        and Email = #{email,jdbcType=NVARCHAR}
+      </if>
+      <if test="email2 != null" >
+        and Email2 = #{email2,jdbcType=NVARCHAR}
+      </if>
+      <if test="appellation != null" >
+        and Appellation = #{appellation,jdbcType=NVARCHAR}
+      </if>
+      <if test="employeenumber != null" >
+        and EmployeeNumber = #{employeenumber,jdbcType=NVARCHAR}
+      </if>
+      <if test="employeerank != null" >
+        and EmployeeRank = #{employeerank,jdbcType=INTEGER}
+      </if>
+      <if test="title != null" >
+        and Title = #{title,jdbcType=NVARCHAR}
+      </if>
+      <if test="password != null" >
+        and Password = #{password,jdbcType=NVARCHAR}
+      </if>
+      <if test="mobile != null" >
+        and Mobile = #{mobile,jdbcType=NVARCHAR}
+      </if>
+      <if test="imagename != null" >
+        and ImageName = #{imagename,jdbcType=NVARCHAR}
+      </if>
+      <if test="wechataccount != null" >
+        and WeChatAccount = #{wechataccount,jdbcType=NVARCHAR}
+      </if>
+      <if test="isconsoleuser != null" >
+        and IsConsoleUser = #{isconsoleuser,jdbcType=INTEGER}
+      </if>
+      <if test="facsimiletelephonenumber != null" >
+        and FacsimileTelephoneNumber = #{facsimiletelephonenumber,jdbcType=NVARCHAR}
+      </if>
+      <if test="ipphone != null" >
+        and IpPhone = #{ipphone,jdbcType=NVARCHAR}
+      </if>
+      <if test="homephone != null" >
+        and HomePhone = #{homephone,jdbcType=NVARCHAR}
+      </if>
+      <if test="officephone != null" >
+        and OfficePhone = #{officephone,jdbcType=NVARCHAR}
+      </if>
+      <if test="pager != null" >
+        and Pager = #{pager,jdbcType=NVARCHAR}
+      </if>
+      <if test="qq != null" >
+        and QQ = #{qq,jdbcType=NVARCHAR}
+      </if>
+      <if test="rtx != null" >
+        and RTX = #{rtx,jdbcType=NVARCHAR}
+      </if>
+      <if test="msn != null" >
+        and MSN = #{msn,jdbcType=NVARCHAR}
+      </if>
+      <if test="skype != null" >
+        and Skype = #{skype,jdbcType=NVARCHAR}
+      </if>
+      <if test="country != null" >
+        and Country = #{country,jdbcType=NVARCHAR}
+      </if>
+      <if test="countryname != null" >
+        and CountryName = #{countryname,jdbcType=NVARCHAR}
+      </if>
+      <if test="province != null" >
+        and Province = #{province,jdbcType=NVARCHAR}
+      </if>
+      <if test="city != null" >
+        and City = #{city,jdbcType=NVARCHAR}
+      </if>
+      <if test="street != null" >
+        and Street = #{street,jdbcType=NVARCHAR}
+      </if>
+      <if test="postofficebox != null" >
+        and PostOfficeBox = #{postofficebox,jdbcType=NVARCHAR}
+      </if>
+      <if test="postalcode != null" >
+        and PostalCode = #{postalcode,jdbcType=NVARCHAR}
+      </if>
+      <if test="idnumber != null" >
+        and IDNumber = #{idnumber,jdbcType=NVARCHAR}
+      </if>
+      <if test="sid != null" >
+        and SID = #{sid,jdbcType=NVARCHAR}
+      </if>
+      <if test="mobiletype != null" >
+        and MobileType = #{mobiletype,jdbcType=INTEGER}
+      </if>
+      <if test="devicetoken != null" >
+        and DeviceToken = #{devicetoken,jdbcType=NVARCHAR}
+      </if>
+      <if test="privacylevel != null" >
+        and PrivacyLevel = #{privacylevel,jdbcType=INTEGER}
+      </if>
+      <if test="notification != null" >
+        and Notification = #{notification,jdbcType=INTEGER}
+      </if>
+      <if test="calendarid != null" >
+        and CalendarId = #{calendarid,jdbcType=NVARCHAR}
+      </if>
+      <if test="defaultlanguage != null" >
+        and DefaultLanguage = #{defaultlanguage,jdbcType=NVARCHAR}
+      </if>
+      <if test="parentid != null" >
+        and ParentID = #{parentid,jdbcType=CHAR}
+      </if>
+      <if test="sourceparentid != null" >
+        and SourceParentID = #{sourceparentid,jdbcType=NVARCHAR}
+      </if>
+      <if test="companyid != null" >
+        and CompanyID = #{companyid,jdbcType=NVARCHAR}
+      </if>
+      <if test="admin != null" >
+        and Admin = #{admin,jdbcType=INTEGER}
+      </if>
+      <if test="systemid != null" >
+        and SystemID = #{systemid,jdbcType=NVARCHAR}
+      </if>
+      <if test="visibility != null" >
+        and Visibility = #{visibility,jdbcType=INTEGER}
+      </if>
+      <if test="categoryid != null" >
+        and CategoryID = #{categoryid,jdbcType=CHAR}
+      </if>
+      <if test="state != null" >
+        and State = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and Name = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="description != null" >
+        and Description = #{description,jdbcType=NVARCHAR}
+      </if>
+      <if test="code != null" >
+        and Code = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="managerid != null" >
+        and ManagerID = #{managerid,jdbcType=NVARCHAR}
+      </if>
+      <if test="vicemanagerid != null" >
+        and ViceManagerID = #{vicemanagerid,jdbcType=NVARCHAR}
+      </if>
+      <if test="secretaryid != null" >
+        and SecretaryID = #{secretaryid,jdbcType=NVARCHAR}
+      </if>
+      <if test="supervisorid != null" >
+        and SupervisorID = #{supervisorid,jdbcType=NVARCHAR}
+      </if>
+      <if test="createdtime != null" >
+        and CreatedTime = #{createdtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifiedtime != null" >
+        and ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="sortkey != null" >
+        and SortKey = #{sortkey,jdbcType=INTEGER}
+      </if>
+      <if test="workflowcode != null" >
+        and WorkflowCode = #{workflowcode,jdbcType=NVARCHAR}
+      </if>
+      <if test="parentobjectid != null" >
+        and ParentObjectID = #{parentobjectid,jdbcType=CHAR}
+      </if>
+      <if test="parentpropertyname != null" >
+        and ParentPropertyName = #{parentpropertyname,jdbcType=NVARCHAR}
+      </if>
+      <if test="parentindex != null" >
+        and ParentIndex = #{parentindex,jdbcType=INTEGER}
+      </if>
+      
+  </select>
+  <select id="loginValidate" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from OT_User
+    where Code = #{0} and Password = #{1}   
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from OT_User
+    where ObjectID = #{objectid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from OT_User
+    where ObjectID = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.UserWithBLOBs" >
+    insert into OT_User (ObjectID, Birthday, Gender, 
+      EntryDate, DepartureDate, ServiceState, 
+      Email, Email2, Appellation, 
+      EmployeeNumber, EmployeeRank, Title, 
+      Password, Mobile, ImageName, 
+      WeChatAccount, IsConsoleUser, FacsimileTelephoneNumber, 
+      IpPhone, HomePhone, OfficePhone, 
+      Pager, QQ, RTX, 
+      MSN, Skype, Country, 
+      CountryName, Province, City, 
+      Street, PostOfficeBox, PostalCode, 
+      IDNumber, SID, MobileType, 
+      DeviceToken, PrivacyLevel, Notification, 
+      CalendarId, DefaultLanguage, ParentID, 
+      SourceParentID, CompanyID, Admin, 
+      SystemID, Visibility, CategoryID, 
+      State, Name, Description, 
+      Code, ManagerID, ViceManagerID, 
+      SecretaryID, SupervisorID, CreatedTime, 
+      ModifiedTime, SortKey, WorkflowCode, 
+      ParentObjectID, ParentPropertyName, ParentIndex, 
+      
+      Picture, Attachment)
+    values (#{objectid,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, 
+      #{entrydate,jdbcType=TIMESTAMP}, #{departuredate,jdbcType=TIMESTAMP}, #{servicestate,jdbcType=INTEGER}, 
+      #{email,jdbcType=NVARCHAR}, #{email2,jdbcType=NVARCHAR}, #{appellation,jdbcType=NVARCHAR}, 
+      #{employeenumber,jdbcType=NVARCHAR}, #{employeerank,jdbcType=INTEGER}, #{title,jdbcType=NVARCHAR}, 
+      #{password,jdbcType=NVARCHAR}, #{mobile,jdbcType=NVARCHAR}, #{imagename,jdbcType=NVARCHAR}, 
+      #{wechataccount,jdbcType=NVARCHAR}, #{isconsoleuser,jdbcType=INTEGER}, #{facsimiletelephonenumber,jdbcType=NVARCHAR}, 
+      #{ipphone,jdbcType=NVARCHAR}, #{homephone,jdbcType=NVARCHAR}, #{officephone,jdbcType=NVARCHAR}, 
+      #{pager,jdbcType=NVARCHAR}, #{qq,jdbcType=NVARCHAR}, #{rtx,jdbcType=NVARCHAR}, 
+      #{msn,jdbcType=NVARCHAR}, #{skype,jdbcType=NVARCHAR}, #{country,jdbcType=NVARCHAR}, 
+      #{countryname,jdbcType=NVARCHAR}, #{province,jdbcType=NVARCHAR}, #{city,jdbcType=NVARCHAR}, 
+      #{street,jdbcType=NVARCHAR}, #{postofficebox,jdbcType=NVARCHAR}, #{postalcode,jdbcType=NVARCHAR}, 
+      #{idnumber,jdbcType=NVARCHAR}, #{sid,jdbcType=NVARCHAR}, #{mobiletype,jdbcType=INTEGER}, 
+      #{devicetoken,jdbcType=NVARCHAR}, #{privacylevel,jdbcType=INTEGER}, #{notification,jdbcType=INTEGER}, 
+      #{calendarid,jdbcType=NVARCHAR}, #{defaultlanguage,jdbcType=NVARCHAR}, #{parentid,jdbcType=CHAR}, 
+      #{sourceparentid,jdbcType=NVARCHAR}, #{companyid,jdbcType=NVARCHAR}, #{admin,jdbcType=INTEGER}, 
+      #{systemid,jdbcType=NVARCHAR}, #{visibility,jdbcType=INTEGER}, #{categoryid,jdbcType=CHAR}, 
+      #{state,jdbcType=INTEGER}, #{name,jdbcType=NVARCHAR}, #{description,jdbcType=NVARCHAR}, 
+      #{code,jdbcType=NVARCHAR}, #{managerid,jdbcType=NVARCHAR}, #{vicemanagerid,jdbcType=NVARCHAR}, 
+      #{secretaryid,jdbcType=NVARCHAR}, #{supervisorid,jdbcType=NVARCHAR}, #{createdtime,jdbcType=TIMESTAMP}, 
+      #{modifiedtime,jdbcType=TIMESTAMP}, #{sortkey,jdbcType=INTEGER}, #{workflowcode,jdbcType=NVARCHAR}, 
+      #{parentobjectid,jdbcType=CHAR}, #{parentpropertyname,jdbcType=NVARCHAR}, #{parentindex,jdbcType=INTEGER}, 
+      
+      #{picture,jdbcType=LONGVARBINARY}, #{attachment,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.UserWithBLOBs" >
+    insert into OT_User
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectID,
+      </if>
+      <if test="birthday != null" >
+        Birthday,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="entrydate != null" >
+        EntryDate,
+      </if>
+      <if test="departuredate != null" >
+        DepartureDate,
+      </if>
+      <if test="servicestate != null" >
+        ServiceState,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="email2 != null" >
+        Email2,
+      </if>
+      <if test="appellation != null" >
+        Appellation,
+      </if>
+      <if test="employeenumber != null" >
+        EmployeeNumber,
+      </if>
+      <if test="employeerank != null" >
+        EmployeeRank,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="mobile != null" >
+        Mobile,
+      </if>
+      <if test="imagename != null" >
+        ImageName,
+      </if>
+      <if test="wechataccount != null" >
+        WeChatAccount,
+      </if>
+      <if test="isconsoleuser != null" >
+        IsConsoleUser,
+      </if>
+      <if test="facsimiletelephonenumber != null" >
+        FacsimileTelephoneNumber,
+      </if>
+      <if test="ipphone != null" >
+        IpPhone,
+      </if>
+      <if test="homephone != null" >
+        HomePhone,
+      </if>
+      <if test="officephone != null" >
+        OfficePhone,
+      </if>
+      <if test="pager != null" >
+        Pager,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="rtx != null" >
+        RTX,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="skype != null" >
+        Skype,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="countryname != null" >
+        CountryName,
+      </if>
+      <if test="province != null" >
+        Province,
+      </if>
+      <if test="city != null" >
+        City,
+      </if>
+      <if test="street != null" >
+        Street,
+      </if>
+      <if test="postofficebox != null" >
+        PostOfficeBox,
+      </if>
+      <if test="postalcode != null" >
+        PostalCode,
+      </if>
+      <if test="idnumber != null" >
+        IDNumber,
+      </if>
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="mobiletype != null" >
+        MobileType,
+      </if>
+      <if test="devicetoken != null" >
+        DeviceToken,
+      </if>
+      <if test="privacylevel != null" >
+        PrivacyLevel,
+      </if>
+      <if test="notification != null" >
+        Notification,
+      </if>
+      <if test="calendarid != null" >
+        CalendarId,
+      </if>
+      <if test="defaultlanguage != null" >
+        DefaultLanguage,
+      </if>
+      <if test="parentid != null" >
+        ParentID,
+      </if>
+      <if test="sourceparentid != null" >
+        SourceParentID,
+      </if>
+      <if test="companyid != null" >
+        CompanyID,
+      </if>
+      <if test="admin != null" >
+        Admin,
+      </if>
+      <if test="systemid != null" >
+        SystemID,
+      </if>
+      <if test="visibility != null" >
+        Visibility,
+      </if>
+      <if test="categoryid != null" >
+        CategoryID,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="code != null" >
+        Code,
+      </if>
+      <if test="managerid != null" >
+        ManagerID,
+      </if>
+      <if test="vicemanagerid != null" >
+        ViceManagerID,
+      </if>
+      <if test="secretaryid != null" >
+        SecretaryID,
+      </if>
+      <if test="supervisorid != null" >
+        SupervisorID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="sortkey != null" >
+        SortKey,
+      </if>
+      <if test="workflowcode != null" >
+        WorkflowCode,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectID,
+      </if>
+      <if test="parentpropertyname != null" >
+        ParentPropertyName,
+      </if>
+      <if test="parentindex != null" >
+        ParentIndex,
+      </if>
+      
+      <if test="picture != null" >
+        Picture,
+      </if>
+      <if test="attachment != null" >
+        Attachment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="entrydate != null" >
+        #{entrydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departuredate != null" >
+        #{departuredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicestate != null" >
+        #{servicestate,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=NVARCHAR},
+      </if>
+      <if test="email2 != null" >
+        #{email2,jdbcType=NVARCHAR},
+      </if>
+      <if test="appellation != null" >
+        #{appellation,jdbcType=NVARCHAR},
+      </if>
+      <if test="employeenumber != null" >
+        #{employeenumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="employeerank != null" >
+        #{employeerank,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=NVARCHAR},
+      </if>
+      <if test="imagename != null" >
+        #{imagename,jdbcType=NVARCHAR},
+      </if>
+      <if test="wechataccount != null" >
+        #{wechataccount,jdbcType=NVARCHAR},
+      </if>
+      <if test="isconsoleuser != null" >
+        #{isconsoleuser,jdbcType=INTEGER},
+      </if>
+      <if test="facsimiletelephonenumber != null" >
+        #{facsimiletelephonenumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="ipphone != null" >
+        #{ipphone,jdbcType=NVARCHAR},
+      </if>
+      <if test="homephone != null" >
+        #{homephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="officephone != null" >
+        #{officephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="pager != null" >
+        #{pager,jdbcType=NVARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=NVARCHAR},
+      </if>
+      <if test="rtx != null" >
+        #{rtx,jdbcType=NVARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=NVARCHAR},
+      </if>
+      <if test="skype != null" >
+        #{skype,jdbcType=NVARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=NVARCHAR},
+      </if>
+      <if test="countryname != null" >
+        #{countryname,jdbcType=NVARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=NVARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=NVARCHAR},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=NVARCHAR},
+      </if>
+      <if test="postofficebox != null" >
+        #{postofficebox,jdbcType=NVARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        #{postalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        #{idnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=NVARCHAR},
+      </if>
+      <if test="mobiletype != null" >
+        #{mobiletype,jdbcType=INTEGER},
+      </if>
+      <if test="devicetoken != null" >
+        #{devicetoken,jdbcType=NVARCHAR},
+      </if>
+      <if test="privacylevel != null" >
+        #{privacylevel,jdbcType=INTEGER},
+      </if>
+      <if test="notification != null" >
+        #{notification,jdbcType=INTEGER},
+      </if>
+      <if test="calendarid != null" >
+        #{calendarid,jdbcType=NVARCHAR},
+      </if>
+      <if test="defaultlanguage != null" >
+        #{defaultlanguage,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=CHAR},
+      </if>
+      <if test="sourceparentid != null" >
+        #{sourceparentid,jdbcType=NVARCHAR},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=NVARCHAR},
+      </if>
+      <if test="admin != null" >
+        #{admin,jdbcType=INTEGER},
+      </if>
+      <if test="systemid != null" >
+        #{systemid,jdbcType=NVARCHAR},
+      </if>
+      <if test="visibility != null" >
+        #{visibility,jdbcType=INTEGER},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="managerid != null" >
+        #{managerid,jdbcType=NVARCHAR},
+      </if>
+      <if test="vicemanagerid != null" >
+        #{vicemanagerid,jdbcType=NVARCHAR},
+      </if>
+      <if test="secretaryid != null" >
+        #{secretaryid,jdbcType=NVARCHAR},
+      </if>
+      <if test="supervisorid != null" >
+        #{supervisorid,jdbcType=NVARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortkey != null" >
+        #{sortkey,jdbcType=INTEGER},
+      </if>
+      <if test="workflowcode != null" >
+        #{workflowcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="parentpropertyname != null" >
+        #{parentpropertyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentindex != null" >
+        #{parentindex,jdbcType=INTEGER},
+      </if>
+      
+      <if test="picture != null" >
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.UserWithBLOBs" >
+    update OT_User
+    <set >
+      <if test="birthday != null" >
+        Birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="entrydate != null" >
+        EntryDate = #{entrydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departuredate != null" >
+        DepartureDate = #{departuredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicestate != null" >
+        ServiceState = #{servicestate,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=NVARCHAR},
+      </if>
+      <if test="email2 != null" >
+        Email2 = #{email2,jdbcType=NVARCHAR},
+      </if>
+      <if test="appellation != null" >
+        Appellation = #{appellation,jdbcType=NVARCHAR},
+      </if>
+      <if test="employeenumber != null" >
+        EmployeeNumber = #{employeenumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="employeerank != null" >
+        EmployeeRank = #{employeerank,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="mobile != null" >
+        Mobile = #{mobile,jdbcType=NVARCHAR},
+      </if>
+      <if test="imagename != null" >
+        ImageName = #{imagename,jdbcType=NVARCHAR},
+      </if>
+      <if test="wechataccount != null" >
+        WeChatAccount = #{wechataccount,jdbcType=NVARCHAR},
+      </if>
+      <if test="isconsoleuser != null" >
+        IsConsoleUser = #{isconsoleuser,jdbcType=INTEGER},
+      </if>
+      <if test="facsimiletelephonenumber != null" >
+        FacsimileTelephoneNumber = #{facsimiletelephonenumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="ipphone != null" >
+        IpPhone = #{ipphone,jdbcType=NVARCHAR},
+      </if>
+      <if test="homephone != null" >
+        HomePhone = #{homephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="officephone != null" >
+        OfficePhone = #{officephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="pager != null" >
+        Pager = #{pager,jdbcType=NVARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=NVARCHAR},
+      </if>
+      <if test="rtx != null" >
+        RTX = #{rtx,jdbcType=NVARCHAR},
+      </if>
+      <if test="msn != null" >
+        MSN = #{msn,jdbcType=NVARCHAR},
+      </if>
+      <if test="skype != null" >
+        Skype = #{skype,jdbcType=NVARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=NVARCHAR},
+      </if>
+      <if test="countryname != null" >
+        CountryName = #{countryname,jdbcType=NVARCHAR},
+      </if>
+      <if test="province != null" >
+        Province = #{province,jdbcType=NVARCHAR},
+      </if>
+      <if test="city != null" >
+        City = #{city,jdbcType=NVARCHAR},
+      </if>
+      <if test="street != null" >
+        Street = #{street,jdbcType=NVARCHAR},
+      </if>
+      <if test="postofficebox != null" >
+        PostOfficeBox = #{postofficebox,jdbcType=NVARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        PostalCode = #{postalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        IDNumber = #{idnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="sid != null" >
+        SID = #{sid,jdbcType=NVARCHAR},
+      </if>
+      <if test="mobiletype != null" >
+        MobileType = #{mobiletype,jdbcType=INTEGER},
+      </if>
+      <if test="devicetoken != null" >
+        DeviceToken = #{devicetoken,jdbcType=NVARCHAR},
+      </if>
+      <if test="privacylevel != null" >
+        PrivacyLevel = #{privacylevel,jdbcType=INTEGER},
+      </if>
+      <if test="notification != null" >
+        Notification = #{notification,jdbcType=INTEGER},
+      </if>
+      <if test="calendarid != null" >
+        CalendarId = #{calendarid,jdbcType=NVARCHAR},
+      </if>
+      <if test="defaultlanguage != null" >
+        DefaultLanguage = #{defaultlanguage,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null" >
+        ParentID = #{parentid,jdbcType=CHAR},
+      </if>
+      <if test="sourceparentid != null" >
+        SourceParentID = #{sourceparentid,jdbcType=NVARCHAR},
+      </if>
+      <if test="companyid != null" >
+        CompanyID = #{companyid,jdbcType=NVARCHAR},
+      </if>
+      <if test="admin != null" >
+        Admin = #{admin,jdbcType=INTEGER},
+      </if>
+      <if test="systemid != null" >
+        SystemID = #{systemid,jdbcType=NVARCHAR},
+      </if>
+      <if test="visibility != null" >
+        Visibility = #{visibility,jdbcType=INTEGER},
+      </if>
+      <if test="categoryid != null" >
+        CategoryID = #{categoryid,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null" >
+        Code = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="managerid != null" >
+        ManagerID = #{managerid,jdbcType=NVARCHAR},
+      </if>
+      <if test="vicemanagerid != null" >
+        ViceManagerID = #{vicemanagerid,jdbcType=NVARCHAR},
+      </if>
+      <if test="secretaryid != null" >
+        SecretaryID = #{secretaryid,jdbcType=NVARCHAR},
+      </if>
+      <if test="supervisorid != null" >
+        SupervisorID = #{supervisorid,jdbcType=NVARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortkey != null" >
+        SortKey = #{sortkey,jdbcType=INTEGER},
+      </if>
+      <if test="workflowcode != null" >
+        WorkflowCode = #{workflowcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectID = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="parentpropertyname != null" >
+        ParentPropertyName = #{parentpropertyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentindex != null" >
+        ParentIndex = #{parentindex,jdbcType=INTEGER},
+      </if>
+     
+      <if test="picture != null" >
+        Picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="attachment != null" >
+        Attachment = #{attachment,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where ObjectID = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bean.UserWithBLOBs" >
+    update OT_User
+    set Birthday = #{birthday,jdbcType=TIMESTAMP},
+      Gender = #{gender,jdbcType=INTEGER},
+      EntryDate = #{entrydate,jdbcType=TIMESTAMP},
+      DepartureDate = #{departuredate,jdbcType=TIMESTAMP},
+      ServiceState = #{servicestate,jdbcType=INTEGER},
+      Email = #{email,jdbcType=NVARCHAR},
+      Email2 = #{email2,jdbcType=NVARCHAR},
+      Appellation = #{appellation,jdbcType=NVARCHAR},
+      EmployeeNumber = #{employeenumber,jdbcType=NVARCHAR},
+      EmployeeRank = #{employeerank,jdbcType=INTEGER},
+      Title = #{title,jdbcType=NVARCHAR},
+      Password = #{password,jdbcType=NVARCHAR},
+      Mobile = #{mobile,jdbcType=NVARCHAR},
+      ImageName = #{imagename,jdbcType=NVARCHAR},
+      WeChatAccount = #{wechataccount,jdbcType=NVARCHAR},
+      IsConsoleUser = #{isconsoleuser,jdbcType=INTEGER},
+      FacsimileTelephoneNumber = #{facsimiletelephonenumber,jdbcType=NVARCHAR},
+      IpPhone = #{ipphone,jdbcType=NVARCHAR},
+      HomePhone = #{homephone,jdbcType=NVARCHAR},
+      OfficePhone = #{officephone,jdbcType=NVARCHAR},
+      Pager = #{pager,jdbcType=NVARCHAR},
+      QQ = #{qq,jdbcType=NVARCHAR},
+      RTX = #{rtx,jdbcType=NVARCHAR},
+      MSN = #{msn,jdbcType=NVARCHAR},
+      Skype = #{skype,jdbcType=NVARCHAR},
+      Country = #{country,jdbcType=NVARCHAR},
+      CountryName = #{countryname,jdbcType=NVARCHAR},
+      Province = #{province,jdbcType=NVARCHAR},
+      City = #{city,jdbcType=NVARCHAR},
+      Street = #{street,jdbcType=NVARCHAR},
+      PostOfficeBox = #{postofficebox,jdbcType=NVARCHAR},
+      PostalCode = #{postalcode,jdbcType=NVARCHAR},
+      IDNumber = #{idnumber,jdbcType=NVARCHAR},
+      SID = #{sid,jdbcType=NVARCHAR},
+      MobileType = #{mobiletype,jdbcType=INTEGER},
+      DeviceToken = #{devicetoken,jdbcType=NVARCHAR},
+      PrivacyLevel = #{privacylevel,jdbcType=INTEGER},
+      Notification = #{notification,jdbcType=INTEGER},
+      CalendarId = #{calendarid,jdbcType=NVARCHAR},
+      DefaultLanguage = #{defaultlanguage,jdbcType=NVARCHAR},
+      ParentID = #{parentid,jdbcType=CHAR},
+      SourceParentID = #{sourceparentid,jdbcType=NVARCHAR},
+      CompanyID = #{companyid,jdbcType=NVARCHAR},
+      Admin = #{admin,jdbcType=INTEGER},
+      SystemID = #{systemid,jdbcType=NVARCHAR},
+      Visibility = #{visibility,jdbcType=INTEGER},
+      CategoryID = #{categoryid,jdbcType=CHAR},
+      State = #{state,jdbcType=INTEGER},
+      Name = #{name,jdbcType=NVARCHAR},
+      Description = #{description,jdbcType=NVARCHAR},
+      Code = #{code,jdbcType=NVARCHAR},
+      ManagerID = #{managerid,jdbcType=NVARCHAR},
+      ViceManagerID = #{vicemanagerid,jdbcType=NVARCHAR},
+      SecretaryID = #{secretaryid,jdbcType=NVARCHAR},
+      SupervisorID = #{supervisorid,jdbcType=NVARCHAR},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      SortKey = #{sortkey,jdbcType=INTEGER},
+      WorkflowCode = #{workflowcode,jdbcType=NVARCHAR},
+      ParentObjectID = #{parentobjectid,jdbcType=CHAR},
+      ParentPropertyName = #{parentpropertyname,jdbcType=NVARCHAR},
+      ParentIndex = #{parentindex,jdbcType=INTEGER},
+      
+      Picture = #{picture,jdbcType=LONGVARBINARY},
+      Attachment = #{attachment,jdbcType=LONGVARBINARY}
+    where ObjectID = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.User" >
+    update OT_User
+    set Birthday = #{birthday,jdbcType=TIMESTAMP},
+      Gender = #{gender,jdbcType=INTEGER},
+      EntryDate = #{entrydate,jdbcType=TIMESTAMP},
+      DepartureDate = #{departuredate,jdbcType=TIMESTAMP},
+      ServiceState = #{servicestate,jdbcType=INTEGER},
+      Email = #{email,jdbcType=NVARCHAR},
+      Email2 = #{email2,jdbcType=NVARCHAR},
+      Appellation = #{appellation,jdbcType=NVARCHAR},
+      EmployeeNumber = #{employeenumber,jdbcType=NVARCHAR},
+      EmployeeRank = #{employeerank,jdbcType=INTEGER},
+      Title = #{title,jdbcType=NVARCHAR},
+      Password = #{password,jdbcType=NVARCHAR},
+      Mobile = #{mobile,jdbcType=NVARCHAR},
+      ImageName = #{imagename,jdbcType=NVARCHAR},
+      WeChatAccount = #{wechataccount,jdbcType=NVARCHAR},
+      IsConsoleUser = #{isconsoleuser,jdbcType=INTEGER},
+      FacsimileTelephoneNumber = #{facsimiletelephonenumber,jdbcType=NVARCHAR},
+      IpPhone = #{ipphone,jdbcType=NVARCHAR},
+      HomePhone = #{homephone,jdbcType=NVARCHAR},
+      OfficePhone = #{officephone,jdbcType=NVARCHAR},
+      Pager = #{pager,jdbcType=NVARCHAR},
+      QQ = #{qq,jdbcType=NVARCHAR},
+      RTX = #{rtx,jdbcType=NVARCHAR},
+      MSN = #{msn,jdbcType=NVARCHAR},
+      Skype = #{skype,jdbcType=NVARCHAR},
+      Country = #{country,jdbcType=NVARCHAR},
+      CountryName = #{countryname,jdbcType=NVARCHAR},
+      Province = #{province,jdbcType=NVARCHAR},
+      City = #{city,jdbcType=NVARCHAR},
+      Street = #{street,jdbcType=NVARCHAR},
+      PostOfficeBox = #{postofficebox,jdbcType=NVARCHAR},
+      PostalCode = #{postalcode,jdbcType=NVARCHAR},
+      IDNumber = #{idnumber,jdbcType=NVARCHAR},
+      SID = #{sid,jdbcType=NVARCHAR},
+      MobileType = #{mobiletype,jdbcType=INTEGER},
+      DeviceToken = #{devicetoken,jdbcType=NVARCHAR},
+      PrivacyLevel = #{privacylevel,jdbcType=INTEGER},
+      Notification = #{notification,jdbcType=INTEGER},
+      CalendarId = #{calendarid,jdbcType=NVARCHAR},
+      DefaultLanguage = #{defaultlanguage,jdbcType=NVARCHAR},
+      ParentID = #{parentid,jdbcType=CHAR},
+      SourceParentID = #{sourceparentid,jdbcType=NVARCHAR},
+      CompanyID = #{companyid,jdbcType=NVARCHAR},
+      Admin = #{admin,jdbcType=INTEGER},
+      SystemID = #{systemid,jdbcType=NVARCHAR},
+      Visibility = #{visibility,jdbcType=INTEGER},
+      CategoryID = #{categoryid,jdbcType=CHAR},
+      State = #{state,jdbcType=INTEGER},
+      Name = #{name,jdbcType=NVARCHAR},
+      Description = #{description,jdbcType=NVARCHAR},
+      Code = #{code,jdbcType=NVARCHAR},
+      ManagerID = #{managerid,jdbcType=NVARCHAR},
+      ViceManagerID = #{vicemanagerid,jdbcType=NVARCHAR},
+      SecretaryID = #{secretaryid,jdbcType=NVARCHAR},
+      SupervisorID = #{supervisorid,jdbcType=NVARCHAR},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      SortKey = #{sortkey,jdbcType=INTEGER},
+      WorkflowCode = #{workflowcode,jdbcType=NVARCHAR},
+      ParentObjectID = #{parentobjectid,jdbcType=CHAR},
+      ParentPropertyName = #{parentpropertyname,jdbcType=NVARCHAR},
+      ParentIndex = #{parentindex,jdbcType=INTEGER},
+     
+    where ObjectID = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

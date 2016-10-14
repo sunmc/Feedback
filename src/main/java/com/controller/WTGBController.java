@@ -1,0 +1,19 @@
+package com.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping("wtgb")
+public class WTGBController {
+
+	@RequestMapping
+	public ModelAndView index(){
+		return new ModelAndView("mobile/wtgb/wtgblist");
+	}
+	@RequestMapping("wtgb")
+	public ModelAndView qrfk(){
+		return new ModelAndView("mobile/wtgb/wtgb");
+	}
+}
