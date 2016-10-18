@@ -244,7 +244,7 @@
 				
 		</div>
 		
-		<script src="/Feedback/resource/js/jquery-3.0.0.js"></script>
+		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>
@@ -279,7 +279,7 @@
 		         xhr.onload = function () {
 		        	 var data = JSON.parse(this.response);
 		        	 var imgsrc = "<div class='image-item' id='img"+ ++imgid+"'>"+
-		        	 					"<img src='/Feedback/resource/images/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
+		        	 					"<img src='/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
 		        	 					"<a href='#' class='image-close' onclick='removeImg(\"img"+ imgid+"\")'>X</div>"+
 		        	 			  "</div>";
 		        	 var checkbox = $(imgsrc).appendTo($("#image-list"));
