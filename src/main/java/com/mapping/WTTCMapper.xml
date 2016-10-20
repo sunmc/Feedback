@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.WTTCMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.WTTC" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="ZTC" property="ztc" jdbcType="VARCHAR" />
+    <result column="TBRQ" property="tbrq" jdbcType="TIMESTAMP" />
+    <result column="KHMC" property="khmc" jdbcType="CHAR" />
+    <result column="CPMC" property="cpmc" jdbcType="CHAR" />
+    <result column="XMBH" property="xmbh" jdbcType="CHAR" />
+    <result column="XMJD" property="xmjd" jdbcType="CHAR" />
+    <result column="JJCD" property="jjcd" jdbcType="INTEGER" />
+    <result column="ZYCD" property="zycd" jdbcType="INTEGER" />
+    <result column="BTMC" property="btmc" jdbcType="CHAR" />
+    <result column="WTJTH" property="wtjth" jdbcType="CHAR" />
+    <result column="WLBM" property="wlbm" jdbcType="CHAR" />
+    <result column="WTMS" property="wtms" jdbcType="VARCHAR" />
+    <result column="WTTP1" property="wttp1" jdbcType="VARCHAR" />
+    <result column="WTTP2" property="wttp2" jdbcType="VARCHAR" />
+    <result column="WTSP" property="wtsp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, ZTC, 
+    TBRQ, KHMC, CPMC, XMBH, XMJD, JJCD, ZYCD, BTMC, WTJTH, WLBM, WTMS, WTTP1, WTTP2, 
+    WTSP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_WTTC
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from I_WTTC
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <select id="getID" resultType="java.lang.String">
+  	select newid();
+  </select>
+  <insert id="insert" parameterType="com.bean.WTTC">
+    insert into I_WTTC (ObjectId, ParentObjectId, CreateBy, 
+      CreateTime, UpdateBy, UpdateTime, 
+      State, ZTC, TBRQ, 
+      KHMC, CPMC, XMBH, XMJD, 
+      JJCD, ZYCD, BTMC, WTJTH, 
+      WLBM, WTMS, WTTP1, WTTP2, 
+      WTSP)
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createby,jdbcType=CHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{ztc,jdbcType=VARCHAR}, #{tbrq,jdbcType=TIMESTAMP}, 
+      #{khmc,jdbcType=CHAR}, #{cpmc,jdbcType=CHAR}, #{xmbh,jdbcType=CHAR}, #{xmjd,jdbcType=CHAR}, 
+      #{jjcd,jdbcType=INTEGER}, #{zycd,jdbcType=INTEGER}, #{btmc,jdbcType=CHAR}, #{wtjth,jdbcType=CHAR}, 
+      #{wlbm,jdbcType=CHAR}, #{wtms,jdbcType=VARCHAR}, #{wttp1,jdbcType=VARCHAR}, #{wttp2,jdbcType=VARCHAR}, 
+      #{wtsp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.WTTC" >
+    insert into I_WTTC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="ztc != null" >
+        ZTC,
+      </if>
+      <if test="tbrq != null" >
+        TBRQ,
+      </if>
+      <if test="khmc != null" >
+        KHMC,
+      </if>
+      <if test="cpmc != null" >
+        CPMC,
+      </if>
+      <if test="xmbh != null" >
+        XMBH,
+      </if>
+      <if test="xmjd != null" >
+        XMJD,
+      </if>
+      <if test="jjcd != null" >
+        JJCD,
+      </if>
+      <if test="zycd != null" >
+        ZYCD,
+      </if>
+      <if test="btmc != null" >
+        BTMC,
+      </if>
+      <if test="wtjth != null" >
+        WTJTH,
+      </if>
+      <if test="wlbm != null" >
+        WLBM,
+      </if>
+      <if test="wtms != null" >
+        WTMS,
+      </if>
+      <if test="wttp1 != null" >
+        WTTP1,
+      </if>
+      <if test="wttp2 != null" >
+        WTTP2,
+      </if>
+      <if test="wtsp != null" >
+        WTSP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ztc != null" >
+        #{ztc,jdbcType=VARCHAR},
+      </if>
+      <if test="tbrq != null" >
+        #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="khmc != null" >
+        #{khmc,jdbcType=CHAR},
+      </if>
+      <if test="cpmc != null" >
+        #{cpmc,jdbcType=CHAR},
+      </if>
+      <if test="xmbh != null" >
+        #{xmbh,jdbcType=CHAR},
+      </if>
+      <if test="xmjd != null" >
+        #{xmjd,jdbcType=CHAR},
+      </if>
+      <if test="jjcd != null" >
+        #{jjcd,jdbcType=INTEGER},
+      </if>
+      <if test="zycd != null" >
+        #{zycd,jdbcType=INTEGER},
+      </if>
+      <if test="btmc != null" >
+        #{btmc,jdbcType=CHAR},
+      </if>
+      <if test="wtjth != null" >
+        #{wtjth,jdbcType=CHAR},
+      </if>
+      <if test="wlbm != null" >
+        #{wlbm,jdbcType=CHAR},
+      </if>
+      <if test="wtms != null" >
+        #{wtms,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp1 != null" >
+        #{wttp1,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp2 != null" >
+        #{wttp2,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsp != null" >
+        #{wtsp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.WTTC" >
+    update I_WTTC
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UpdateBy = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ztc != null" >
+        ZTC = #{ztc,jdbcType=VARCHAR},
+      </if>
+      <if test="tbrq != null" >
+        TBRQ = #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="khmc != null" >
+        KHMC = #{khmc,jdbcType=CHAR},
+      </if>
+      <if test="cpmc != null" >
+        CPMC = #{cpmc,jdbcType=CHAR},
+      </if>
+      <if test="xmbh != null" >
+        XMBH = #{xmbh,jdbcType=CHAR},
+      </if>
+      <if test="xmjd != null" >
+        XMJD = #{xmjd,jdbcType=CHAR},
+      </if>
+      <if test="jjcd != null" >
+        JJCD = #{jjcd,jdbcType=INTEGER},
+      </if>
+      <if test="zycd != null" >
+        ZYCD = #{zycd,jdbcType=INTEGER},
+      </if>
+      <if test="btmc != null" >
+        BTMC = #{btmc,jdbcType=CHAR},
+      </if>
+      <if test="wtjth != null" >
+        WTJTH = #{wtjth,jdbcType=CHAR},
+      </if>
+      <if test="wlbm != null" >
+        WLBM = #{wlbm,jdbcType=CHAR},
+      </if>
+      <if test="wtms != null" >
+        WTMS = #{wtms,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp1 != null" >
+        WTTP1 = #{wttp1,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp2 != null" >
+        WTTP2 = #{wttp2,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsp != null" >
+        WTSP = #{wtsp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.WTTC" >
+    update I_WTTC
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      CreateBy = #{createby,jdbcType=CHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UpdateBy = #{updateby,jdbcType=CHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=INTEGER},
+      ZTC = #{ztc,jdbcType=VARCHAR},
+      TBRQ = #{tbrq,jdbcType=TIMESTAMP},
+      KHMC = #{khmc,jdbcType=CHAR},
+      CPMC = #{cpmc,jdbcType=CHAR},
+      XMBH = #{xmbh,jdbcType=CHAR},
+      XMJD = #{xmjd,jdbcType=CHAR},
+      JJCD = #{jjcd,jdbcType=INTEGER},
+      ZYCD = #{zycd,jdbcType=INTEGER},
+      BTMC = #{btmc,jdbcType=CHAR},
+      WTJTH = #{wtjth,jdbcType=CHAR},
+      WLBM = #{wlbm,jdbcType=CHAR},
+      WTMS = #{wtms,jdbcType=VARCHAR},
+      WTTP1 = #{wttp1,jdbcType=VARCHAR},
+      WTTP2 = #{wttp2,jdbcType=VARCHAR},
+      WTSP = #{wtsp,jdbcType=VARCHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -169,79 +169,86 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="sy" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!-- <a id="sy" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
 			<h1 class="mui-title">问题提交</h1>
 		</header>
 		<div class="mui-content" >
-			<div class="mui-content-padded" style="margin: 5px;">
-				<div class="mui-input-row mui-search">
-					<input id="search" type="search" class="mui-input-clear" placeholder="搜索项目" onclick="showHint()" onblur="hideHint()" onkeyup="searchXM(this.value)">
-				</div>
-				<div  id="hint" class="mui-scroll-wrapper" style="margin: 1px 0 0 0;display:none;position: static;height:200px;">
-					<div class="mui-scroll">
-						<ul id="xmlist" class="mui-table-view">
-						</ul>
+			<form action="/Feedback/wttc/submit.do" method="post">
+				<div class="mui-content-padded" style="margin: 5px;">
+					<div class="mui-input-row mui-search">
+						<input id="search" type="search" class="mui-input-clear" placeholder="搜索项目" onclick="showHint()" onblur="hideHint()" onkeyup="searchXM(this.value)">
 					</div>
-				</div>
-				<div class="mui-input-group" style="margin: 0 0 0 0;">
-					<div class="mui-input-row">
-						<label>项目编号</label>
-						<input id="xmbh" type="text" class="mui-input-clear" placeholder="项目编号">
+					<div  id="hint" class="mui-scroll-wrapper" style="margin: 1px 0 0 0;display:none;position: static;height:200px;">
+						<div class="mui-scroll">
+							<ul id="xmlist" class="mui-table-view">
+							</ul>
+						</div>
 					</div>
-					<div class="mui-input-row">
-						<label>客户名称</label>
-						<input id="khmc" type="text" class="mui-input-clear" placeholder="客户名称">
+					<div class="mui-input-group" style="margin: 0 0 0 0;">
+						<div class="mui-input-row">
+							<label>项目编号</label>
+							<input id="xmbh" name="xmbh" type="text" class="mui-input-clear" placeholder="项目编号">
+						</div>
+						<div class="mui-input-row">
+							<label>客户名称</label>
+							<input id="khmc" name="khmc" type="text" class="mui-input-clear" placeholder="客户名称">
+						</div>
+						<div class="mui-input-row">
+							<label>产品名称</label>
+							<input id="cpmc" name="cpmc" type="text" class="mui-input-clear" placeholder="产品名称">
+						</div>
+						<div class="mui-input-row">
+							<label>项目阶段</label>
+							<input id="xmjd" name="xmjd" type="text" class="mui-input-clear" placeholder="项目阶段">
+						</div>
+						<div class="mui-input-row mui-input-range">
+							<label>紧急程度</label>
+			            	<input id='jjcd' name="jjcd" type="range"  value="1" min="1" max="3" >
+			        	</div>
+			        </div>
+					<div class="mui-input-group" style="margin: 10px 0 0 0;">
+						<div class="mui-input-row">
+							<label>部套名称</label>
+							<input id="btmc" name="btmc" type="text" class="mui-input-clear" placeholder="部套名称">
+						</div>
+						<div class="mui-input-row">
+							<label>图号</label>
+							<input id="wtjth" name="wtjth" type="text" class="mui-input-clear" placeholder="问题件图号">
+						</div>
+						<div class="mui-input-row">
+							<label>物料编码</label>
+							<input id="wlbm" name="wlbm" type="text" class="mui-input-clear" placeholder="物料编码">
+						</div>
 					</div>
-					<div class="mui-input-row">
-						<label>产品名称</label>
-						<input id="cpmc" type="text" class="mui-input-clear" placeholder="产品名称">
+					<div class="mui-input-row" style="margin: 5px 0 0 0;">
+						<div class="mui-inline">问题描述</div>
+						<textarea id="wtms" name="wtms" rows="5" placeholder="请详细描述你的问题..."></textarea>
 					</div>
-					<div class="mui-input-row">
-						<label>项目阶段</label>
-						<input id="xmjd" type="text" class="mui-input-clear" placeholder="项目阶段">
-					</div>
-					<div class="mui-input-row mui-input-range">
-						<label>紧急程度</label>
-		            	<input id='jjcd' type="range"  value="1" min="1" max="3" >
-		        	</div>
-		        </div>
-				<div class="mui-input-group" style="margin: 10px 0 0 0;">
-					<div class="mui-input-row">
-						<label>部套名称</label>
-						<input id="btmc" type="text" class="mui-input-clear" placeholder="部套名称">
-					</div>
-					<div class="mui-input-row">
-						<label>图号</label>
-						<input id="wtjth" type="text" class="mui-input-clear" placeholder="问题件图号">
-					</div>
-					<div class="mui-input-row">
-						<label>物料编码</label>
-						<input id="wlbm" type="text" class="mui-input-clear" placeholder="物料编码">
-					</div>
-				</div>
-				<div class="mui-input-row" style="margin: 5px 0 0 0;">
-					<div class="mui-inline">问题描述</div>
-					<textarea id="wtms" rows="5" placeholder="请详细描述你的问题..."></textarea>
-				</div>
 					<div class="mui-inline">图片(选填,提供问题截图,总大小10M以下)</div>
 					<div class="row image-list">
 						<div id='image-list'>			
 							<img id='addImg' src='/Feedback/resource/images/add.png' class="image-item"  onclick="add()" />
 						</div>
 					</div>
-				<div class="mui-input-row" style="margin: 5px 0 0 0;">
+					<!-- <div class="mui-inline">
+						<label>视频/语音</label>
+						<a id="addSP" style="margin: 9px ;" class="mui-icon mui-icon-plus" onclick="document.getElementById('wtmsspf').click();"></a>
+					</div>
+					<embed src="/Feedback/resource/images/2016-10-20/nulla/1476931142095.MOV" height="200" width="200"/> -->
 				</div>
-			</div>
-			
-			<div id="img-tc" class="mui-input-row mui-plus-visible">
-				<input id="wtmstpf" name="wtmstpf" type="file" onchange="setImg(this)">
-				<input id="wtmstp" name="wtmstpf" type="text">
-			</div>
-			<div class="mui-button-row">
-				<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
-				<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
-			</div>
 				
+				<div id="img-tc" class="mui-input-row mui-plus-visible">
+					<input id="wtmstpf" name="wtmstpf" type="file" onchange="setImg(this)">
+					<input id="wtmsspf" name="wtmsspf" type="file" onchange="setSP(this)">
+					<input id="WTTP1" name="wttp1" type="text">
+					<input id="WTTP2" name="wttp2" type="text">
+					<input id="WTSP" name="wtsp" type="text">
+				</div>
+				<div class="mui-button-row">
+					<input type="submit" class="mui-btn mui-btn-primary" >&nbsp;&nbsp;
+					<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+				</div>
+			</form>
 		</div>
 		
 		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
@@ -254,7 +261,7 @@
 			});
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();
-			var imgid = 3;
+			var imgid = 1;
 			function add(){
 				//图片数量
 				var count = $("#image-list").children().size();
@@ -283,17 +290,39 @@
 		        	 					"<a href='#' class='image-close' onclick='removeImg(\"img"+ imgid+"\")'>X</div>"+
 		        	 			  "</div>";
 		        	 var checkbox = $(imgsrc).appendTo($("#image-list"));
+		        	 $("#WTTP"+imgid).val('/'+data.data);
+		        	 imgid++;
 		         };
 		         xhr.send(form);
 				$("#wtmstpf").remove();
 				$("#img-tc").append('<input id="wtmstpf" name="wtmstpf" type="file" onchange="setImg(this)">');
 			}
 			function removeImg(img){
+				imgid=img.substring(3,4);
+				$("#WTTP"+imgid).val('');
 				img = "#"+img;
 				$(img).remove();
 				/* if($("#image-list").children().get(1).id == img){
 					
 				} */
+			}
+			function setSP(sp){
+				
+				var fileObj = sp.files[0]; // 获取文件对象
+		         var FileController = "/Feedback/upload/file.do";                    // 接收上传文件的后台地址 
+		         // FormData 对象
+		         var form = new FormData();
+		         form.append("file", fileObj);                           // 文件对象
+		         // XMLHttpRequest 对象
+		         var xhr = new XMLHttpRequest();
+		         xhr.open("post", FileController, true);
+		         xhr.onload = function () {
+		        	 var data = JSON.parse(this.response);
+		        	 $("#spyy").attr('src','/Feedback/resource/images/'+data.data);
+		         };
+		         xhr.send(form);
+				$("#wtmsspf").remove();
+				$("#img-tc").append('<input id="wtmsspf" name="wtmsspf" type="file" onchange="setSP(this)">');
 			}
 			function showHint(){
 				$('#hint').fadeIn();
@@ -328,18 +357,6 @@
 				$('#cpmc').val(cpmc);
 				$('#xmjd').val(xmjd);
 			}
-			document.getElementById('sy').addEventListener('tap', function() {
-				mui.openWindow({
-					url : '/Feedback/common.do',
-					id : 'sy',
-					show : {
-						aniShow : 'pop-in'
-					},
-					waiting : {
-						autoShow : false
-					}
-				});
-			})
 		</script>
 	</body>
 

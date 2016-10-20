@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bean.WTTC;
 import com.bean.XMXX;
+import com.service.IWTTCService;
 import com.service.IWtdataService;
 import com.service.IXMXXService;
 import com.util.bean.Result;
@@ -26,13 +28,18 @@ public class Test {
 	
 	@Autowired
 	public IXMXXService xmxxService;
+	@Autowired
+	public IWTTCService wttcService;
 	@SuppressWarnings({ "unchecked", "unused" })
 	@org.junit.Test
 	public void Test() throws JsonGenerationException, JsonMappingException, IOException{
 		
-		Result<List<XMXX>> res = xmxxService.searchXM("201407048");
-		Result<List<XMXX>> res1 = xmxxService.searchXM("元丰");
-		Result<List<XMXX>> res2 = xmxxService.searchXM("导切机系统");
+		WTTC wttc = new WTTC();
+		wttc.setZtc("123");
+		Result<WTTC> res = wttcService.insert(wttc);
+//		Result<List<XMXX>> res = xmxxService.searchXM("201407048");
+//		Result<List<XMXX>> res1 = xmxxService.searchXM("元丰");
+//		Result<List<XMXX>> res2 = xmxxService.searchXM("导切机系统");
 		/*String [] a = new String[]{"按期完成","处理中","拖期完成","拖期未完成"};
 		for(int i = 1; i < a.length + 1;i++){
 			Wtdata d = new Wtdata();

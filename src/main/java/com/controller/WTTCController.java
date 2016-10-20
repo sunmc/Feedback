@@ -2,23 +2,33 @@ package com.controller;
 
 import java.io.File;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.WTTC;
+import com.service.IWTTCService;
 import com.util.bean.Result;
 
 @Controller
 @RequestMapping("wttc")
 public class WTTCController {
 
+	@Autowired
+	private IWTTCService wttcService;
 	
 	@RequestMapping
 	public ModelAndView index(){
 		ModelAndView mv = new ModelAndView("mobile/wttc/wttc");
 		return mv;
+	}
+	@RequestMapping("submit")
+	public ModelAndView submit(WTTC wttc){
+		//Result<WTTC> res = wttcService.insert(wttc);
+		return null;
 	}
 	
 	
