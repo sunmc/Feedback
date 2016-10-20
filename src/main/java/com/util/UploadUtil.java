@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.util.bean.Result;
 
-
 /**
  * 上传工具
  * 
@@ -42,7 +41,7 @@ public class UploadUtil {
 	public static Result<String> uploadFile(String userId, MultipartFile file) {
 		Result<String> res = new Result<String>();
 		// 存储路径
-		String path =  DateUtil.nowYMD() + "/" + userId + "a/";
+		String path = DateUtil.nowYMD() + "/" + userId + "a/";
 		String fileName = file.getOriginalFilename();
 		int index = fileName.lastIndexOf(".");
 		String type = null;

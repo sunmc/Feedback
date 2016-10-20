@@ -10,6 +10,6 @@ public class CommonController {
 
 	@RequestMapping()
 	public ModelAndView index(){
-		return new ModelAndView("mobile/index");
+		return new ModelAndView("mobile/wtgz/wtgz");
 	}
 }
