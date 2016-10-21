@@ -344,7 +344,7 @@
 				
 		</div>
 		
-		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>

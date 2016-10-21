@@ -6,6 +6,7 @@
 
 	<head>
 		<meta charset="utf-8">
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
 		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -16,86 +18,86 @@
 
 	<body>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-			<!--ä¾§æ»èåé¨å-->
+			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						
-						<div class="title" style="margin-bottom: 25px;" >ç®å½åè¡¨</div>
+						<div class="title" style="margin-bottom: 25px;" >目录列表</div>
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 							<li class="mui-table-view-cell" id="wttc">
 								<a class="mui-navigate-right">
-									é®é¢æåº
+									问题提出
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtsl">
 								<a class="mui-navigate-right">
-									é®é¢åç
+									问题受理
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtfx">
 								<a class="mui-navigate-right">
-									é®é¢åæ
+									问题分析
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtjj">
 								<a class="mui-navigate-right">
-									é®é¢è§£å³
+									问题解决
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgb">
 								<a class="mui-navigate-right">
-									é®é¢å³é­
+									问题关闭
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgz">
 								<a class="mui-navigate-right">
-									é®é¢è·è¸ª
+									问题跟踪
 								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</aside>
-			<!--ä¸»çé¢é¨å-->
+			<!--主界面部分-->
 			<div class="mui-inner-wrap">
 				<header class="mui-bar mui-bar-nav">
 					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-					<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">å³é­</a> -->
-					<h1 class="mui-title">divæ¨¡å¼å³æ»èå</h1>
+					<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a> -->
+					<h1 class="mui-title">div模式右滑菜单</h1>
 				</header>
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="mui-content-padded">
-							<p>è¿æ¯å¯æå¨å¼å³æ»å¯¼èªç¤ºä¾ï¼ä¸»é¡µé¢åèåå¨ä¸ä¸ªHTMLæä»¶ä¸­ï¼ ä¼ç¹æ¯æ¯ææå¨æå¿ï¼è·æï¼ï¼ç¼ºç¹æ¯ä¸æ¯æèååå®¹å¨å¤é¡µé¢çå¤ç¨ï¼ å½åé¡µé¢ä¸ºä¸»çé¢ï¼ä½ å¯ä»¥å¨ä¸»çé¢æ¾ç½®ä»»ä½åå®¹ï¼ æå¼ä¾§æ»èåæå¤ç§æ¹å¼ï¼ 1ãå¨å½åé¡µé¢åå³æå¨ï¼ 2ãç¹å»é¡µé¢å·¦ä¸è§ç
-								<span class="mui-icon mui-icon-bars"></span> å¾æ ï¼ 3ãéè¿JS APIè§¦åï¼ä¾å¦ç¹å»å¦ä¸èè²æé®ä½éªï¼ï¼
-								<span class="android-only">4ãAndroidææºæmenué®ï¼</span>
+							<p>这是可拖动式右滑导航示例，主页面和菜单在一个HTML文件中， 优点是支持拖动手势（跟手），缺点是不支持菜单内容在多页面的复用； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面向右拖动； 2、点击页面左上角的
+								<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+								<span class="android-only">4、Android手机按menu键；</span>
 							</p>
 							<p style="padding: 5px 20px;margin-bottom: 5px;">
 								<button id="offCanvasShow" type="button" class="mui-btn mui-btn-primary mui-btn-block" style="padding: 10px;">
-									æ¾ç¤ºä¾§æ»èå
+									显示侧滑菜单
 								</button>
 							</p>
 							
-							<p>ä¾§æ»èåçç§»å¨å¨ç»ï¼æ¯æå¤ç§ææï¼åæ¢å¦ä¸éé¡¹ä½éªä¸åå¨ç»ææï¼</p>
+							<p>侧滑菜单的移动动画，支持多种效果，切换如下选项体验不同动画效果：</p>
 
 						</div>
 
 						<form class="mui-input-group" style="margin-bottom: 15px;">
 							<div class="mui-input-row mui-radio">
-								<label>ä¸»çé¢ç§»å¨ãèåä¸å¨</label>
+								<label>主界面移动、菜单不动</label>
 								<input name="style" type="radio" checked="" value="main-move">
 							</div>
 							<div class="mui-input-row mui-radio">
-								<label>ä¸»çé¢ä¸å¨ãèåç§»å¨</label>
+								<label>主界面不动、菜单移动</label>
 								<input name="style" type="radio" value="menu-move">
 							</div>
 							<div class="mui-input-row mui-radio mui-hidden" id="move-togger">
-								<label>æ´ä½ç§»å¨</label>
+								<label>整体移动</label>
 								<input name="style" type="radio" value="all-move">
 							</div>
 							<div class="mui-input-row mui-radio">
-								<label>ç¼©æ¾å¼ä¾§æ»ï¼ç±»ææºQQï¼</label>
+								<label>缩放式侧滑（类手机QQ）</label>
 								<input name="style" type="radio" value="main-move-scalable">
 							</div>
 						</form>
@@ -109,11 +111,11 @@
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script>
 			mui.init();
-			 //ä¾§æ»å®¹å¨ç¶èç¹
+			 //侧滑容器父节点
 			var offCanvasWrapper = mui('#offCanvasWrapper');
-			 //ä¸»çé¢å®¹å¨
+			 //主界面容器
 			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
-			 //èåå®¹å¨
+			 //菜单容器
 			var offCanvasSide = document.getElementById("offCanvasSide");
 			if (!mui.os.android) {
 				document.getElementById("move-togger").classList.remove('mui-hidden');
@@ -122,18 +124,18 @@
 					spans[i].style.display = "none";
 				}
 			}
-			 //ç§»å¨æææ¯å¦ä¸ºæ´ä½ç§»å¨
+			 //移动效果是否为整体移动
 			var moveTogether = false;
-			 //ä¾§æ»å®¹å¨çclassåè¡¨ï¼å¢å .mui-slide-inå³å¯å®ç°èåç§»å¨ãä¸»çé¢ä¸å¨çææï¼
+			 //侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
 			var classList = offCanvasWrapper[0].classList;
 			
 			 
-			 //ä¸»çé¢åä¾§æ»èåçé¢åæ¯æåºåæ»å¨ï¼
+			 //主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll();
 			mui('#offCanvasContentScroll').scroll();
-			 //å®ç°ioså¹³å°åçä¾§æ»å³é­é¡µé¢ï¼
+			 //实现ios平台原生侧滑关闭页面；
 			if (mui.os.plus && mui.os.ios) {
-				mui.plusReady(function() { //5+ iOSææ¶æ æ³å±è½popGestureæ¶ä¼ étouchäºä»¶ï¼æè¯¥demoç´æ¥å±è½popGestureåè½
+				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
 					plus.webview.currentWebview().setStyle({
 						'popGesture': 'none'
 					});

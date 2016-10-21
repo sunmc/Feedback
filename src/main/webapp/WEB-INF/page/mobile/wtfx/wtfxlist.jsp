@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -17,58 +19,57 @@
 
 	<body>
 	<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-		<!--ä¾§æ»èåé¨å-->
+		<!--侧滑菜单部分-->
 		<aside id="offCanvasSide" class="mui-off-canvas-left">
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 
-					<div class="title" style="margin-bottom: 25px;">ç®å½åè¡¨</div>
+					<div class="title" style="margin-bottom: 25px;">目录列表</div>
 					<ul
 						class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 						<li class="mui-table-view-cell" id="wtsl"><a
-							class="mui-navigate-right"> é®é¢åç </a></li>
+							class="mui-navigate-right"> 问题受理 </a></li>
 						<li class="mui-table-view-cell" id="wtfx"><a
-							class="mui-navigate-right"> é®é¢åæ </a></li>
+							class="mui-navigate-right"> 问题分析 </a></li>
 						<li class="mui-table-view-cell" id="wtjj"><a
-							class="mui-navigate-right"> é®é¢è§£å³ </a></li>
+							class="mui-navigate-right"> 问题解决 </a></li>
 						<li class="mui-table-view-cell" id="wtgb"><a
-							class="mui-navigate-right"> é®é¢å³é­ </a></li>
+							class="mui-navigate-right"> 问题关闭 </a></li>
 						<li class="mui-table-view-cell" id="wtcx"><a
-							class="mui-navigate-right"> é®é¢æ¥è¯¢ </a></li>
-
+							class="mui-navigate-right"> 问题查询 </a></li>
 					</ul>
 				</div>
 			</div>
 		</aside>
-		<!--ä¸»çé¢é¨å-->
+		<!--主界面部分-->
 		<div class="mui-inner-wrap">
 			<header class="mui-bar mui-bar-nav">
 				<a href="#offCanvasSide"
 					class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 				<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">å³é­</a> -->
-				<h1 class="mui-title">é®é¢åæåè¡¨</h1>
+				<h1 class="mui-title">问题分析列表</h1>
 			</header>
 
-			<!--ä¸æå·æ°å®¹å¨-->
+			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron">
 						<li id='1' class="mui-table-view-cell mui-media">
 							<a class="mui-navigate-right">
 								S-201407048
-								<p class='mui-ellipsis'>ååèæ°ç¼¸å¿«æéæ¢æå¿«æèæµ</p>
+								<p class='mui-ellipsis'>反包臂气缸快插需换成快插节流</p>
 							</a>
 						</li>
 						<li id='2' class="mui-table-view-cell mui-media">
 							<a class='mui-navigate-right' href="javascript:;">
 								S-201407049
-								<p class='mui-ellipsis'>ååè½¦æè½¬é¶ç¹ãè´æéå¼å³æ¯æ¶ç°ç¨ä¸ä¸ªèºä¸åºå®ï¼æ¶é´é¿äºä¼æ¾å¨ï¼å»ºè®®è°æ´å¥½ä½ç½®åï¼æå­ï¼ç¨ä¿©èºä¸åºå®ï¼049åï¼</p>
+								<p class='mui-ellipsis'>后压车摆转零点、负极限开关支架现用一个螺丝固定，时间长了会松动，建议调整好位置后，打孔，用俩螺丝固定（049同）</p>
 							</a>
 						</li>
 						<li id='1' class="mui-table-view-cell mui-media">
 							<a class="mui-navigate-right">
 								S-201407049
-								<p class='mui-ellipsis'>ååè½¦å¾åæ­£ãè´ãé¶ç¹å¼å³ä¸åéï¼éç°åºè°æ´å¥½ä½ç½®åéæ°åºå®ãï¼049åï¼</p>
+								<p class='mui-ellipsis'>后压车径向正、负、零点开关不合适，需现场调整好位置后重新固定。（049同）</p>
 							</a>
 						</li>
 					</ul>
@@ -85,13 +86,13 @@
 						callback : pulldownRefresh
 					},
 					up : {
-						contentrefresh : 'æ­£å¨å è½½...',
+						contentrefresh : '正在加载...',
 						callback : pullupRefresh
 					}
 				}
 			});
 			/**
-			 * ä¸æå·æ°å·ä½ä¸å¡å®ç°
+			 * 下拉刷新具体业务实现
 			 */
 			function pulldownRefresh() {
 				setTimeout(function() {
@@ -103,7 +104,7 @@
 						li.className = 'mui-table-view-cell';
 						li.innerHTML = '<a class="mui-navigate-right">Item '
 								+ (i + 1) + '</a>';
-						//ä¸æå·æ°ï¼æ°çºªå½æå°æåé¢ï¼
+						//下拉刷新，新纪录插到最前面；
 						table.insertBefore(li, table.firstChild);
 					} */
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -111,16 +112,16 @@
 			}
 			var count = 0;
 			/**
-			 * ä¸æå è½½å·ä½ä¸å¡å®ç°
+			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh(
-							(++count > 2)); //åæ°ä¸ºtrueä»£è¡¨æ²¡ææ´å¤æ°æ®äºã
+							(++count > 2)); //参数为true代表没有更多数据了。
 							document.getElementById('1').addEventListener('tap', function() {
 								mui.openWindow({
 									url : '/Feedback/wtfx/wtfx.do',
-									id : 'wtmx',
+									id : 'wtfx',
 									show : {
 										aniShow : 'pop-in'
 									},
@@ -132,7 +133,7 @@
 							document.getElementById('2').addEventListener('tap', function() {
 								mui.openWindow({
 									url : '/Feedback/wtfx/wtfx.do',
-									id : 'wtmx',
+									id : 'wtfx',
 									show : {
 										aniShow : 'pop-in'
 									},
@@ -225,6 +226,7 @@
 					}
 				});
 			})
+			
 		</script>
 	</body>
 

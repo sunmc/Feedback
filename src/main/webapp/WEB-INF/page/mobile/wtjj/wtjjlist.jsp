@@ -46,7 +46,7 @@
 				<a href="#offCanvasSide"
 					class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 				<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a> -->
-				<h1 class="mui-title">待解决问题列表</h1>
+				<h1 class="mui-title">问题解决列表</h1>
 			</header>
 
 			<!--下拉刷新容器-->
@@ -166,22 +166,10 @@
 				});
 			}
 			
-			document.getElementById('wttc').addEventListener('tap', function() {
-				mui.openWindow({
-					url : '/Feedback/wttc.do',
-					id : 'wtmx',
-					show : {
-						aniShow : 'pop-in'
-					},
-					waiting : {
-						autoShow : false
-					}
-				});
-			})
 			document.getElementById('wtsl').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtsl.do',
-					id : 'wtmx',
+					id : 'wtsl',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -193,7 +181,7 @@
 			document.getElementById('wtfx').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtfx.do',
-					id : 'wtmx',
+					id : 'wtfx',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -205,7 +193,7 @@
 			document.getElementById('wtjj').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtjj.do',
-					id : 'wtmx',
+					id : 'wtjj',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -217,7 +205,7 @@
 			document.getElementById('wtgb').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtgb.do',
-					id : 'wtmx',
+					id : 'wtgb',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -229,7 +217,7 @@
 			document.getElementById('wtcx').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtcx.do',
-					id : 'wtmx',
+					id : 'wtcx',
 					show : {
 						aniShow : 'pop-in'
 					},

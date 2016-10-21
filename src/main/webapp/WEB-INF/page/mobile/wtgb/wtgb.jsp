@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html class="feedback">
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<!--æ åmui.css-->
+		<!--标准mui.css-->
 		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
 		<link rel="stylesheet" href="/Feedback/resource/css/feedback.css">
 		<link href="/Feedback/resource/css/mui.picker.css" rel="stylesheet" />
@@ -173,49 +175,49 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">é®é¢å³é­</h1>
+			<h1 class="mui-title">问题关闭</h1>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
 				<div class="mui-input-row">
-					<label>é¡¹ç®ç¼å·</label>
+					<label>项目编号</label>
 					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
 				</div>
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">é¡¹ç®ä¿¡æ¯</a>
+					<a class="mui-navigate-right" href="#">项目问题信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
-							<label>å®¢æ·åç§°</label>
-							<input name="khmc" type="text"  readonly="readonly" value="åä¸°">
+							<label>客户名称</label>
+							<input name="khmc" type="text"  readonly="readonly" value="元丰">
 						</div>
 						<div class="mui-input-row">
-							<label>äº§ååç§°</label>
-							<input name="cpmc" type="text" readonly="readonly" value="å¨é¢å¤§ä¸¤é¼">
+							<label>产品名称</label>
+							<input name="cpmc" type="text" readonly="readonly" value="全钢大两鼓">
 						</div>
 						<div class="mui-input-row">
-							<label>é¡¹ç®é¶æ®µ</label>
-							<input name="xmjd" type="text" readonly="readonly" value="ååè°è¯">
+							<label>项目阶段</label>
+							<input name="xmjd" type="text" readonly="readonly" value="厂内调试">
 						</div>
 						<div class="mui-input-row">
-							<label>é¨å¥åç§°</label>
-							<input name="btmc" type="text" readonly="readonly" value="ååè½¦">
+							<label>部套名称</label>
+							<input name="btmc" type="text" readonly="readonly" value="后压车">
 						</div>
 						<div class="mui-input-row">
-							<label>å¾å·</label>
+							<label>图号</label>
 							<input name="wtjth" type="text" readonly="readonly" value="">
 						</div>
 						<div class="mui-input-row">
-							<label>ç©æç¼ç </label>
+							<label>物料编码</label>
 							<input name="wlbm" type="text" readonly="readonly" value="">
 						</div>
 						<div class="mui-input-row">
-							<div class="mui-inline">é®é¢æè¿°</div>
-							<textarea name="wtms" rows="5" readonly="readonly">ååèæ°ç¼¸å¿«æéæ¢æå¿«æèæµ</textarea>
+							<div class="mui-inline">问题描述</div>
+							<textarea name="wtms" rows="5" readonly="readonly">反包臂气缸快插需换成快插节流</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">å¾ç</div>
+							<div class="mui-inline">图片</div>
 							<div class="row image-list">
 								<div id='image-list'>
 									<img src="/Feedback/resource/images/shuijiao.jpg" class="image-item" data-preview-src=''  data-preview-group='1' >						
@@ -226,80 +228,65 @@
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">è´£ä»»åç±»</a>
+					<a class="mui-navigate-right" href="#">问题受理信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
-							<label>è´£ä»»ç±»å«</label>
-							<label>è°è¯</label>
+							<label>责任类别</label>
+							<label>调试</label>
 						</div>
 						<div class="mui-input-row">
-							<label>é®é¢ç±»å«</label>
-							<label>å¶ä»</label>
+							<label>问题类别</label>
+							<label>其他</label>
 						</div>
 						<div class="mui-input-row">
-							<label>è¦æ±æ¥æ</label>
+							<label>要求日期</label>
 							<input name="yqrq" type="text" readonly="readonly" value="2016-10-11">
 						</div>
 						<div class="mui-input-row">
-							<label>è´£ä»»äºº</label>
-							<input name="zrr" type="text" readonly="readonly" value="å¼ ä¸">
+							<label>责任人</label>
+							<input name="zrr" type="text" readonly="readonly" value="张三">
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div class="mui-inline">ç¸å³ä¿¡æ¯</div>
+			<div class="mui-inline">问题分析</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">éBOMç©æè®¡åæµç¨</a>
+					<a class="mui-navigate-right" href="#">非BOM物料计划流程</a>
 					<div class="mui-collapse-content">
-						<div class="mui-input-group" style="margin: 10px 0 0 0;">
 							<div class="mui-input-row">
-								<label>æµæ°´å·</label>
-								<input type="text" id="lsh">
+								<label>流水号</label>
+								<input type="text" id="lsh" value="OPM20.08.30-201610170002" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
-								<label>æµç¨ç¶æ</label>
-								<select>
-									<option></option>
-									<option>è¿è¡ä¸­</option>
-									<option>å·²ç»æ</option>
-								</select>
+								<label>流程状态</label>
+								<input type="text" id="lczt" value="进行中" readonly="readonly">
 							</div>
-						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">å¾çº¸åæ´æµç¨</a>
+					<a class="mui-navigate-right" href="#">图纸变更流程</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-group" style="margin: 10px 0 0 0;">
 							<div class="mui-input-row">
-								<label>åæ®å·</label>
-								<input type="text" id="lsh">
+								<label>单据号</label>
+								<input type="text" id="lsh" value="123456789" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
-								<label>æ§è¡ç¶æ</label>
-								<select>
-									<option></option>
-									<option>è¿è¡ä¸­</option>
-									<option>å·²ç»æ</option>
-								</select>
+								<label>执行状态</label>
+								<input type="text" id="zxzt" value="进行中" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
-								<label>æ¿è¯ºæ¥æ</label>
-								<input type="date" id="cnrq" class=" mui-btn-block">
+								<label>承诺日期</label>
+								<input type="date" id="cnrq" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
-								<label>å®éæ¥æ</label>
-								<input type="date" id="cnrq" class=" mui-btn-block">
+								<label>实际日期</label>
+								<input type="date" id="sjqi" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
-								<label>åæ´æåµ</label>
-								<select>
-									<option></option>
-									<option>å¾å®</option>
-									<option>è¿è¡ä¸­</option>
-									<option>å·²ç»æ</option>
-								</select>
+								<label>变更情况</label>
+								<input type="text" id="bgqk" class=" mui-btn-block" value="进行中" readonly="readonly">
 							</div>
 						</div>
 					</div>
@@ -307,78 +294,36 @@
 			</ul>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">é®é¢åæ</a>
+					<a class="mui-navigate-right" href="#">原因及方案</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">åå åæ</div>
-							<textarea name="yyfx" rows="5" readonly="readonly">å®¢æ·ç°åºç¡®å®ä½ç½®ååºå®</textarea>
+							<div class="mui-inline">原因分析</div>
+							<textarea name="yyfx" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">å¤çæ¹æ¡</div>
-							<textarea name="clfa" rows="5" readonly="readonly">å®¢æ·ç°åºç¡®å®ä½ç½®ååºå®</textarea>
+							<div class="mui-inline">处理方案</div>
+							<textarea name="clfa" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div class="mui-inline">è§£å³æªæ½</div>
 			<ul id="cs" class="mui-table-view" style="margin: 0 5px 5px 5px ;">
-				<li id=cs1 class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">æªæ½1</a>
-					<div class="mui-collapse-content">
-						<div class="mui-input-group">
-							<div class="mui-inline">å·¥ä½åå®¹</div>
-							<textarea name="clfa" rows="5" readonly="readonly">å¾çº¸ä¸ºå¤å­æ¹ï¼å¤åæ´æ¢</textarea>
-							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>è´£ä»»äºº</label>
-								<input type="text" id="zrr1" class=" mui-btn-block" readonly="readonly" value="çå°æ¯">
-							</div>
-							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>æ¶é´è®¡å</label>
-								<input type="date" id="sjjh1" class=" mui-btn-block" readonly="readonly" value="2016-10-27">
-							</div>
-							<div class="mui-input-row mui-input-range">
-								<label>å·¥ä½è¿åº¦</label>
-								<input id='jjcd' type="range"  value="80" min="1" max="100" readonly="readonly">
-							</div>
-						</div>
-					</div>
-				</li>
-				<li id=cs2 class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">æªæ½2</a>
-					<div class="mui-collapse-content">
-						<div class="mui-input-group">
-							<div class="mui-inline">å·¥ä½åå®¹</div>
-							<textarea name="clfa" rows="5" readonly="readonly">å¾çº¸ä¸ºå¤å­æ¹ï¼å¤åæ´æ¢</textarea>
-							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>è´£ä»»äºº</label>
-								<input type="text" id="zrr2" class=" mui-btn-block" readonly="readonly" value="çå°æ¯">
-							</div>
-							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>æ¶é´è®¡å</label>
-								<input type="date" id="sjjh2" class=" mui-btn-block" readonly="readonly" value="2016-10-27">
-							</div>
-							<div class="mui-input-row mui-input-range">
-								<label>å·¥ä½è¿åº¦</label>
-								<input id='jjcd' type="range"  value="80" min="1" max="100" readonly="readonly">
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>	
-			<div class="mui-input-group" style="margin: 10px 0 0 0;">
-				<div class="mui-input-row mui-input-range">
-					<label>å·¥ä½è¿åº¦</label>
-					<input id='jjcd' type="range"  value="80" min="1" max="100"  readonly="readonly">
+				
+			</ul>
+			<div class="mui-input-group" style="margin: 5px;">
+				<div class="mui-input-row">
+					<label>进度</label>
+					<input type="text" value="80%" readonly="readonly">
 				</div>
 			</div>
 			<div class="mui-button-row">
-				<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">ç¡®è®¤</button>&nbsp;&nbsp;
-				<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">åæ¶</button>
+				<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
+				<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
 			</div>
-				
 		</div>
+				
 		
-		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>
@@ -386,13 +331,13 @@
 		<script src="/Feedback/resource/js/mui.poppicker.js"></script>
 		<script>
 			mui.init({
-				swipeBack: true //å¯ç¨å³æ»å³é­åè½
+				swipeBack: true //启用右滑关闭功能
 			});
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
 			$(document).ready(function(){
-				
+				addPlan();addPlan();
 			});
 			function search(textid){
 				var picker = new mui.PopPicker(); 
@@ -421,6 +366,35 @@
 					}
 				});
 				
+			}
+			var i = 0;
+			function addPlan(){
+				i++;
+				$("#cs").append('<li id=cs'+i+' class="mui-table-view-cell mui-collapse">'+
+						'<a class="mui-navigate-right" href="#">措施'+i+'</a>'+
+						'<div class="mui-collapse-content">'+
+							'<div class="mui-input-group">'+
+								'<div class="mui-inline">工作内容</div>'+
+								'<textarea name="clfa" rows="5"  readonly="readonly">11111</textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>责任人</label>'+
+									'<input type="text" id="zrr'+i+'" value="张三" readonly="readonly">'+
+								'</div>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>时间计划</label>'+
+									'<input type="date" id="sjjh'+i+'" class=" mui-btn-block" value="2016-10-27" readonly="readonly">'+
+								'</div>'+
+							'</div>'+
+							'<div id="jj'+i+'" class="mui-input-group">'+
+								'<div class="mui-inline">解决问题</div>'+
+								'<textarea name="clfa" rows="5"  readonly="readonly">2222222</textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>完成时间</label>'+
+									'<input type="date" id="wcsj'+i+'" class="mui-btn-block" value="2016-10-27"  readonly="readonly">'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</li>');
 			}
 		</script>
 	</body>

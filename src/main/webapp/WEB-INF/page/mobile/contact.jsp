@@ -1,8 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Hello MUI</title>
+	<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+	<title><%= Common.title %></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -26,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+	<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 	<script src="/Feedback/resource/js/mui.min.js"></script>
 		
 	<script type="text/javascript">

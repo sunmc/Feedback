@@ -256,11 +256,11 @@
 					<div class="mui-collapse-content">
 							<div class="mui-input-row">
 								<label>流水号</label>
-								<input type="text" id="lsh" value="OPM20.08.30-201610170002">
+								<input type="text" id="lsh" value="OPM20.08.30-201610170002" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
 								<label>流程状态</label>
-								<input type="text" id="lczt" value="进行中">
+								<input type="text" id="lczt" value="进行中" readonly="readonly">
 							</div>
 					</div>
 				</li>
@@ -270,23 +270,23 @@
 						<div class="mui-input-group" style="margin: 10px 0 0 0;">
 							<div class="mui-input-row">
 								<label>单据号</label>
-								<input type="text" id="lsh" value="123456789">
+								<input type="text" id="lsh" value="123456789" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
 								<label>执行状态</label>
-								<input type="text" id="zxzt" value="进行中">
+								<input type="text" id="zxzt" value="进行中" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
 								<label>承诺日期</label>
-								<input type="date" id="cnrq" class=" mui-btn-block" value="2016-10-29">
+								<input type="date" id="cnrq" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
 								<label>实际日期</label>
-								<input type="date" id="sjqi" class=" mui-btn-block" value="2016-10-29">
+								<input type="date" id="sjqi" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
 							</div>
 							<div class="mui-input-row">
 								<label>变更情况</label>
-								<input type="text" id="bgqk" class=" mui-btn-block" value="进行中">
+								<input type="text" id="bgqk" class=" mui-btn-block" value="进行中" readonly="readonly">
 							</div>
 						</div>
 					</div>
