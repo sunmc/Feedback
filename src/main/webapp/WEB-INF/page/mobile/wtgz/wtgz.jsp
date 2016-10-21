@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="feedback">
 
@@ -8,7 +10,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<!--标准mui.css-->
+		<!--æ åmui.css-->
 		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
 		<link rel="stylesheet" href="/Feedback/resource/css/feedback.css">
 		<link href="/Feedback/resource/css/mui.picker.css" rel="stylesheet" />
@@ -171,49 +173,49 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">问题明细</h1>
+			<h1 class="mui-title">é®é¢æç»</h1>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
 				<div class="mui-input-row">
-					<label>项目编号</label>
+					<label>é¡¹ç®ç¼å·</label>
 					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
 				</div>
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">项目信息</a>
+					<a class="mui-navigate-right" href="#">é¡¹ç®ä¿¡æ¯</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
-							<label>客户名称</label>
-							<input name="khmc" type="text"  readonly="readonly" value="元丰">
+							<label>å®¢æ·åç§°</label>
+							<input name="khmc" type="text"  readonly="readonly" value="åä¸°">
 						</div>
 						<div class="mui-input-row">
-							<label>产品名称</label>
-							<input name="cpmc" type="text" readonly="readonly" value="全钢大两鼓">
+							<label>äº§ååç§°</label>
+							<input name="cpmc" type="text" readonly="readonly" value="å¨é¢å¤§ä¸¤é¼">
 						</div>
 						<div class="mui-input-row">
-							<label>项目阶段</label>
-							<input name="xmjd" type="text" readonly="readonly" value="厂内调试">
+							<label>é¡¹ç®é¶æ®µ</label>
+							<input name="xmjd" type="text" readonly="readonly" value="ååè°è¯">
 						</div>
 						<div class="mui-input-row">
-							<label>部套名称</label>
-							<input name="btmc" type="text" readonly="readonly" value="后压车">
+							<label>é¨å¥åç§°</label>
+							<input name="btmc" type="text" readonly="readonly" value="ååè½¦">
 						</div>
 						<div class="mui-input-row">
-							<label>图号</label>
+							<label>å¾å·</label>
 							<input name="wtjth" type="text" readonly="readonly" value="">
 						</div>
 						<div class="mui-input-row">
-							<label>物料编码</label>
+							<label>ç©æç¼ç </label>
 							<input name="wlbm" type="text" readonly="readonly" value="">
 						</div>
 						<div class="mui-input-row">
-							<div class="mui-inline">问题描述</div>
-							<textarea name="wtms" rows="5" readonly="readonly">反包臂气缸快插需换成快插节流</textarea>
+							<div class="mui-inline">é®é¢æè¿°</div>
+							<textarea name="wtms" rows="5" readonly="readonly">ååèæ°ç¼¸å¿«æéæ¢æå¿«æèæµ</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">图片</div>
+							<div class="mui-inline">å¾ç</div>
 							<div class="row image-list">
 								<div id='image-list'>
 									<img src="/Feedback/resource/images/shuijiao.jpg" class="image-item" data-preview-src=''  data-preview-group='1' >						
@@ -224,79 +226,79 @@
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">责任分类</a>
+					<a class="mui-navigate-right" href="#">è´£ä»»åç±»</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
-							<label>责任类别</label>
-							<label>调试</label>
+							<label>è´£ä»»ç±»å«</label>
+							<label>è°è¯</label>
 						</div>
 						<div class="mui-input-row">
-							<label>问题类别</label>
-							<label>其他</label>
+							<label>é®é¢ç±»å«</label>
+							<label>å¶ä»</label>
 						</div>
 						<div class="mui-input-row">
-							<label>要求日期</label>
+							<label>è¦æ±æ¥æ</label>
 							<input name="yqrq" type="text" readonly="readonly" value="2016-10-11">
 						</div>
 						<div class="mui-input-row">
-							<label>责任人</label>
-							<input name="zrr" type="text" readonly="readonly" value="张三">
+							<label>è´£ä»»äºº</label>
+							<input name="zrr" type="text" readonly="readonly" value="å¼ ä¸">
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div class="mui-inline">相关信息</div>
+			<div class="mui-inline">ç¸å³ä¿¡æ¯</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">非BOM物料计划流程</a>
+					<a class="mui-navigate-right" href="#">éBOMç©æè®¡åæµç¨</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-group" style="margin: 10px 0 0 0;">
 							<div class="mui-input-row">
-								<label>流水号</label>
+								<label>æµæ°´å·</label>
 								<input type="text" id="lsh">
 							</div>
 							<div class="mui-input-row">
-								<label>流程状态</label>
+								<label>æµç¨ç¶æ</label>
 								<select>
 									<option></option>
-									<option>进行中</option>
-									<option>已结束</option>
+									<option>è¿è¡ä¸­</option>
+									<option>å·²ç»æ</option>
 								</select>
 							</div>
 						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">图纸变更流程</a>
+					<a class="mui-navigate-right" href="#">å¾çº¸åæ´æµç¨</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-group" style="margin: 10px 0 0 0;">
 							<div class="mui-input-row">
-								<label>单据号</label>
+								<label>åæ®å·</label>
 								<input type="text" id="lsh">
 							</div>
 							<div class="mui-input-row">
-								<label>执行状态</label>
+								<label>æ§è¡ç¶æ</label>
 								<select>
 									<option></option>
-									<option>进行中</option>
-									<option>已结束</option>
+									<option>è¿è¡ä¸­</option>
+									<option>å·²ç»æ</option>
 								</select>
 							</div>
 							<div class="mui-input-row">
-								<label>承诺日期</label>
+								<label>æ¿è¯ºæ¥æ</label>
 								<input type="date" id="cnrq" class=" mui-btn-block">
 							</div>
 							<div class="mui-input-row">
-								<label>实际日期</label>
+								<label>å®éæ¥æ</label>
 								<input type="date" id="cnrq" class=" mui-btn-block">
 							</div>
 							<div class="mui-input-row">
-								<label>变更情况</label>
+								<label>åæ´æåµ</label>
 								<select>
 									<option></option>
-									<option>待定</option>
-									<option>进行中</option>
-									<option>已结束</option>
+									<option>å¾å®</option>
+									<option>è¿è¡ä¸­</option>
+									<option>å·²ç»æ</option>
 								</select>
 							</div>
 						</div>
@@ -305,58 +307,58 @@
 			</ul>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">问题分析</a>
+					<a class="mui-navigate-right" href="#">é®é¢åæ</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">原因分析</div>
-							<textarea name="yyfx" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
+							<div class="mui-inline">åå åæ</div>
+							<textarea name="yyfx" rows="5" readonly="readonly">å®¢æ·ç°åºç¡®å®ä½ç½®ååºå®</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">处理方案</div>
-							<textarea name="clfa" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
+							<div class="mui-inline">å¤çæ¹æ¡</div>
+							<textarea name="clfa" rows="5" readonly="readonly">å®¢æ·ç°åºç¡®å®ä½ç½®ååºå®</textarea>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div class="mui-inline">解决措施</div>
+			<div class="mui-inline">è§£å³æªæ½</div>
 			<ul id="cs" class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li id=cs1 class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">措施1</a>
+					<a class="mui-navigate-right" href="#">æªæ½1</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-group">
-							<div class="mui-inline">工作内容</div>
-							<textarea name="clfa" rows="5" readonly="readonly">图纸为外六方，外协更换</textarea>
+							<div class="mui-inline">å·¥ä½åå®¹</div>
+							<textarea name="clfa" rows="5" readonly="readonly">å¾çº¸ä¸ºå¤å­æ¹ï¼å¤åæ´æ¢</textarea>
 							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>责任人</label>
-								<input type="text" id="zrr1" class=" mui-btn-block" readonly="readonly" value="王小毛">
+								<label>è´£ä»»äºº</label>
+								<input type="text" id="zrr1" class=" mui-btn-block" readonly="readonly" value="çå°æ¯">
 							</div>
 							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>时间计划</label>
+								<label>æ¶é´è®¡å</label>
 								<input type="date" id="sjjh1" class=" mui-btn-block" readonly="readonly" value="2016-10-27">
 							</div>
 							<div class="mui-input-row mui-input-range">
-								<label>工作进度</label>
+								<label>å·¥ä½è¿åº¦</label>
 								<input id='jjcd' type="range"  value="80" min="1" max="100" readonly="readonly">
 							</div>
 						</div>
 					</div>
 				</li>
 				<li id=cs2 class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">措施2</a>
+					<a class="mui-navigate-right" href="#">æªæ½2</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-group">
-							<div class="mui-inline">工作内容</div>
-							<textarea name="clfa" rows="5" readonly="readonly">图纸为外六方，外协更换</textarea>
+							<div class="mui-inline">å·¥ä½åå®¹</div>
+							<textarea name="clfa" rows="5" readonly="readonly">å¾çº¸ä¸ºå¤å­æ¹ï¼å¤åæ´æ¢</textarea>
 							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>责任人</label>
-								<input type="text" id="zrr2" class=" mui-btn-block" readonly="readonly" value="王小毛">
+								<label>è´£ä»»äºº</label>
+								<input type="text" id="zrr2" class=" mui-btn-block" readonly="readonly" value="çå°æ¯">
 							</div>
 							<div class="mui-input-row" style="margin: 5px 0 0 0;">
-								<label>时间计划</label>
+								<label>æ¶é´è®¡å</label>
 								<input type="date" id="sjjh2" class=" mui-btn-block" readonly="readonly" value="2016-10-27">
 							</div>
 							<div class="mui-input-row mui-input-range">
-								<label>工作进度</label>
+								<label>å·¥ä½è¿åº¦</label>
 								<input id='jjcd' type="range"  value="80" min="1" max="100" readonly="readonly">
 							</div>
 						</div>
@@ -365,7 +367,7 @@
 			</ul>	
 			<div class="mui-input-group" style="margin: 10px 0 0 0;">
 				<div class="mui-input-row mui-input-range">
-					<label>工作进度</label>
+					<label>å·¥ä½è¿åº¦</label>
 					<input id='jjcd' type="range"  value="80" min="1" max="100"  readonly="readonly">
 				</div>
 			</div>	
@@ -379,7 +381,7 @@
 		<script src="/Feedback/resource/js/mui.poppicker.js"></script>
 		<script>
 			mui.init({
-				swipeBack: true //启用右滑关闭功能
+				swipeBack: true //å¯ç¨å³æ»å³é­åè½
 			});
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();

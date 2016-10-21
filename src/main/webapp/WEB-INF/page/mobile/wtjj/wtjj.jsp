@@ -1,9 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html class="feedback">
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -182,7 +186,7 @@
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">项目信息</a>
+					<a class="mui-navigate-right" href="#">项目问题信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
 							<label>客户名称</label>
@@ -224,7 +228,7 @@
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">责任分类</a>
+					<a class="mui-navigate-right" href="#">问题受理信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
 							<label>责任类别</label>
@@ -245,7 +249,7 @@
 					</div>
 				</li>
 			</ul>
-			<div class="mui-inline">相关信息</div>
+			<div class="mui-inline">问题分析</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
 					<a class="mui-navigate-right" href="#">非BOM物料计划流程</a>
@@ -290,7 +294,7 @@
 			</ul>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">问题分析</a>
+					<a class="mui-navigate-right" href="#">原因及方案</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
 							<div class="mui-inline">原因分析</div>
@@ -303,20 +307,15 @@
 					</div>
 				</li>
 			</ul>
-			<div class="mui-input-row" style="margin: 5px 0 0 0;">
+			<div class="mui-input-row">
 				<div class="mui-inline">工作计划</div>
 				<textarea name="yyfx" rows="3" readonly="readonly">客户现场确定后加螺纹</textarea>
 			</div>
-			<div class="mui-input-row" style="margin: 5px 0 0 0;">
+			<div class="mui-input-row">
 				<div class="mui-inline">工作内容</div>
 				<textarea name="yyfx" rows="3" placeholder="请详细描述您本次的工作内容..."></textarea>
 			</div>
-			<div class="mui-input-group" style="margin: 10px 0 0 0;">
-				<div class="mui-input-row mui-input-range">
-					<label>工作进度</label>
-					<input id='jjcd' type="range"  value="1" min="1" max="100" >
-				</div>
-			</div>
+			
 			<div class="mui-button-row">
 				<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
 				<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>

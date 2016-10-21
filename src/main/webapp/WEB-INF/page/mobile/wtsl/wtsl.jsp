@@ -1,9 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html class="feedback">
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -182,7 +186,7 @@
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">项目信息</a>
+					<a class="mui-navigate-right" href="#">项目问题信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
 							<label>客户名称</label>
@@ -226,7 +230,8 @@
 			</ul>
 				
 			<div class="mui-content-padded" style="margin: 5px;">
-				<div class="mui-input-group" style="margin: 10px 0 0 0;border:1px solid #F00">
+				<div class="mui-inline">问题受理</div>
+				<div class="mui-input-group">
 					<div class="mui-input-row">
 						<label>责任类别</label>
 						<select id="zrlb" class=" mui-btn-block">
@@ -246,6 +251,89 @@
 					<div class="mui-input-row">
 						<label>责任人</label>
 						<input type="text" id="zrr" class=" mui-btn-block" onchange="search(this.id)"> 
+					</div>
+				</div>
+				<div id="wtfx">
+					<div class="mui-inline">问题分析</div>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">非BOM物料计划流程</a>
+							<div class="mui-collapse-content">
+								<div class="mui-input-group" style="margin: 10px 0 0 0;">
+									<div class="mui-input-row">
+										<label>流水号</label>
+										<input type="text" id="lsh">
+									</div>
+									<div class="mui-input-row">
+										<label>流程状态</label>
+										<select>
+											<option></option>
+											<option>进行中</option>
+											<option>已结束</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">图纸变更流程</a>
+							<div class="mui-collapse-content">
+								<div class="mui-input-group" style="margin: 10px 0 0 0;">
+									<div class="mui-input-row">
+										<label>单据号</label>
+										<input type="text" id="lsh">
+									</div>
+									<div class="mui-input-row">
+										<label>执行状态</label>
+										<select>
+											<option></option>
+											<option>进行中</option>
+											<option>已结束</option>
+										</select>
+									</div>
+									<div class="mui-input-row">
+										<label>承诺日期</label>
+										<input type="date" id="cnrq" class=" mui-btn-block">
+									</div>
+									<div class="mui-input-row">
+										<label>实际日期</label>
+										<input type="date" id="cnrq" class=" mui-btn-block">
+									</div>
+									<div class="mui-input-row">
+										<label>变更情况</label>
+										<select>
+											<option></option>
+											<option>待定</option>
+											<option>进行中</option>
+											<option>已结束</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="mui-input-group">
+						<div class="mui-inline">原因分析</div>
+						<textarea name="yyfx" rows="3" placeholder="请详细分析问题原因..."></textarea>
+						<div class="mui-inline">处理方案</div>
+						<textarea name="clfa" rows="3" placeholder="请详细描述处理方案..."></textarea>
+						<div class="mui-inline">解决计划</div>
+						<div class="mui-input-row">
+							<label>执行人</label>
+							<input type="text" id="zxr" class=" mui-btn-block" onchange="search(this.id)">
+						</div>
+						<div class="mui-input-row">
+							<label>要求日期</label>
+							<input type="date" id="yqwcrq" class=" mui-btn-block" >
+						</div>
+						<div class="mui-input-row">
+							<label style="width:150px">详细实施计划</label>
+							<a id="addPlan" style="margin: 9px ;" class="mui-icon mui-icon-plus" onclick="addPlan()"></a>
+							<a id="delPlan" style="margin: 9px ;" class="mui-icon mui-icon-trash" onclick="delPlan()"></a>
+						</div>
+						<ul id="cs" class="mui-table-view" style="margin: 0 5px 5px 5px ;">
+							
+						</ul>
 					</div>
 				</div>
 				<div class="mui-button-row">
@@ -331,7 +419,42 @@
 						}
 					}
 				});
-				
+			}
+			var i=0;
+			function addPlan(){
+				i++;
+				$("#cs").append('<li id=cs'+i+' class="mui-table-view-cell mui-collapse">'+
+						'<a class="mui-navigate-right" href="#">措施'+i+'</a>'+
+						'<div class="mui-collapse-content">'+
+							'<div class="mui-input-group">'+
+								'<div class="mui-inline">解决措施</div>'+
+								'<textarea name="clfa" rows="5" placeholder="请详细描述解决措施..."></textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>责任人</label>'+
+									'<input type="text" id="zrr'+i+'" class=" mui-btn-block" onchange="search(this.id)">'+
+								'</div>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>时间计划</label>'+
+									'<input type="date" id="sjjh'+i+'" class=" mui-btn-block">'+
+								'</div>'+
+							'</div>'+
+							'<div id="jj'+i+'" class="mui-input-group">'+
+								'<div class="mui-inline">解决问题</div>'+
+								'<textarea name="clfa" rows="5" placeholder="请详细描述工作内容..."></textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>完成时间</label>'+
+									'<input type="date" id="wcsj'+i+'" class="mui-btn-block">'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</li>');
+			}
+			function delPlan(){
+				if(i==0){
+					return;
+				}
+				$('#cs' + i).remove();
+				--i;
 			}
 		</script>
 	</body>

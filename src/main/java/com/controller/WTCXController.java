@@ -4,12 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@RequestMapping("wtcx")
 @Controller
-@RequestMapping("common")
-public class CommonController {
+public class WTCXController {
 
 	@RequestMapping()
 	public ModelAndView index(){
-		return new ModelAndView("mobile/wtgz/wtgzlist");
+		return new ModelAndView("mobile/wtcx/wtcx");
 	}
 }

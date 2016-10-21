@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -33,7 +36,6 @@
 							class="mui-navigate-right"> 问题关闭 </a></li>
 						<li class="mui-table-view-cell" id="wtcx"><a
 							class="mui-navigate-right"> 问题查询 </a></li>
-
 					</ul>
 				</div>
 			</div>
@@ -44,7 +46,7 @@
 				<a href="#offCanvasSide"
 					class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 				<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a> -->
-				<h1 class="mui-title">问题分析列表</h1>
+				<h1 class="mui-title">问题受理列表</h1>
 			</header>
 
 			<!--下拉刷新容器-->
@@ -117,7 +119,7 @@
 							(++count > 2)); //参数为true代表没有更多数据了。
 							document.getElementById('1').addEventListener('tap', function() {
 								mui.openWindow({
-									url : '/Feedback/wtfx/wtfx.do',
+									url : '/Feedback/wtsl/wtsl.do',
 									id : 'wtmx',
 									show : {
 										aniShow : 'pop-in'
@@ -129,7 +131,7 @@
 							})
 							document.getElementById('2').addEventListener('tap', function() {
 								mui.openWindow({
-									url : '/Feedback/wtfx/wtfx.do',
+									url : '/Feedback/wtsl/wtsl.do',
 									id : 'wtmx',
 									show : {
 										aniShow : 'pop-in'
@@ -223,6 +225,7 @@
 					}
 				});
 			})
+			
 		</script>
 	</body>
 
