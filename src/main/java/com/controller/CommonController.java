@@ -12,4 +12,6 @@ public class CommonController {
 	public ModelAndView index(){
 		return new ModelAndView("mobile/wtgz/wtgzlist");
 	}
+	
+	
 }

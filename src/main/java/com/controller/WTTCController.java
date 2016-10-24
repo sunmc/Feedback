@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.WTTC;
+import com.qq.weixin.mp.aes.WXService;
+import com.qq.weixin.mp.aes.WXService.UserInfo;
 import com.service.IWTTCService;
 import com.util.bean.Result;
 
@@ -19,9 +23,13 @@ public class WTTCController {
 
 	@Autowired
 	private IWTTCService wttcService;
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping
-	public ModelAndView index(){
+	public ModelAndView index(String code, String state){
+		log.debug(code + "----" + state);
+		log.debug(WXService.token);
+		UserInfo ui = WXService.getUserInfo(code);
 		ModelAndView mv = new ModelAndView("mobile/wttc/wttc");
 		return mv;
 	}
