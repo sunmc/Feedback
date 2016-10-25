@@ -2,7 +2,6 @@ package com;
 
 
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
@@ -12,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bean.WTTC;
-import com.bean.XMXX;
+import com.qq.weixin.mp.aes.WXService;
+import com.qq.weixin.mp.aes.WXService.DepartmentList;
 import com.service.IWTTCService;
 import com.service.IWtdataService;
 import com.service.IXMXXService;
-import com.util.bean.Result;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})  
@@ -34,9 +32,8 @@ public class Test {
 	@org.junit.Test
 	public void Test() throws JsonGenerationException, JsonMappingException, IOException{
 		
-		WTTC wttc = new WTTC();
-		wttc.setZtc("123");
-		Result<WTTC> res = wttcService.insert(wttc);
+		DepartmentList res = WXService.getDepartmentList(null);
+		int p = res.department.size();
 //		Result<List<XMXX>> res = xmxxService.searchXM("201407048");
 //		Result<List<XMXX>> res1 = xmxxService.searchXM("元丰");
 //		Result<List<XMXX>> res2 = xmxxService.searchXM("导切机系统");

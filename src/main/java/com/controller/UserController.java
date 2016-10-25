@@ -39,4 +39,8 @@ public class UserController {
 	public ModelAndView contact(){
 		return new ModelAndView("mobile/contact");
 	}
+	@RequestMapping("login")
+	public ModelAndView login(){
+		return new ModelAndView("mobile/login");
+	}
 }
