@@ -2,6 +2,9 @@ package com.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.User;
+import com.qq.weixin.mp.aes.WXService;
+import com.qq.weixin.mp.aes.WXService.UserInfo;
 import com.service.IUserService;
 import com.util.bean.Result;
 
@@ -19,13 +24,17 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	
-	@ResponseBody
 	@RequestMapping("LoginValidate")
-	public Result<User> LoginValidate(String code,String passwd){
+	public ModelAndView LoginValidate(String code,String passwd, HttpSession session){
 		
-		Result<User> res = new Result<User>();
-		res = userService.loginValidate(code, passwd);
-		return res;
+		UserInfo user = WXService.getUserInfo(code);
+		if(user != null && user.userid != null){
+			session.setAttribute("user", user);
+			return new ModelAndView("/mobile/wtcx");
+		}
+//		Result<User> res = new Result<User>();
+//		res = userService.loginValidate(code, passwd);
+		return new ModelAndView("/mobile/User/login");
 	}
 	@ResponseBody
 	@RequestMapping("search")

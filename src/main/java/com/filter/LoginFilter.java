@@ -11,6 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.qq.weixin.mp.aes.WXService;
 import com.qq.weixin.mp.aes.WXService.UserId;
 import com.qq.weixin.mp.aes.WXService.UserInfo;
@@ -19,6 +22,7 @@ import com.util.StringUtil;
 public class LoginFilter implements Filter{
 
 	private String excludedPages;
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -43,16 +47,23 @@ public class LoginFilter implements Filter{
 		boolean isWX = false;
 		if(user == null){
 			String code = request.getParameter("code");
+			log.debug("code"+code);
 			if(!StringUtil.isNullOrEmpty(code)){
 				UserId ui = WXService.getUserId(code);
-				if(StringUtil.isNullOrEmpty(ui.UserId)){
+				log.debug("ui"+ui.toString());
+				if(!StringUtil.isNullOrEmpty(ui.UserId)){
 					user = WXService.getUserInfo(ui.UserId);
 					if(user != null){
 						srequest.getSession().setAttribute("user", user);
+						log.debug("微信用户:" + user.userid + "-" + user.name);
 						isWX = true;
+					}else{
+						log.debug("微信用户信息获取失败");
 					}
 				}
 			}
+		}else{
+			isWX = true;
 		}
 		if(!isWX){
 			((HttpServletResponse)response).setHeader("Cache-Control", "no-store");  
