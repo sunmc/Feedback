@@ -2,6 +2,7 @@ package com;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
@@ -11,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.qq.weixin.mp.aes.WXService;
-import com.qq.weixin.mp.aes.WXService.DepartmentList;
+import com.bean.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.service.IUserService;
 import com.service.IWTTCService;
 import com.service.IWtdataService;
 import com.service.IXMXXService;
+import com.util.ExcelUtil;
+import com.util.bean.Result;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})  
@@ -23,31 +28,20 @@ public class Test {
 	private static Logger logger = Logger.getLogger(Test.class);  
 	@Autowired
 	public IWtdataService wtdataService;
-	
+	Gson gson = new Gson();
 	@Autowired
 	public IXMXXService xmxxService;
 	@Autowired
 	public IWTTCService wttcService;
+	@Autowired
+	public IUserService userService;
 	@SuppressWarnings({ "unchecked", "unused" })
 	@org.junit.Test
 	public void Test() throws JsonGenerationException, JsonMappingException, IOException{
+		Result<String> res = new ExcelUtil().readJsonFromExcel("D:/test/jiemi/全钢成型系统事业部.xls");
+		List<User> users = gson.fromJson(res.getData(), new TypeToken<List<User>>(){}.getType());
+		System.out.println(res.getData());
 		
-		DepartmentList res = WXService.getDepartmentList(null);
-		int p = res.department.size();
-//		Result<List<XMXX>> res = xmxxService.searchXM("201407048");
-//		Result<List<XMXX>> res1 = xmxxService.searchXM("元丰");
-//		Result<List<XMXX>> res2 = xmxxService.searchXM("导切机系统");
-		/*String [] a = new String[]{"按期完成","处理中","拖期完成","拖期未完成"};
-		for(int i = 1; i < a.length + 1;i++){
-			Wtdata d = new Wtdata();
-			d.setCreateby("sunmc");
-			d.setCreatetime(new Date());
-			d.setDeleteflag(0);
-			d.setValue(i);
-			d.setText(a[i-1]);
-			d.setBelongto("完成情况");
-			wtdataService.insert(d);
-		}*/
 	}
 
 	

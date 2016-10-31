@@ -21,24 +21,27 @@
 			<h1 class="mui-title">登录</h1>
 		</header>
 		<div class="mui-content">
-			<form id='login-form' class="mui-input-group">
-				<div class="mui-input-row">
-					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
-				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+			<form method="post" action="/Feedback/User/LoginValidate.do">
+				<div class="mui-content-padded" style="margin: 5px;">
+					<div class="mui-input-group" >
+						<div class="mui-input-row">
+							<label>账号</label>
+							<input id='code' name="code" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+						</div>
+						<div class="mui-input-row">
+							<label>密码</label>
+							<input id='passwd' name="passwd" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+						</div>
+					</div>
+					
+					<div class="mui-content-padded oauth-area">
+		
+					</div>
+					<div class="mui-button-row">
+						<input type="submit" class="mui-btn mui-btn-primary" >
+					</div>
 				</div>
 			</form>
-			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-				<!-- <div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
-				</div> -->
-			</div>
-			<div class="mui-content-padded oauth-area">
-
-			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>

@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.bean.User;
 import com.mapper.UserMapper;
+import com.qq.weixin.mp.aes.WXService.UserInfo;
 import com.service.IUserService;
-import com.util.CommonUtil;
 import com.util.bean.Result;
 
 @Service
@@ -38,8 +39,13 @@ public class UserService implements IUserService {
 		User data = null;
 		try{
 			data = userMapper.loginValidate(code, passwd);
-			res.setFlag(true);
-			res.setData(data);
+			if(data != null){
+				res.setFlag(true);
+				res.setData(data);				
+			}else{
+				res.setFlag(false);
+				res.setMessage("用户名或密码错误");
+			}
 		}catch(Exception e){
 			res.setFlag(false);
 			res.setMessage(e.getMessage());
@@ -61,5 +67,51 @@ public class UserService implements IUserService {
 		}
 		return res;
 	}
+
+	@Override
+	public Result<User> insert(User user) {
+		Result<User> res = new Result<>();
+		try{
+			userMapper.insertSelective(user);
+			res.setFlag(true);
+		}catch(Exception e){
+			res.setFlag(false);
+			res.setMessage(e.getMessage());
+		}
+		return res;
+	}
+
+	@Override
+	public Result<User> syncWXUser(UserInfo user) {
+		Result<User> res = new Result<User>();
+		String zh = user.userid;
+		User u = new User();
+		List<User> users = userMapper.getList(u);
+		if(users.size() > 0){
+			res.setFlag(true);
+			res.setData(users.get(0));
+		}else{
+			Date now = new Date();
+			u.setZh(zh);
+			u.setCreateby("syncWX");
+			u.setCreatetime(now);
+			u.setDelflag(0);
+			u.setEmail(user.email);
+			u.setPasswd("123456");
+			u.setSjh(user.mobile);
+			u.setState(0);
+			u.setSzbm(user.department[user.department.length - 1] + "");
+			u.setTx(user.avatar);
+			u.setWxh(user.weixinid);
+			u.setXb(Integer.parseInt(user.gender));
+			u.setXm(user.name);
+			u.setZw(user.position);
+			userMapper.insertSelective(u);
+			res.setData(u);
+			res.setFlag(true);
+		}
+		return res;
+	}
+	
 
 }

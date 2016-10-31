@@ -17,7 +17,7 @@
 		<filter-class>com.filter.LoginFilter</filter-class>
 		<init-param>  
 			<param-name>excludedPages</param-name>  
-			<param-value>/Feedback/User/login.do;User/login1.do</param-value> 
+			<param-value>/User/login.do;/User/LoginValidate.do</param-value> 
 		</init-param>
 	</filter>
 	<filter-mapping>

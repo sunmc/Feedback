@@ -26,15 +26,17 @@ public class UserController {
 	
 	@RequestMapping("LoginValidate")
 	public ModelAndView LoginValidate(String code,String passwd, HttpSession session){
-		
-		UserInfo user = WXService.getUserInfo(code);
-		if(user != null && user.userid != null){
-			session.setAttribute("user", user);
-			return new ModelAndView("/mobile/wtcx");
+		if(code != null && code.length() > 0){
+			Result<User> res = new Result<User>();
+			res = userService.loginValidate(code, passwd);
+			if(res.isFlag()){
+				User user = res.getData();
+				session.setAttribute("user", user);
+				return new ModelAndView("/mobile/wtcx/wtcx");
+			}
 		}
-//		Result<User> res = new Result<User>();
-//		res = userService.loginValidate(code, passwd);
-		return new ModelAndView("/mobile/User/login");
+		
+		return new ModelAndView("/mobile/login");
 	}
 	@ResponseBody
 	@RequestMapping("search")

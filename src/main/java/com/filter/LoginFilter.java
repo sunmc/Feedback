@@ -13,16 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bean.User;
 import com.qq.weixin.mp.aes.WXService;
 import com.qq.weixin.mp.aes.WXService.UserId;
 import com.qq.weixin.mp.aes.WXService.UserInfo;
+import com.service.IUserService;
 import com.util.StringUtil;
+import com.util.bean.Result;
 
 public class LoginFilter implements Filter{
 
 	private String excludedPages;
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private IUserService userService;
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -43,7 +49,7 @@ public class LoginFilter implements Filter{
 		}
 		
 		//获取session中的用户
-		UserInfo user = (UserInfo)srequest.getSession().getAttribute("user");
+		User user = (User)srequest.getSession().getAttribute("user");
 		boolean isWX = false;
 		if(user == null){
 			String code = request.getParameter("code");
@@ -52,10 +58,13 @@ public class LoginFilter implements Filter{
 				UserId ui = WXService.getUserId(code);
 				log.debug("ui"+ui.toString());
 				if(!StringUtil.isNullOrEmpty(ui.UserId)){
-					user = WXService.getUserInfo(ui.UserId);
-					if(user != null){
-						srequest.getSession().setAttribute("user", user);
-						log.debug("微信用户:" + user.userid + "-" + user.name);
+					UserInfo wxuser = WXService.getUserInfo(ui.UserId);
+					if(wxuser != null){
+						Result<User> res = userService.syncWXUser(wxuser);
+						if(res.isFlag()){ 
+							srequest.getSession().setAttribute("user", res.getData());
+							log.debug("微信用户:" + wxuser.userid + "-" + wxuser.name);
+						}
 						isWX = true;
 					}else{
 						log.debug("微信用户信息获取失败");

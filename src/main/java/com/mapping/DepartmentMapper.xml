@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Department" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, Name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FB_Department
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FB_Department
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.Department" >
+    insert into FB_Department (ObjectId, ParentObjectId, Name
+      )
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Department" >
+    insert into FB_Department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Department" >
+    update FB_Department
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Department" >
+    update FB_Department
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      Name = #{name,jdbcType=VARCHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>
