@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.util.bean.Common" %>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<link rel="shortcut icon" href="/Feedback/resource/images/xmwtfl.png">
+		<title><%= Common.title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -19,34 +21,46 @@
 	<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 		<!--侧滑菜单部分-->
 		<aside id="offCanvasSide" class="mui-off-canvas-left">
-			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-
-					<div class="title" style="margin-bottom: 25px;">目录列表</div>
-					<ul
-						class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-						<li class="mui-table-view-cell" id="wtsl"><a
-							class="mui-navigate-right"> 问题受理 </a></li>
-						<li class="mui-table-view-cell" id="wtfx"><a
-							class="mui-navigate-right"> 问题分析 </a></li>
-						<li class="mui-table-view-cell" id="wtjj"><a
-							class="mui-navigate-right"> 问题解决 </a></li>
-						<li class="mui-table-view-cell" id="wtgb"><a
-							class="mui-navigate-right"> 问题关闭 </a></li>
-						<li class="mui-table-view-cell" id="wtcx"><a
-							class="mui-navigate-right"> 问题查询 </a></li>
-
-					</ul>
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="title" style="margin-bottom: 25px;" ><%= Common.mllb %></div>
+						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
+							<li class="mui-table-view-cell" id="wtsl">
+								<a class="mui-navigate-right">
+									<%= Common.wtsl %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtfx">
+								<a class="mui-navigate-right">
+									<%= Common.wtfx %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtjj">
+								<a class="mui-navigate-right">
+									<%= Common.wtjj %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtgb">
+								<a class="mui-navigate-right">
+									<%= Common.wtgb %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtgz">
+								<a class="mui-navigate-right">
+									<%= Common.wtgz %>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</aside>
+			</aside>
 		<!--主界面部分-->
 		<div class="mui-inner-wrap">
 			<header class="mui-bar mui-bar-nav">
 				<a href="#offCanvasSide"
 					class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 				<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a> -->
-				<h1 class="mui-title">问题关闭列表</h1>
+				<h1 class="mui-title"><%= Common.wtgb + Common.lb%></h1>
 			</header>
 
 			<!--下拉刷新容器-->
@@ -214,10 +228,10 @@
 					}
 				});
 			})
-			document.getElementById('wtcx').addEventListener('tap', function() {
+			document.getElementById('wtgz').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtcx.do',
-					id : 'wtcx',
+					url : '/Feedback/wtgz.do',
+					id : 'wtgz',
 					show : {
 						aniShow : 'pop-in'
 					},

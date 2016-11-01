@@ -24,7 +24,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, DelFlag, 
-    XM, ZH, WXH, SJH, EMAIL, SZBM, ZW, memo, XB, TX, Passwd
+    XM, ZH, WXH, SJH, EMAIL, SZBM, ZW, memo, XB, TX
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -116,7 +116,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-        NEWID(),
+        #{objectid,jdbcType=CHAR},
       <if test="parentobjectid != null" >
         #{parentobjectid,jdbcType=CHAR},
       </if>
@@ -233,6 +233,62 @@
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
+  <select id="getList" parameterType="com.bean.User" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from FB_User where DelFlag = 0 
+       <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR}
+      </if>
+      <if test="createby != null" >
+        and CreateBy = #{createby,jdbcType=CHAR}
+      </if>
+      <if test="createtime != null" >
+        and CreateTime = #{createtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateby != null" >
+        and UpdateBy = #{updateby,jdbcType=CHAR}
+      </if>
+      <if test="updatetime != null" >
+        and UpdateTime = #{updatetime,jdbcType=CHAR}
+      </if>
+      <if test="state != null" >
+        and State = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="xm != null" >
+        and XM = #{xm,jdbcType=CHAR}
+      </if>
+      <if test="zh != null" >
+        and ZH = #{zh,jdbcType=CHAR}
+      </if>
+      <if test="wxh != null" >
+        and WXH = #{wxh,jdbcType=CHAR}
+      </if>
+      <if test="sjh != null" >
+        and SJH = #{sjh,jdbcType=CHAR}
+      </if>
+      <if test="email != null" >
+        and EMAIL = #{email,jdbcType=CHAR}
+      </if>
+      <if test="szbm != null" >
+        and SZBM = #{szbm,jdbcType=VARCHAR}
+      </if>
+      <if test="zw != null" >
+        and ZW = #{zw,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null" >
+        and memo = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="xb != null" >
+        and XB = #{xb,jdbcType=INTEGER}
+      </if>
+      <if test="tx != null" >
+        and TX = #{tx,jdbcType=VARCHAR}
+      </if>
+      <if test="passwd != null" >
+        and Passwd = #{passwd,jdbcType=VARCHAR}
+      </if> 
+  </select>
   <update id="updateByPrimaryKey" parameterType="com.bean.User" >
     update FB_User
     set ParentObjectId = #{parentobjectid,jdbcType=CHAR},

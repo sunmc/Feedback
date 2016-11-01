@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.User;
 import com.bean.WTTC;
 import com.qq.weixin.mp.aes.WXService;
-import com.qq.weixin.mp.aes.WXService.UserId;
-import com.qq.weixin.mp.aes.WXService.UserInfo;
+import com.qq.weixin.mp.aes.bean.UserInfo;
 import com.service.IWTTCService;
 import com.util.bean.Result;
 
@@ -43,8 +43,9 @@ public class WTTCController {
 		return mv;
 	}
 	@RequestMapping("submit")
-	public ModelAndView submit(WTTC wttc){
-		//Result<WTTC> res = wttcService.insert(wttc);
+	public ModelAndView submit(WTTC wttc, HttpSession session){
+		User user = (User)session.getAttribute("user");
+		Result<WTTC> res = wttcService.insert(wttc, user);
 		return null;
 	}
 	

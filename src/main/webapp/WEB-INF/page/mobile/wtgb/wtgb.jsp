@@ -175,7 +175,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">问题关闭</h1>
+			<h1 class="mui-title"><%= Common.wtgb %></h1>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">

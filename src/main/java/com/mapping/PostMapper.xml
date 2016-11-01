@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PostMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Post" >
+    <result column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="TIMESTAMP" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Owner" property="owner" jdbcType="CHAR" />
+    <result column="PostCode" property="postcode" jdbcType="VARCHAR" />
+    <result column="PostName" property="postname" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bean.Post" >
+    insert into FB_Post (ObjectId, ParentObjectId, CreateTime, 
+      CreateBy, UpdateTime, UpdateBy, 
+      DeleteFlag, State, Owner, 
+      PostCode, PostName)
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=TIMESTAMP}, 
+      #{deleteflag,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{owner,jdbcType=CHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{postname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Post" >
+    insert into FB_Post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="owner != null" >
+        Owner,
+      </if>
+      <if test="postcode != null" >
+        PostCode,
+      </if>
+      <if test="postname != null" >
+        PostName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=CHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="postname != null" >
+        #{postname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getPostByName" resultMap="BaseResultMap">
+  	select * from FB_Post where PostName = #{0}
+  </select>
+  <select id="getPostByCode" resultMap="BaseResultMap">
+  	select * from FB_Post where PostCode = #{0}
+  </select>
+</mapper>

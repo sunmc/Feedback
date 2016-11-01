@@ -3,7 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.bean.User;
-import com.qq.weixin.mp.aes.WXService.UserInfo;
+import com.qq.weixin.mp.aes.bean.UserInfo;
 import com.util.bean.Result;
 
 public interface IUserService {

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.InstanceContextMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.InstanceContext" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="BizObjectId" property="bizobjectid" jdbcType="CHAR" />
+    <result column="SequnceNo" property="sequnceno" jdbcType="NVARCHAR" />
+    <result column="Originator" property="originator" jdbcType="CHAR" />
+    <result column="OrgUnit" property="orgunit" jdbcType="NVARCHAR" />
+    <result column="ParentInstanceID" property="parentinstanceid" jdbcType="CHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="FinishTime" property="finishtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, BizObjectId, SequnceNo, Originator, OrgUnit, ParentInstanceID, State, CreatedTime, 
+    StartTime, FinishTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FB_InstanceContext
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <select id="getID" resultType="java.lang.String">
+  	select newid()
+  </select>
+  <select id="getOrderNumber" resultType="java.lang.Integer">
+  	select OrderNumber
+  	from FB_OrderNumber
+  	where SchemaCode=#{0} and YMD=#{1}
+  </select>
+  <select id="updateOrderNumber">
+  	update FB_OrderNumber
+  	set OrderNumber = #{2},
+  	YMD = #{1}
+  	where  SchemaCode=#{0}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FB_InstanceContext
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.InstanceContext" >
+    insert into FB_InstanceContext (ObjectId, BizObjectId, SequnceNo, 
+      Originator, OrgUnit, ParentInstanceID, 
+      State, CreatedTime, StartTime, 
+      FinishTime)
+    values (#{objectid,jdbcType=CHAR}, #{bizobjectid,jdbcType=CHAR}, #{sequnceno,jdbcType=NVARCHAR}, 
+      #{originator,jdbcType=CHAR}, #{orgunit,jdbcType=NVARCHAR}, #{parentinstanceid,jdbcType=CHAR}, 
+      #{state,jdbcType=INTEGER}, #{createdtime,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{finishtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.InstanceContext" >
+    insert into FB_InstanceContext
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="bizobjectid != null" >
+        BizObjectId,
+      </if>
+      <if test="sequnceno != null" >
+        SequnceNo,
+      </if>
+      <if test="originator != null" >
+        Originator,
+      </if>
+      <if test="orgunit != null" >
+        OrgUnit,
+      </if>
+      <if test="parentinstanceid != null" >
+        ParentInstanceID,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="finishtime != null" >
+        FinishTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="bizobjectid != null" >
+        #{bizobjectid,jdbcType=CHAR},
+      </if>
+      <if test="sequnceno != null" >
+        #{sequnceno,jdbcType=NVARCHAR},
+      </if>
+      <if test="originator != null" >
+        #{originator,jdbcType=CHAR},
+      </if>
+      <if test="orgunit != null" >
+        #{orgunit,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentinstanceid != null" >
+        #{parentinstanceid,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishtime != null" >
+        #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.InstanceContext" >
+    update FB_InstanceContext
+    <set >
+      <if test="bizobjectid != null" >
+        BizObjectId = #{bizobjectid,jdbcType=CHAR},
+      </if>
+      <if test="sequnceno != null" >
+        SequnceNo = #{sequnceno,jdbcType=NVARCHAR},
+      </if>
+      <if test="originator != null" >
+        Originator = #{originator,jdbcType=CHAR},
+      </if>
+      <if test="orgunit != null" >
+        OrgUnit = #{orgunit,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentinstanceid != null" >
+        ParentInstanceID = #{parentinstanceid,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishtime != null" >
+        FinishTime = #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.InstanceContext" >
+    update FB_InstanceContext
+    set BizObjectId = #{bizobjectid,jdbcType=CHAR},
+      SequnceNo = #{sequnceno,jdbcType=NVARCHAR},
+      Originator = #{originator,jdbcType=CHAR},
+      OrgUnit = #{orgunit,jdbcType=CHAR},
+      ParentInstanceID = #{parentinstanceid,jdbcType=CHAR},
+      State = #{state,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      StartTime = #{starttime,jdbcType=TIMESTAMP},
+      FinishTime = #{finishtime,jdbcType=TIMESTAMP}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

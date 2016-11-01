@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.User;
+import com.mapper.InstanceContextMapper;
 import com.mapper.UserMapper;
-import com.qq.weixin.mp.aes.WXService.UserInfo;
+import com.qq.weixin.mp.aes.bean.UserInfo;
 import com.service.IUserService;
 import com.util.bean.Result;
 
@@ -17,6 +18,8 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private InstanceContextMapper instanceMapper;
 	@Override
 	public Result<List<User>> getList(User user) {
 		Result<List<User>> res = new Result<>();
@@ -86,12 +89,15 @@ public class UserService implements IUserService {
 		Result<User> res = new Result<User>();
 		String zh = user.userid;
 		User u = new User();
+		u.setZh(zh);
 		List<User> users = userMapper.getList(u);
 		if(users.size() > 0){
 			res.setFlag(true);
 			res.setData(users.get(0));
 		}else{
+			String id = instanceMapper.getID();
 			Date now = new Date();
+			u.setObjectid(id);
 			u.setZh(zh);
 			u.setCreateby("syncWX");
 			u.setCreatetime(now);

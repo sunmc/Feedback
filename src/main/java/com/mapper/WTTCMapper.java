@@ -15,5 +15,4 @@ public interface WTTCMapper {
 
     int updateByPrimaryKey(WTTC record);
     
-    String getID();
 }

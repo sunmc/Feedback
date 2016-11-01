@@ -40,9 +40,6 @@
     delete from I_WTTC
     where ObjectId = #{objectid,jdbcType=CHAR}
   </delete>
-  <select id="getID" resultType="java.lang.String">
-  	select newid();
-  </select>
   <insert id="insert" parameterType="com.bean.WTTC">
     insert into I_WTTC (ObjectId, ParentObjectId, CreateBy, 
       CreateTime, UpdateBy, UpdateTime, 

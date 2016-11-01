@@ -13,13 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bean.User;
 import com.qq.weixin.mp.aes.WXService;
-import com.qq.weixin.mp.aes.WXService.UserId;
-import com.qq.weixin.mp.aes.WXService.UserInfo;
+import com.qq.weixin.mp.aes.bean.UserId;
+import com.qq.weixin.mp.aes.bean.UserInfo;
 import com.service.IUserService;
+import com.service.impl.UserService;
+import com.util.SpringContextUtil;
 import com.util.StringUtil;
 import com.util.bean.Result;
 
@@ -27,8 +28,6 @@ public class LoginFilter implements Filter{
 
 	private String excludedPages;
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	@Autowired
-	private IUserService userService;
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -60,6 +59,7 @@ public class LoginFilter implements Filter{
 				if(!StringUtil.isNullOrEmpty(ui.UserId)){
 					UserInfo wxuser = WXService.getUserInfo(ui.UserId);
 					if(wxuser != null){
+						IUserService userService = (UserService)SpringContextUtil.getBean("userService");
 						Result<User> res = userService.syncWXUser(wxuser);
 						if(res.isFlag()){ 
 							srequest.getSession().setAttribute("user", res.getData());

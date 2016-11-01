@@ -23,36 +23,31 @@
 				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						
-						<div class="title" style="margin-bottom: 25px;" >目录列表</div>
+						<div class="title" style="margin-bottom: 25px;" ><%= Common.mllb %></div>
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-							<li class="mui-table-view-cell" id="wttc">
-								<a class="mui-navigate-right">
-									问题提出
-								</a>
-							</li>
 							<li class="mui-table-view-cell" id="wtsl">
 								<a class="mui-navigate-right">
-									问题受理
+									<%= Common.wtsl %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtfx">
 								<a class="mui-navigate-right">
-									问题分析
+									<%= Common.wtfx %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtjj">
 								<a class="mui-navigate-right">
-									问题解决
+									<%= Common.wtjj %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgb">
 								<a class="mui-navigate-right">
-									问题关闭
+									<%= Common.wtgb %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgz">
 								<a class="mui-navigate-right">
-									问题跟踪
+									<%= Common.wtgz %>
 								</a>
 							</li>
 						</ul>
