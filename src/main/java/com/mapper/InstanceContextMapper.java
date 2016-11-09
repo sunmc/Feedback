@@ -21,5 +21,6 @@ public interface InstanceContextMapper {
     
     void updateOrderNumber(String schema, String ymd, int order);
     
-    public final static String schemaCode = "XMWTGL";
+    InstanceContext selectByBizobjectid(String bizobjectid);
+    
 }

@@ -13,6 +13,7 @@
     <result column="Owner" property="owner" jdbcType="CHAR" />
     <result column="PostCode" property="postcode" jdbcType="VARCHAR" />
     <result column="PostName" property="postname" jdbcType="VARCHAR" />
+    <association property="user" select="selectUser" column="Owner" javaType="com.bean.User"/>  
   </resultMap>
   <insert id="insert" parameterType="com.bean.Post" >
     insert into FB_Post (ObjectId, ParentObjectId, CreateTime, 
@@ -102,5 +103,8 @@
   </select>
   <select id="getPostByCode" resultMap="BaseResultMap">
   	select * from FB_Post where PostCode = #{0}
+  </select>
+  <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
+  	select * from FB_User where ObjectId = #{0}
   </select>
 </mapper>

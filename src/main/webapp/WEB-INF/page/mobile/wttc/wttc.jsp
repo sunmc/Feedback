@@ -177,7 +177,7 @@
 			<h1 class="mui-title">问题提交</h1>
 		</header>
 		<div class="mui-content" >
-			<form action="/Feedback/wttc/submit.do" method="post">
+			<form id="wtform" action="/Feedback/wttc/submit.do" method="post">
 				<div class="mui-content-padded" style="margin: 5px;">
 					<div class="mui-input-row mui-search">
 						<input id="search" type="search" class="mui-input-clear" placeholder="搜索项目" onclick="showHint()" onblur="hideHint()" onkeyup="searchXM(this.value)">
@@ -188,7 +188,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="mui-input-group" style="margin: 0 0 0 0;">
+					<div class="mui-input-group required" style="margin: 0 0 0 0;">
 						<div class="mui-input-row">
 							<label>项目编号</label>
 							<input id="xmbh" name="xmbh" type="text" class="mui-input-clear" placeholder="项目编号">
@@ -205,12 +205,16 @@
 							<label>项目阶段</label>
 							<input id="xmjd" name="xmjd" type="text" class="mui-input-clear" placeholder="项目阶段">
 						</div>
+						<div class="mui-input-row" style="height:auto">
+							<label >要求完成日期</label>
+							<input type="date" id="yqwcsj" name="yqwcsj" class=" mui-btn-block">
+						</div> 
 						<div class="mui-input-row mui-input-range">
 							<label>紧急程度</label>
 			            	<input id='jjcd' name="jjcd" type="range"  value="1" min="1" max="3" >
 			        	</div>
 			        </div>
-					<div class="mui-input-group" style="margin: 10px 0 0 0;">
+					<div class="mui-input-group required" style="margin: 10px 0 0 0;">
 						<div class="mui-input-row">
 							<label>部套名称</label>
 							<input id="btmc" name="btmc" type="text" class="mui-input-clear" placeholder="部套名称">
@@ -224,15 +228,16 @@
 							<input id="wlbm" name="wlbm" type="text" class="mui-input-clear" placeholder="物料编码">
 						</div>
 					</div>
-					<div class="mui-input-row" style="margin: 5px 0 0 0;">
+					<div class="mui-input-row required" style="margin: 5px 0 0 0;">
 						<div class="mui-inline">问题描述</div>
 						<textarea id="wtms" name="wtms" rows="5" placeholder="请详细描述你的问题..."></textarea>
 					</div>
 					<div class="mui-inline">图片(选填,提供问题截图,总大小10M以下)</div>
-					<div class="row image-list">
+					<div class="">
 						<div id='image-list'>			
 							<img id='addImg' src='/Feedback/resource/images/add.png' class="image-item"  onclick="add()" />
 						</div>
+						
 					</div>
 					<!-- <div class="mui-inline">
 						<label>视频/语音</label>
@@ -244,13 +249,11 @@
 				<div id="img-tc" class="mui-input-row mui-plus-visible">
 					<input id="wtmstpf" name="wtmstpf" type="file" onchange="setImg(this)">
 					<input id="wtmsspf" name="wtmsspf" type="file" onchange="setSP(this)">
-					<input id="WTTP1" name="wttp1" type="text">
-					<input id="WTTP2" name="wttp2" type="text">
-					<input id="WTSP" name="wtsp" type="text">
+					<input id="wtsp" name="wtsp" type="text">
+					<input id="wttp" name="wttp" type="text">
 				</div>
 				<div class="mui-button-row">
-					<input type="submit" class="mui-btn mui-btn-primary" >&nbsp;&nbsp;
-					<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+					<input type="submit" class="mui-btn mui-btn-primary" >
 				</div>
 			</form>
 		</div>
@@ -265,16 +268,41 @@
 			});
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();
+			$(document).ready(function(){
+				$("form").submit(function(event){
+					var check = true;
+					var invalid;
+					mui(".required input").each(function() {
+						if (!this.value || this.value.trim() == "") {
+							invalid = this.id;
+							check = false;
+						}
+					}); 
+					mui(".required textarea").each(function() {
+						if (!this.value || this.value.trim() == "") {
+							invalid = this.id;
+							check = false;
+						}
+					});
+					if(!check){
+						var text = $("#" + invalid).prev().text();
+						alert("[" + text + "]不能为空!");
+					}
+					//设置图片信息
+					setImgInput();
+					return check;
+				});
+			});
 			var imgid = 1;
 			function add(){
 				//图片数量
 				var count = $("#image-list").children().size();
-				if(count > 2){
-					mui.alert('只能选择两张图片', '提示', function() {
+				if(count > 9){
+					mui.alert('最多只能选择9张图片', '提示', function() {
 						//info.innerText = '你刚关闭了警告框';
 					});
 					return null;
-				}
+				} 
 			    return	document.getElementById('wtmstpf').click();
 			}
 			function setImg(img){
@@ -290,8 +318,8 @@
 		         xhr.onload = function () {
 		        	 var data = JSON.parse(this.response);
 		        	 var imgsrc = "<div class='image-item' id='img"+ ++imgid+"'>"+
-		        	 					"<img src='/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
-		        	 					"<a href='#' class='image-close' onclick='removeImg(\"img"+ imgid+"\")'>X</div>"+
+		        	 					"<img src='/Feedback/resource/images/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
+		        	 					"<a href='#' class='image-close' onclick='removeImg(\"img"+ imgid+"\")'>X</a>"+
 		        	 			  "</div>";
 		        	 var checkbox = $(imgsrc).appendTo($("#image-list"));
 		        	 $("#WTTP"+imgid).val('/'+data.data);
@@ -306,9 +334,16 @@
 				$("#WTTP"+imgid).val('');
 				img = "#"+img;
 				$(img).remove();
-				/* if($("#image-list").children().get(1).id == img){
-					
-				} */
+			}
+			function setImgInput(){
+				var count = $("#image-list").children().size();
+				var imgpaths = "";
+				for(var i = 1; i < count; i++){
+					var divid = $("#image-list").children().get(i).id;
+					var src = $("#" + divid).children().get(0).src;
+					imgpaths = imgpaths + src + ";";
+				}
+				$("#wttp").val(imgpaths);
 			}
 			function setSP(sp){
 				
@@ -361,6 +396,7 @@
 				$('#cpmc').val(cpmc);
 				$('#xmjd').val(xmjd);
 			}
+			
 		</script>
 	</body>
 

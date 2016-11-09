@@ -23,6 +23,12 @@
     from FB_InstanceContext
     where ObjectId = #{objectid,jdbcType=CHAR}
   </select>
+  <select id="selectByBizobjectid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FB_InstanceContext
+    where BizObjectId = #{bizobjectid,jdbcType=CHAR}
+  </select> 
   <select id="getID" resultType="java.lang.String">
   	select newid()
   </select>

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.User;
 import com.service.IUserService;
+import com.util.Base64Util;
 import com.util.bean.Result;
 
 @Controller
@@ -29,6 +30,14 @@ public class UserController {
 			if(res.isFlag()){
 				User user = res.getData();
 				session.setAttribute("user", user);
+				if(session.getAttribute("url") != null){
+					String url = session.getAttribute("url").toString();	
+					if(url.length() > 0 && !url.contains("login")){
+						url = Base64Util.getFromBase64(url);
+						return new ModelAndView("redirect:" + url);
+					}
+				}
+				
 				return new ModelAndView("/mobile/wtcx/wtcx");
 			}
 		}
@@ -48,7 +57,9 @@ public class UserController {
 		return new ModelAndView("mobile/contact");
 	}
 	@RequestMapping("login")
-	public ModelAndView login(){
+	public ModelAndView login(String url, HttpSession session){
+		url = Base64Util.getBase64(url);
+		session.setAttribute("url", url);
 		return new ModelAndView("mobile/login");
 	}
 }

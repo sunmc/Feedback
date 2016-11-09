@@ -1,5 +1,10 @@
 package com.util.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bean.Wtdata;
+
 public class Common {
 
 	public final static String title = "项目质量问题管理"; 
@@ -21,4 +26,5 @@ public class Common {
 	public final static String wtgz = "问题跟踪";
 	
 	public final static String lb = "列表";
+	
 }

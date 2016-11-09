@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.util.bean.Common" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html class="feedback">
 
@@ -174,7 +176,6 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title"><%= Common.wtjj %></h1>
 		</header>
 		<div class="mui-content" >
@@ -190,135 +191,98 @@
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
 							<label>客户名称</label>
-							<input name="khmc" type="text"  readonly="readonly" value="元丰">
+							<input name="khmc" type="text"  readonly="readonly" value="${project.khmc}">
 						</div>
 						<div class="mui-input-row">
 							<label>产品名称</label>
-							<input name="cpmc" type="text" readonly="readonly" value="全钢大两鼓">
+							<input name="cpmc" type="text" readonly="readonly" value="${project.cpmc }">
 						</div>
 						<div class="mui-input-row">
 							<label>项目阶段</label>
-							<input name="xmjd" type="text" readonly="readonly" value="厂内调试">
+							<input name="xmjd" type="text" readonly="readonly" value="${project.xmjd }">
 						</div>
 						<div class="mui-input-row">
 							<label>部套名称</label>
-							<input name="btmc" type="text" readonly="readonly" value="后压车">
+							<input name="btmc" type="text" readonly="readonly" value="${project.btmc }">
 						</div>
+						<div class="mui-input-row" style="height:auto">
+							<label >要求完成日期</label>
+							<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.yqwcsj }" />
+						</div> 
+						<div class="mui-input-row mui-input-range">
+							<label>紧急程度</label>
+			            	<input name="jjcd" type="range"  value="${project.jjcd }" min="1" max="3" readonly="readonly" >
+			        	</div>
 						<div class="mui-input-row">
 							<label>图号</label>
-							<input name="wtjth" type="text" readonly="readonly" value="">
+							<input name="wtjth" type="text" readonly="readonly" value="${project.wtjth }">
 						</div>
 						<div class="mui-input-row">
 							<label>物料编码</label>
-							<input name="wlbm" type="text" readonly="readonly" value="">
+							<input name="wlbm" type="text" readonly="readonly" value="${project.wlbm }">
 						</div>
 						<div class="mui-input-row">
 							<div class="mui-inline">问题描述</div>
-							<textarea name="wtms" rows="5" readonly="readonly">反包臂气缸快插需换成快插节流</textarea>
+							<textarea name="wtms" rows="5" readonly="readonly">${project.wtms }</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
 							<div class="mui-inline">图片</div>
 							<div class="row image-list">
 								<div id='image-list'>
-									<img src="/Feedback/resource/images/shuijiao.jpg" class="image-item" data-preview-src=''  data-preview-group='1' >						
-									<img src="/Feedback/resource/images/shuijiao.jpg" class="image-item" data-preview-src=''  data-preview-group='1' >
-								</div>
+									<c:forEach items="${project.wttps}" var="tppath">
+								      <img src="${tppath.downloadurl}" class="image-item" data-preview-src=''  data-preview-group='1' >
+								    </c:forEach>
+								</div> 
 							</div>
 						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">问题受理信息</a>
+					<a class="mui-navigate-right" href="#">问题判定信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
 							<label>责任类别</label>
-							<label>调试</label>
+							<input name="zrlb" type="text" readonly="readonly" value="${project.zrlb }">
 						</div>
 						<div class="mui-input-row">
 							<label>问题类别</label>
-							<label>其他</label>
-						</div>
-						<div class="mui-input-row">
-							<label>要求日期</label>
-							<input name="yqrq" type="text" readonly="readonly" value="2016-10-11">
+							<input name="wtlb" type="text" readonly="readonly" value="${project.wtlb }">
 						</div>
 						<div class="mui-input-row">
 							<label>责任人</label>
-							<input name="zrr" type="text" readonly="readonly" value="张三">
+							<input name="uzrr.xm" type="text" readonly="readonly" value="${project.uzrr.xm }">
 						</div>
 					</div>
 				</li>
-			</ul>
-			<div class="mui-inline">问题分析</div>
-			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
 				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">非BOM物料计划流程</a>
-					<div class="mui-collapse-content">
-							<div class="mui-input-row">
-								<label>流水号</label>
-								<input type="text" id="lsh" value="OPM20.08.30-201610170002" readonly="readonly">
-							</div>
-							<div class="mui-input-row">
-								<label>流程状态</label>
-								<input type="text" id="lczt" value="进行中" readonly="readonly">
-							</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">图纸变更流程</a>
-					<div class="mui-collapse-content">
-						<div class="mui-input-group" style="margin: 10px 0 0 0;">
-							<div class="mui-input-row">
-								<label>单据号</label>
-								<input type="text" id="lsh" value="123456789" readonly="readonly">
-							</div>
-							<div class="mui-input-row">
-								<label>执行状态</label>
-								<input type="text" id="zxzt" value="进行中" readonly="readonly">
-							</div>
-							<div class="mui-input-row">
-								<label>承诺日期</label>
-								<input type="date" id="cnrq" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
-							</div>
-							<div class="mui-input-row">
-								<label>实际日期</label>
-								<input type="date" id="sjqi" class=" mui-btn-block" value="2016-10-29" readonly="readonly">
-							</div>
-							<div class="mui-input-row">
-								<label>变更情况</label>
-								<input type="text" id="bgqk" class=" mui-btn-block" value="进行中" readonly="readonly">
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
-				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">原因及方案</a>
+					<a class="mui-navigate-right" href="#">问题原因及方案</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
 							<div class="mui-inline">原因分析</div>
-							<textarea name="yyfx" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
+							<textarea name="yyfx" rows="5" readonly="readonly">${project.yyfx }</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
 							<div class="mui-inline">处理方案</div>
-							<textarea name="clfa" rows="5" readonly="readonly">客户现场确定位置后固定</textarea>
+							<textarea name="clfa" rows="5" readonly="readonly">${project.clfa }</textarea>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div class="mui-input-row">
-				<div class="mui-inline">工作计划</div>
-				<textarea name="yyfx" rows="3" readonly="readonly">客户现场确定后加螺纹</textarea>
+			<div class="mui-input-row mui-input-range">
+				<label>工作进度</label>
+				<input name="gzjd" type="range"  value="0" min="0" max="100" >
 			</div>
 			<div class="mui-input-row">
 				<div class="mui-inline">工作内容</div>
-				<textarea name="yyfx" rows="3" placeholder="请详细描述您本次的工作内容..."></textarea>
+				<textarea id="gznr" name="gznr" rows="3" placeholder="请详细描述您本次的工作内容..."></textarea>
 			</div>
 			
 			<div class="mui-button-row">
-				<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
-				<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+				<input type="submit" class="mui-btn mui-btn-primary" value="提交">
+			</div>
+			<div hidden="hidden">
+				<input type="text"  name="objectid" value="${project.objectid }">
+				<input type="text" id="error" value="${error} ">
 			</div>
 		</div>
 				
@@ -337,7 +301,32 @@
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
 			$(document).ready(function(){
-				
+				var error = $("#error").val();
+				if(error != null && error.trim().length > 0){
+					alert(error);
+				}
+				//form提交验证
+				$("form").submit(function(event){
+					var check = true;
+					var invalid;
+					mui(".required input").each(function() {
+						if (!this.value || this.value.trim() == "") {
+							invalid = this.id;
+							check = false;
+						}
+					}); 
+					mui(".required textarea").each(function() {
+						if (!this.value || this.value.trim() == "") {
+							invalid = this.id;
+							check = false;
+						}
+					});
+					if(!check){
+						var text = $("#" + invalid).prev().text();
+						alert("[" + text + "]不能为空!");
+					}
+					return check;
+				});
 			});
 			function search(textid){
 				var picker = new mui.PopPicker(); 
@@ -366,6 +355,42 @@
 					}
 				});
 				
+			}
+			var i=0;
+			function addPlan(){
+				i++;
+				$("#cs").append('<li id=cs'+i+' class="mui-table-view-cell mui-collapse">'+
+						'<a class="mui-navigate-right" href="#">措施'+i+'</a>'+
+						'<div class="mui-collapse-content">'+
+							'<div class="mui-input-group">'+
+								'<div class="mui-inline">工作内容</div>'+
+								'<textarea name="clfa" rows="5" placeholder="请详细描述工作内容..."></textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>责任人</label>'+
+									'<input type="text" id="zrr'+i+'" class=" mui-btn-block" onchange="search(this.id)">'+
+								'</div>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>时间计划</label>'+
+									'<input type="date" id="sjjh'+i+'" class=" mui-btn-block">'+
+								'</div>'+
+							'</div>'+
+							'<div id="jj'+i+'" class="mui-input-group">'+
+								'<div class="mui-inline">解决问题</div>'+
+								'<textarea name="clfa" rows="5" placeholder="请详细描述工作内容..."></textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>完成时间</label>'+
+									'<input type="date" id="wcsj'+i+'" class="mui-btn-block">'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</li>');
+			}
+			function delPlan(){
+				if(i==0){
+					return;
+				}
+				$('#cs' + i).remove();
+				--i;
 			}
 		</script>
 	</body>

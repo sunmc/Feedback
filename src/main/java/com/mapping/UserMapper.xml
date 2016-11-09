@@ -32,6 +32,12 @@
     from FB_User
     where ObjectId = #{objectid,jdbcType=CHAR}
   </select>
+  <select id="search" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  	select 
+  	<include refid="Base_Column_List" />
+    from FB_User
+    where XM like #{0} or ZH like #{0}
+  </select>
   <select id="loginValidate" resultMap="BaseResultMap" >
   	select
   	<include refid="Base_Column_List" />

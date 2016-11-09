@@ -40,6 +40,8 @@ public class User {
     private String tx;
 
     private String passwd;
+    
+    private String workItemId;
 
     public String getObjectid() {
         return objectid;
@@ -192,4 +194,12 @@ public class User {
     public void setPasswd(String passwd) {
         this.passwd = passwd == null ? null : passwd.trim();
     }
+
+	public String getWorkItemId() {
+		return workItemId;
+	}
+
+	public void setWorkItemId(String workItemId) {
+		this.workItemId = workItemId;
+	}
 }

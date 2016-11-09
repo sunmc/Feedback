@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ProjectIssueManageMapper" >
+  <resultMap id="projectIssueManage" type="com.bean.ProjectIssueManage" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
+    <result column="XH" property="xh" jdbcType="INTEGER" />
+    <result column="TBRQ" property="tbrq" jdbcType="TIMESTAMP" />
+    <result column="KHMC" property="khmc" jdbcType="VARCHAR" />
+    <result column="CPMC" property="cpmc" jdbcType="VARCHAR" />
+    <result column="XMBH" property="xmbh" jdbcType="VARCHAR" />
+    <result column="TBR" property="tbr" jdbcType="CHAR" />
+    <result column="XMJD" property="xmjd" jdbcType="VARCHAR" />
+    <result column="JJCD" property="jjcd" jdbcType="CHAR" />
+    <result column="BTMC" property="btmc" jdbcType="VARCHAR" />
+    <result column="WTJTH" property="wtjth" jdbcType="VARCHAR" />
+    <result column="WLBM" property="wlbm" jdbcType="VARCHAR" />
+    <result column="WTMS" property="wtms" jdbcType="VARCHAR" />
+    <result column="WTTP" property="wttp" jdbcType="VARCHAR" />
+    <result column="WTVedio" property="wtvedio" jdbcType="VARCHAR" />
+    <result column="ZRLB" property="zrlb" jdbcType="CHAR" />
+    <result column="WTLB" property="wtlb" jdbcType="VARCHAR" />
+    <result column="YYFX" property="yyfx" jdbcType="VARCHAR" />
+    <result column="CLFA" property="clfa" jdbcType="VARCHAR" />
+    <result column="ZRR" property="zrr" jdbcType="CHAR" />
+    <result column="FAZXR" property="fazxr" jdbcType="CHAR" />
+    <result column="YQWCSJ" property="yqwcsj" jdbcType="TIMESTAMP" />
+    <result column="SJWCSJ" property="sjwcsj" jdbcType="TIMESTAMP" />
+    <result column="WCQK" property="wcqk" jdbcType="CHAR" />
+    <result column="LSJDH" property="lsjdh" jdbcType="VARCHAR" />
+    <result column="SFBGTZ" property="sfbgtz" jdbcType="CHAR" />
+    <result column="TZBGZRR" property="tzbgzrr" jdbcType="CHAR" />
+    <result column="SJCNBGSJ" property="sjcnbgsj" jdbcType="TIMESTAMP" />
+    <result column="SJTZBGSJ" property="sjtzbgsj" jdbcType="TIMESTAMP" />
+    <result column="SJTZBGDH" property="sjtzbgdh" jdbcType="VARCHAR" />
+    <result column="BGWCQK" property="bgwcqk" jdbcType="CHAR" />
+    <result column="CPJX" property="cpjx" jdbcType="VARCHAR" />
+    <result column="WTSFCFFS" property="wtsfcffs" jdbcType="CHAR" />
+    <result column="SJQD" property="sjqd" jdbcType="VARCHAR" />
+    <result column="WTS" property="wts" jdbcType="INTEGER" />
+    <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+    <association property="uzrr" select="selectUser" column="zrr" javaType="com.bean.User" ></association>
+    <association property="ufazxr" select="selectUser" column="fazxr" javaType="com.bean.User" ></association>
+    <association property="utzbgzrr" select="selectUser" column="tzbgzrr" javaType="com.bean.User" ></association>
+    <collection property="implementations" select="selectImplementationByParentId" column="ObjectId" ofType="com.mapper.ImplementationMapper.BaseResultMap"></collection>
+    <collection property="wttps" select="selectWttpByParentId" column="ObjectId" ofType="com.mapper.AttachmentMapper.BaseResultMap"></collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, DeleteFlag, 
+    XH, TBRQ, KHMC, CPMC, XMBH, TBR, XMJD, JJCD, BTMC, WTJTH, WLBM, WTMS, WTTP, WTVedio, 
+    ZRLB, WTLB, YYFX, CLFA, ZRR, FAZXR, YQWCSJ, SJWCSJ, WCQK, LSJDH, SFBGTZ, TZBGZRR, 
+    SJCNBGSJ, SJTZBGSJ, SJTZBGDH, BGWCQK, CPJX, WTSFCFFS, SJQD, WTS, BZ
+  </sql>
+  <select id="selectImplementationByParentId" resultMap="com.mapper.ImplementationMapper.BaseResultMap" parameterType="java.lang.String" >
+  	select * 
+  	from I_Implementation
+  	where ParentObjectId = #{0}
+  </select>
+  <select id="selectWttpByParentId" resultMap="com.mapper.AttachmentMapper.BaseResultMap" parameterType="java.lang.String">
+  	select *
+  	from FB_Attachment
+  	where parentObjectId = #{0}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="projectIssueManage" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_ProjectIssueManage
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from I_ProjectIssueManage
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.ProjectIssueManage" >
+    insert into I_ProjectIssueManage (ObjectId, ParentObjectId, CreateBy, 
+      CreateTime, UpdateBy, UpdateTime, 
+      State, DeleteFlag, XH, 
+      TBRQ, KHMC, CPMC, 
+      XMBH, TBR, XMJD, JJCD, 
+      BTMC, WTJTH, WLBM, 
+      WTMS, WTTP, WTVedio, 
+      ZRLB, WTLB, YYFX, CLFA, 
+      ZRR, FAZXR, YQWCSJ, SJWCSJ, 
+      WCQK, LSJDH, SFBGTZ, TZBGZRR, 
+      SJCNBGSJ, SJTZBGSJ, SJTZBGDH, 
+      BGWCQK, CPJX, WTSFCFFS, SJQD, 
+      WTS,GZJD, BZ)
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createby,jdbcType=CHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, #{xh,jdbcType=INTEGER}, 
+      #{tbrq,jdbcType=TIMESTAMP}, #{khmc,jdbcType=VARCHAR}, #{cpmc,jdbcType=VARCHAR}, 
+      #{xmbh,jdbcType=VARCHAR}, #{tbr,jdbcType=CHAR}, #{xmjd,jdbcType=VARCHAR}, #{jjcd,jdbcType=CHAR}, 
+      #{btmc,jdbcType=VARCHAR}, #{wtjth,jdbcType=VARCHAR}, #{wlbm,jdbcType=VARCHAR}, 
+      #{wtms,jdbcType=VARCHAR}, #{wttp,jdbcType=VARCHAR}, #{wtvedio,jdbcType=VARCHAR}, 
+      #{zrlb,jdbcType=CHAR}, #{wtlb,jdbcType=VARCHAR}, #{yyfx,jdbcType=VARCHAR}, #{clfa,jdbcType=VARCHAR}, 
+      #{zrr,jdbcType=CHAR}, #{fazxr,jdbcType=CHAR}, #{yqwcsj,jdbcType=TIMESTAMP}, #{sjwcsj,jdbcType=TIMESTAMP}, 
+      #{wcqk,jdbcType=CHAR}, #{lsjdh,jdbcType=VARCHAR}, #{sfbgtz,jdbcType=CHAR}, #{tzbgzrr,jdbcType=CHAR}, 
+      #{sjcnbgsj,jdbcType=TIMESTAMP}, #{sjtzbgsj,jdbcType=TIMESTAMP}, #{sjtzbgdh,jdbcType=VARCHAR}, 
+      #{bgwcqk,jdbcType=CHAR}, #{cpjx,jdbcType=VARCHAR}, #{wtsfcffs,jdbcType=CHAR}, #{sjqd,jdbcType=VARCHAR}, 
+      #{wts,jdbcType=INTEGER}, #{gzjd,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR});
+      <!-- 插入图片 -->
+      <if test="wttps != null" >
+	      
+	     	<foreach item="item" index="index" collection="wttps" > 
+	     	insert into FB_Attachment          
+		       ([ObjectId]
+		           ,[ParentObjectId]
+		           ,[CreateTime]
+		           ,[CreateBy]
+		           ,[UpdateTime]
+		           ,[UpdateBy]
+		           ,[BizSchemaCode]
+		           ,[DataField]
+		           ,[ContentType]
+		           ,[ContentLength]
+		           ,[FileName]
+		           ,[StoragePath]
+		           ,[StorageFileName]
+		           ,[DownloadUrl])
+		     		VALUES  
+			        (#{wttps[${index}].objectid},
+			        #{wttps[${index}].parentobjectid},
+			        #{wttps[${index}].createtime},
+			        #{wttps[${index}].createby},
+			        #{wttps[${index}].updatetime},
+			        #{wttps[${index}].updateby},
+			        #{wttps[${index}].bizschemacode},
+			        #{wttps[${index}].datafield},
+			        #{wttps[${index}].contenttype},
+			        #{wttps[${index}].contentlength},
+			        #{wttps[${index}].filename},
+			        #{wttps[${index}].storagepath},
+			        #{wttps[${index}].storagefilename},
+			        #{wttps[${index}].downloadurl})  ;
+	    	</foreach>
+	    </if>
+  </insert>
+  <insert id="insertImplementation" parameterType="com.bean.ProjectIssueManage" >
+  	<if test="wttps != null" >
+     	<foreach item="item" index="index" collection="implementations" > 
+     	insert into I_Implementation          
+	       ([ObjectId]
+	           ,[ParentObjectId]
+	           ,[CreateTime]
+	           ,[CreateBy]
+	           ,[UpdateTime]
+	           ,[UpdateBy]
+	           ,[State]
+	           ,[DeleteFlag]
+	           ,[JJCS]
+	           ,[JJCSZRR]
+	           ,[JJCSJHWCSJ]
+	           ,[JJCSJJWT]
+	           ,[JJCSWCSJ])
+	     		VALUES  
+		        (#{implementations[${index}].objectid},
+		        #{implementations[${index}].parentobjectid},
+		        #{implementations[${index}].createtime},
+		        #{implementations[${index}].createby},
+		        #{implementations[${index}].updatetime},
+		        #{implementations[${index}].updateby},
+		        #{implementations[${index}].state},
+		        #{implementations[${index}].deleteflag},
+		        #{implementations[${index}].jjcs},
+		        #{implementations[${index}].jjcszrr},
+		        #{implementations[${index}].jjcsjhwcsj},
+		        #{implementations[${index}].jjcsjjwt},
+		        #{implementations[${index}].jjcswcsj})  ;
+    	</foreach>
+    </if>
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.ProjectIssueManage" >
+    insert into I_ProjectIssueManage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag,
+      </if>
+      <if test="xh != null" >
+        XH,
+      </if>
+      <if test="tbrq != null" >
+        TBRQ,
+      </if>
+      <if test="khmc != null" >
+        KHMC,
+      </if>
+      <if test="cpmc != null" >
+        CPMC,
+      </if>
+      <if test="xmbh != null" >
+        XMBH,
+      </if>
+      <if test="tbr != null" >
+        TBR,
+      </if>
+      <if test="xmjd != null" >
+        XMJD,
+      </if>
+      <if test="jjcd != null" >
+        JJCD,
+      </if>
+      <if test="btmc != null" >
+        BTMC,
+      </if>
+      <if test="wtjth != null" >
+        WTJTH,
+      </if>
+      <if test="wlbm != null" >
+        WLBM,
+      </if>
+      <if test="wtms != null" >
+        WTMS,
+      </if>
+      <if test="wttp != null" >
+        WTTP,
+      </if>
+      <if test="wtvedio != null" >
+        WTVedio,
+      </if>
+      <if test="zrlb != null" >
+        ZRLB,
+      </if>
+      <if test="wtlb != null" >
+        WTLB,
+      </if>
+      <if test="yyfx != null" >
+        YYFX,
+      </if>
+      <if test="clfa != null" >
+        CLFA,
+      </if>
+      <if test="zrr != null" >
+        ZRR,
+      </if>
+      <if test="fazxr != null" >
+        FAZXR,
+      </if>
+      <if test="yqwcsj != null" >
+        YQWCSJ,
+      </if>
+      <if test="sjwcsj != null" >
+        SJWCSJ,
+      </if>
+      <if test="wcqk != null" >
+        WCQK,
+      </if>
+      <if test="lsjdh != null" >
+        LSJDH,
+      </if>
+      <if test="sfbgtz != null" >
+        SFBGTZ,
+      </if>
+      <if test="tzbgzrr != null" >
+        TZBGZRR,
+      </if>
+      <if test="sjcnbgsj != null" >
+        SJCNBGSJ,
+      </if>
+      <if test="sjtzbgsj != null" >
+        SJTZBGSJ,
+      </if>
+      <if test="sjtzbgdh != null" >
+        SJTZBGDH,
+      </if>
+      <if test="bgwcqk != null" >
+        BGWCQK,
+      </if>
+      <if test="cpjx != null" >
+        CPJX,
+      </if>
+      <if test="wtsfcffs != null" >
+        WTSFCFFS,
+      </if>
+      <if test="sjqd != null" >
+        SJQD,
+      </if>
+      <if test="wts != null" >
+        WTS,
+      </if>
+      <if test="gzjd != null" >
+        GZJD,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="xh != null" >
+        #{xh,jdbcType=INTEGER},
+      </if>
+      <if test="tbrq != null" >
+        #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="khmc != null" >
+        #{khmc,jdbcType=VARCHAR},
+      </if>
+      <if test="cpmc != null" >
+        #{cpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xmbh != null" >
+        #{xmbh,jdbcType=VARCHAR},
+      </if>
+      <if test="tbr != null" >
+        #{tbr,jdbcType=CHAR},
+      </if>
+      <if test="xmjd != null" >
+        #{xmjd,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcd != null" >
+        #{jjcd,jdbcType=CHAR},
+      </if>
+      <if test="btmc != null" >
+        #{btmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtjth != null" >
+        #{wtjth,jdbcType=VARCHAR},
+      </if>
+      <if test="wlbm != null" >
+        #{wlbm,jdbcType=VARCHAR},
+      </if>
+      <if test="wtms != null" >
+        #{wtms,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp != null" >
+        #{wttp,jdbcType=VARCHAR},
+      </if>
+      <if test="wtvedio != null" >
+        #{wtvedio,jdbcType=VARCHAR},
+      </if>
+      <if test="zrlb != null" >
+        #{zrlb,jdbcType=CHAR},
+      </if>
+      <if test="wtlb != null" >
+        #{wtlb,jdbcType=VARCHAR},
+      </if>
+      <if test="yyfx != null" >
+        #{yyfx,jdbcType=VARCHAR},
+      </if>
+      <if test="clfa != null" >
+        #{clfa,jdbcType=VARCHAR},
+      </if>
+      <if test="zrr != null" >
+        #{zrr,jdbcType=CHAR},
+      </if>
+      <if test="fazxr != null" >
+        #{fazxr,jdbcType=CHAR},
+      </if>
+      <if test="yqwcsj != null" >
+        #{yqwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjwcsj != null" >
+        #{sjwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcqk != null" >
+        #{wcqk,jdbcType=CHAR},
+      </if>
+      <if test="lsjdh != null" >
+        #{lsjdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfbgtz != null" >
+        #{sfbgtz,jdbcType=CHAR},
+      </if>
+      <if test="tzbgzrr != null" >
+        #{tzbgzrr,jdbcType=CHAR},
+      </if>
+      <if test="sjcnbgsj != null" >
+        #{sjcnbgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjtzbgsj != null" >
+        #{sjtzbgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjtzbgdh != null" >
+        #{sjtzbgdh,jdbcType=VARCHAR},
+      </if>
+      <if test="bgwcqk != null" >
+        #{bgwcqk,jdbcType=CHAR},
+      </if>
+      <if test="cpjx != null" >
+        #{cpjx,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsfcffs != null" >
+        #{wtsfcffs,jdbcType=CHAR},
+      </if>
+      <if test="sjqd != null" >
+        #{sjqd,jdbcType=VARCHAR},
+      </if>
+      <if test="wts != null" >
+        #{wts,jdbcType=INTEGER},
+      </if>
+      <if test="gzjd != null" >
+       #{gzjd,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.ProjectIssueManage" >
+    update I_ProjectIssueManage
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UpdateBy = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="xh != null" >
+        XH = #{xh,jdbcType=INTEGER},
+      </if>
+      <if test="tbrq != null" >
+        TBRQ = #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="khmc != null" >
+        KHMC = #{khmc,jdbcType=VARCHAR},
+      </if>
+      <if test="cpmc != null" >
+        CPMC = #{cpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xmbh != null" >
+        XMBH = #{xmbh,jdbcType=VARCHAR},
+      </if>
+      <if test="tbr != null" >
+        TBR = #{tbr,jdbcType=CHAR},
+      </if>
+      <if test="xmjd != null" >
+        XMJD = #{xmjd,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcd != null" >
+        JJCD = #{jjcd,jdbcType=CHAR},
+      </if>
+      <if test="btmc != null" >
+        BTMC = #{btmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtjth != null" >
+        WTJTH = #{wtjth,jdbcType=VARCHAR},
+      </if>
+      <if test="wlbm != null" >
+        WLBM = #{wlbm,jdbcType=VARCHAR},
+      </if>
+      <if test="wtms != null" >
+        WTMS = #{wtms,jdbcType=VARCHAR},
+      </if>
+      <if test="wttp != null" >
+        WTTP = #{wttp,jdbcType=VARCHAR},
+      </if>
+      <if test="wtvedio != null" >
+        WTVedio = #{wtvedio,jdbcType=VARCHAR},
+      </if>
+      <if test="zrlb != null" >
+        ZRLB = #{zrlb,jdbcType=CHAR},
+      </if>
+      <if test="wtlb != null" >
+        WTLB = #{wtlb,jdbcType=VARCHAR},
+      </if>
+      <if test="yyfx != null" >
+        YYFX = #{yyfx,jdbcType=VARCHAR},
+      </if>
+      <if test="clfa != null" >
+        CLFA = #{clfa,jdbcType=VARCHAR},
+      </if>
+      <if test="zrr != null" >
+        ZRR = #{zrr,jdbcType=CHAR},
+      </if>
+      <if test="fazxr != null" >
+        FAZXR = #{fazxr,jdbcType=CHAR},
+      </if>
+      <if test="yqwcsj != null" >
+        YQWCSJ = #{yqwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjwcsj != null" >
+        SJWCSJ = #{sjwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcqk != null" >
+        WCQK = #{wcqk,jdbcType=CHAR},
+      </if>
+      <if test="lsjdh != null" >
+        LSJDH = #{lsjdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfbgtz != null" >
+        SFBGTZ = #{sfbgtz,jdbcType=CHAR},
+      </if>
+      <if test="tzbgzrr != null" >
+        TZBGZRR = #{tzbgzrr,jdbcType=CHAR},
+      </if>
+      <if test="sjcnbgsj != null" >
+        SJCNBGSJ = #{sjcnbgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjtzbgsj != null" >
+        SJTZBGSJ = #{sjtzbgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjtzbgdh != null" >
+        SJTZBGDH = #{sjtzbgdh,jdbcType=VARCHAR},
+      </if>
+      <if test="bgwcqk != null" >
+        BGWCQK = #{bgwcqk,jdbcType=CHAR},
+      </if>
+      <if test="cpjx != null" >
+        CPJX = #{cpjx,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsfcffs != null" >
+        WTSFCFFS = #{wtsfcffs,jdbcType=CHAR},
+      </if>
+      <if test="sjqd != null" >
+        SJQD = #{sjqd,jdbcType=VARCHAR},
+      </if>
+      <if test="wts != null" >
+        WTS = #{wts,jdbcType=INTEGER},
+      </if>
+      <if test="gzjd != null" >
+        GZJD = #{gzjd,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.ProjectIssueManage" >
+    update I_ProjectIssueManage
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      CreateBy = #{createby,jdbcType=CHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UpdateBy = #{updateby,jdbcType=CHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=INTEGER},
+      DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      XH = #{xh,jdbcType=INTEGER},
+      TBRQ = #{tbrq,jdbcType=TIMESTAMP},
+      KHMC = #{khmc,jdbcType=VARCHAR},
+      CPMC = #{cpmc,jdbcType=VARCHAR},
+      XMBH = #{xmbh,jdbcType=VARCHAR},
+      TBR = #{tbr,jdbcType=CHAR},
+      XMJD = #{xmjd,jdbcType=VARCHAR},
+      JJCD = #{jjcd,jdbcType=CHAR},
+      BTMC = #{btmc,jdbcType=VARCHAR},
+      WTJTH = #{wtjth,jdbcType=VARCHAR},
+      WLBM = #{wlbm,jdbcType=VARCHAR},
+      WTMS = #{wtms,jdbcType=VARCHAR},
+      WTTP = #{wttp,jdbcType=VARCHAR},
+      WTVedio = #{wtvedio,jdbcType=VARCHAR},
+      ZRLB = #{zrlb,jdbcType=CHAR},
+      WTLB = #{wtlb,jdbcType=VARCHAR},
+      YYFX = #{yyfx,jdbcType=VARCHAR},
+      CLFA = #{clfa,jdbcType=VARCHAR},
+      ZRR = #{zrr,jdbcType=CHAR},
+      FAZXR = #{fazxr,jdbcType=CHAR},
+      YQWCSJ = #{yqwcsj,jdbcType=TIMESTAMP},
+      SJWCSJ = #{sjwcsj,jdbcType=TIMESTAMP},
+      WCQK = #{wcqk,jdbcType=CHAR},
+      LSJDH = #{lsjdh,jdbcType=VARCHAR},
+      SFBGTZ = #{sfbgtz,jdbcType=CHAR},
+      TZBGZRR = #{tzbgzrr,jdbcType=CHAR},
+      SJCNBGSJ = #{sjcnbgsj,jdbcType=TIMESTAMP},
+      SJTZBGSJ = #{sjtzbgsj,jdbcType=TIMESTAMP},
+      SJTZBGDH = #{sjtzbgdh,jdbcType=VARCHAR},
+      BGWCQK = #{bgwcqk,jdbcType=CHAR},
+      CPJX = #{cpjx,jdbcType=VARCHAR},
+      WTSFCFFS = #{wtsfcffs,jdbcType=CHAR},
+      SJQD = #{sjqd,jdbcType=VARCHAR},
+      WTS = #{wts,jdbcType=INTEGER},
+      GZJD = #{gzjd,jdbcType=INTEGER},
+      BZ = #{bz,jdbcType=VARCHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
+  	select * from FB_User where ObjectId = #{0}
+  </select>
+</mapper>

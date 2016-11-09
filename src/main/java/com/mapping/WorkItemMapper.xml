@@ -35,6 +35,64 @@
     delete from FB_WorkItem
     where ObjectId = #{objectid,jdbcType=CHAR}
   </delete>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.bean.WorkItem">
+  	select
+  	<include refid="Base_Column_List" />
+    from FB_WorkItem
+    <where>
+		  <if test="objectid != null">
+			AND ObjectId = #{objectid,jdbcType=CHAR}
+		  </if>
+		  <if test="bizobjectid != null" >
+	        AND BizObjectId = #{bizobjectid,jdbcType=CHAR}
+	      </if>
+	      <if test="bizobjectschemacode != null" >
+	        AND BizObjectSchemaCode = #{bizobjectschemacode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="activitycode != null" >
+	        AND ActivityCode = #{activitycode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="activityname != null" >
+	        AND ActivityName = #{activityname,jdbcType=VARCHAR}
+	      </if>
+	      <if test="originator != null" >
+	        AND Originator = #{originator,jdbcType=CHAR}
+	      </if>
+	      <if test="receiver != null" >
+	        AND Receiver = #{receiver,jdbcType=CHAR}
+	      </if>
+	      <if test="sender != null" >
+	        AND Sender = #{sender,jdbcType=CHAR}
+	      </if>
+	      <if test="finisher != null" >
+	        AND Finisher = #{finisher,jdbcType=CHAR}
+	      </if>
+	      <if test="receivetime != null" >
+	        AND ReceiveTime = #{receivetime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="starttime != null" >
+	        AND StartTime = #{starttime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="finishtime != null" >
+	        AND FinishTime = #{finishtime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="createtime != null" >
+	        AND CreateTime = #{createtime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="updatetime != null" >
+	        AND UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="state != null" >
+	        AND State = #{state,jdbcType=INTEGER}
+	      </if>
+	      <if test="eitherorall != null" >
+	        AND EitherOrAll = #{eitherorall,jdbcType=INTEGER}
+	      </if>
+	      <if test="instanceid != null" >
+	        AND InstanceId = #{instanceid,jdbcType=CHAR}
+	      </if>
+	</where>
+  </select>
   <insert id="insert" parameterType="com.bean.WorkItem" >
     insert into FB_WorkItem (ObjectId, BizObjectId, BizObjectSchemaCode, 
       ActivityCode, ActivityName, Originator, 
@@ -211,6 +269,54 @@
       </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByBizCode" parameterType="com.bean.WorkItem" >
+	  	update FB_WorkItem
+	    <set >
+	      <if test="bizobjectid != null" >
+	        BizObjectId = #{bizobjectid,jdbcType=CHAR},
+	      </if>
+	      <if test="bizobjectschemacode != null" >
+	        BizObjectSchemaCode = #{bizobjectschemacode,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="activitycode != null" >
+	        ActivityCode = #{activitycode,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="activityname != null" >
+	        ActivityName = #{activityname,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="originator != null" >
+	        Originator = #{originator,jdbcType=CHAR},
+	      </if>
+	      <if test="receiver != null" >
+	        Receiver = #{receiver,jdbcType=CHAR},
+	      </if>
+	      <if test="sender != null" >
+	        Sender = #{sender,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="finisher != null" >
+	        Finisher = #{finisher,jdbcType=NCHAR},
+	      </if>
+	      <if test="receivetime != null" >
+	        ReceiveTime = #{receivetime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="starttime != null" >
+	        StartTime = #{starttime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="finishtime != null" >
+	        FinishTime = #{finishtime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="createtime != null" >
+	        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updatetime != null" >
+	        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="state != null" >
+	        State = #{state,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where ActivityCode = #{activitycode,jdbcType=NVARCHAR} and BizObjectId = #{bizobjectid,jdbcType=CHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bean.WorkItem" >
     update FB_WorkItem

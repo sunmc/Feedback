@@ -1,5 +1,7 @@
 package com.mapper;
 
+import java.util.List;
+
 import com.bean.WorkItem;
 
 public interface WorkItemMapper {
@@ -14,4 +16,8 @@ public interface WorkItemMapper {
     int updateByPrimaryKeySelective(WorkItem record);
 
     int updateByPrimaryKey(WorkItem record);
+    
+    int updateByBizCode(WorkItem record);
+    
+    List<WorkItem> selectBySelective(WorkItem record);
 }

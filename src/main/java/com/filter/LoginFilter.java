@@ -78,7 +78,7 @@ public class LoginFilter implements Filter{
 			((HttpServletResponse)response).setHeader("Cache-Control", "no-store");  
 			((HttpServletResponse)response).setDateHeader("Expires", 0);  
 			((HttpServletResponse)response).setHeader("Prama", "no-cache");  
-			((HttpServletResponse)response).sendRedirect("/Feedback/User/login.do"); 
+			((HttpServletResponse)response).sendRedirect("/Feedback/User/login.do?url="+path); 
 		}else{
 			chain.doFilter(request, response);
 		}

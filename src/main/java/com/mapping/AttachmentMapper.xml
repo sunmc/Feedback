@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Attachment" >
+    <result column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="BizSchemaCode" property="bizschemacode" jdbcType="CHAR" />
+    <result column="DataField" property="datafield" jdbcType="CHAR" />
+    <result column="ContentType" property="contenttype" jdbcType="VARCHAR" />
+    <result column="ContentLength" property="contentlength" jdbcType="INTEGER" />
+    <result column="FileName" property="filename" jdbcType="NVARCHAR" />
+    <result column="StoragePath" property="storagepath" jdbcType="NVARCHAR" />
+    <result column="StorageFileName" property="storagefilename" jdbcType="NVARCHAR" />
+    <result column="DownloadUrl" property="downloadurl" jdbcType="NVARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bean.Attachment" >
+    insert into FB_Attachment (ObjectId, ParentObjectId, CreateTime, 
+      CreateBy, UpdateTime, UpdateBy, 
+      BizSchemaCode, DataField, ContentType, 
+      ContentLength, FileName, StoragePath, 
+      StorageFileName, DownloadUrl)
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
+      #{bizschemacode,jdbcType=CHAR}, #{datafield,jdbcType=CHAR}, #{contenttype,jdbcType=VARCHAR}, 
+      #{contentlength,jdbcType=INTEGER}, #{filename,jdbcType=NVARCHAR}, #{storagepath,jdbcType=NVARCHAR}, 
+      #{storagefilename,jdbcType=NVARCHAR}, #{downloadurl,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Attachment" >
+    insert into FB_Attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="bizschemacode != null" >
+        BizSchemaCode,
+      </if>
+      <if test="datafield != null" >
+        DataField,
+      </if>
+      <if test="contenttype != null" >
+        ContentType,
+      </if>
+      <if test="contentlength != null" >
+        ContentLength,
+      </if>
+      <if test="filename != null" >
+        FileName,
+      </if>
+      <if test="storagepath != null" >
+        StoragePath,
+      </if>
+      <if test="storagefilename != null" >
+        StorageFileName,
+      </if>
+      <if test="downloadurl != null" >
+        DownloadUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="bizschemacode != null" >
+        #{bizschemacode,jdbcType=CHAR},
+      </if>
+      <if test="datafield != null" >
+        #{datafield,jdbcType=CHAR},
+      </if>
+      <if test="contenttype != null" >
+        #{contenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="contentlength != null" >
+        #{contentlength,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=NVARCHAR},
+      </if>
+      <if test="storagepath != null" >
+        #{storagepath,jdbcType=NVARCHAR},
+      </if>
+      <if test="storagefilename != null" >
+        #{storagefilename,jdbcType=NVARCHAR},
+      </if>
+      <if test="downloadurl != null" >
+        #{downloadurl,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

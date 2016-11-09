@@ -1,23 +1,26 @@
 package com.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.ProjectIssueManage;
 import com.bean.User;
-import com.bean.WTTC;
-import com.qq.weixin.mp.aes.WXService;
-import com.qq.weixin.mp.aes.bean.UserInfo;
-import com.service.IWTTCService;
+import com.service.IProjectIssueManageService;
 import com.util.bean.Result;
 
 @Controller
@@ -25,31 +28,27 @@ import com.util.bean.Result;
 public class WTTCController {
 
 	@Autowired
-	private IWTTCService wttcService;
+	private IProjectIssueManageService projectService;
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping
 	public ModelAndView index(String code, String state,HttpSession session){
-		log.debug(code + "----" + state);
-		log.debug(WXService.token);
-		UserInfo ui = WXService.getUserInfo("sunmc");
-		UserInfo user = (UserInfo)session.getAttribute(ui.userid);
-		if(user == null){
-			user = WXService.getUserInfo(ui.userid);
-			session.setAttribute(ui.userid, user);
-		}
-		log.debug(ui.toString());
+		
 		ModelAndView mv = new ModelAndView("mobile/wttc/wttc");
 		return mv;
 	}
 	@RequestMapping("submit")
-	public ModelAndView submit(WTTC wttc, HttpSession session){
+	public ModelAndView submit(ProjectIssueManage project, HttpSession session){
 		User user = (User)session.getAttribute("user");
-		Result<WTTC> res = wttcService.insert(wttc, user);
+		Result<ProjectIssueManage> res = projectService.insert(project, user);
 		return null;
 	}
 	
-	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	@RequestMapping(value = "upload", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")  
 	public Result<String> uploadFile(MultipartFile file){
 		Result<String> res = new Result<String>();

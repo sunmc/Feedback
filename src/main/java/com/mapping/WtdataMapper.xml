@@ -32,6 +32,12 @@
     from I_WTData
     where BelongTo = #{belongTo,jdbcType=CHAR} and DeleteFlag = 0
   </select>
+  <select id="selectByFlagValue"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from I_WTData
+    where BelongTo = #{0} and value = #{1} and DeleteFlag = 0
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from I_WTData
     where ObjectId = #{objectid,jdbcType=CHAR}

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ImplementationMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Implementation" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="DeteleteFlag" property="deteleteflag" jdbcType="INTEGER" />
+    <result column="JJCS" property="jjcs" jdbcType="VARCHAR" />
+    <result column="JJCSZRR" property="jjcszrr" jdbcType="CHAR" />
+    <result column="JJCSJHWCSJ" property="jjcsjhwcsj" jdbcType="TIMESTAMP" />
+    <result column="JJCSJJWT" property="jjcsjjwt" jdbcType="VARCHAR" />
+    <result column="JJCSWCSJ" property="jjcswcsj" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, CreateTime, CreateBy, UpdateTime, UpdateBy, State, DeteleteFlag, 
+    JJCS, JJCSZRR, JJCSJHWCSJ, JJCSJJWT, JJCSWCSJ
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_Implementation
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from I_Implementation
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.Implementation" >
+    insert into I_Implementation (ObjectId, ParentObjectId, CreateTime, 
+      CreateBy, UpdateTime, UpdateBy, 
+      State, DeteleteFlag, JJCS, 
+      JJCSZRR, JJCSJHWCSJ, JJCSJJWT, 
+      JJCSWCSJ)
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
+      #{state,jdbcType=INTEGER}, #{deteleteflag,jdbcType=INTEGER}, #{jjcs,jdbcType=VARCHAR}, 
+      #{jjcszrr,jdbcType=CHAR}, #{jjcsjhwcsj,jdbcType=TIMESTAMP}, #{jjcsjjwt,jdbcType=VARCHAR}, 
+      #{jjcswcsj,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Implementation" >
+    insert into I_Implementation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="deteleteflag != null" >
+        DeteleteFlag,
+      </if>
+      <if test="jjcs != null" >
+        JJCS,
+      </if>
+      <if test="jjcszrr != null" >
+        JJCSZRR,
+      </if>
+      <if test="jjcsjhwcsj != null" >
+        JJCSJHWCSJ,
+      </if>
+      <if test="jjcsjjwt != null" >
+        JJCSJJWT,
+      </if>
+      <if test="jjcswcsj != null" >
+        JJCSWCSJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deteleteflag != null" >
+        #{deteleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="jjcs != null" >
+        #{jjcs,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcszrr != null" >
+        #{jjcszrr,jdbcType=CHAR},
+      </if>
+      <if test="jjcsjhwcsj != null" >
+        #{jjcsjhwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jjcsjjwt != null" >
+        #{jjcsjjwt,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcswcsj != null" >
+        #{jjcswcsj,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Implementation" >
+    update I_Implementation
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UpdateBy = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="deteleteflag != null" >
+        DeteleteFlag = #{deteleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="jjcs != null" >
+        JJCS = #{jjcs,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcszrr != null" >
+        JJCSZRR = #{jjcszrr,jdbcType=CHAR},
+      </if>
+      <if test="jjcsjhwcsj != null" >
+        JJCSJHWCSJ = #{jjcsjhwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jjcsjjwt != null" >
+        JJCSJJWT = #{jjcsjjwt,jdbcType=VARCHAR},
+      </if>
+      <if test="jjcswcsj != null" >
+        JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Implementation" >
+    update I_Implementation
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      CreateBy = #{createby,jdbcType=CHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      UpdateBy = #{updateby,jdbcType=CHAR},
+      State = #{state,jdbcType=INTEGER},
+      DeteleteFlag = #{deteleteflag,jdbcType=INTEGER},
+      JJCS = #{jjcs,jdbcType=VARCHAR},
+      JJCSZRR = #{jjcszrr,jdbcType=CHAR},
+      JJCSJHWCSJ = #{jjcsjhwcsj,jdbcType=TIMESTAMP},
+      JJCSJJWT = #{jjcsjjwt,jdbcType=VARCHAR},
+      JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

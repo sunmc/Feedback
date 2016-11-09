@@ -24,7 +24,9 @@ public class Post {
     private String postcode;
 
     private String postname;
-
+    
+    private User user;
+    
     public String getObjectid() {
         return objectid;
     }
@@ -112,4 +114,12 @@ public class Post {
     public void setPostname(String postname) {
         this.postname = postname == null ? null : postname.trim();
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
