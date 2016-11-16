@@ -15,7 +15,7 @@ import com.util.bean.Result;
 
 @Controller
 @RequestMapping("wtdata")
-public class WtdataController {
+public class WtdataController  extends BaseController{
 
 	@Autowired
 	private IWtdataService wtdataService;

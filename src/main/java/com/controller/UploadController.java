@@ -13,7 +13,7 @@ import com.util.bean.Result;
 
 @Controller
 @RequestMapping("/upload")
-public class UploadController {
+public class UploadController  extends BaseController{
 
 	// 上传文件
 	@ResponseBody

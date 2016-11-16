@@ -1,6 +1,10 @@
 package com.mapper;
 
+import java.util.List;
+
+import com.bean.Implementation;
 import com.bean.ProjectIssueManage;
+import com.bean.ProjectListItem;
 
 public interface ProjectIssueManageMapper {
     int deleteByPrimaryKey(String objectid);
@@ -16,4 +20,10 @@ public interface ProjectIssueManageMapper {
     int updateByPrimaryKey(ProjectIssueManage record);
     
     int insertImplementation(ProjectIssueManage record);
+    
+    List<Implementation> selectImplementationByParentId(String parentid);
+    
+    List<ProjectListItem> selectTaskByUserAndActivity(String activity, String userid, int state);
+    
+    List<ProjectListItem> searchPli(ProjectListItem record);
 }

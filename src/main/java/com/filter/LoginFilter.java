@@ -1,6 +1,7 @@
 package com.filter;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -42,6 +43,7 @@ public class LoginFilter implements Filter{
 		
 		//如果是登录则不拦截
 		String path = ((HttpServletRequest) request).getServletPath();
+		String params = ((HttpServletRequest) request).getQueryString(); 
 		if(excludedPages.indexOf(path) >=0){
 			chain.doFilter(request, response);
 			return;
@@ -78,7 +80,7 @@ public class LoginFilter implements Filter{
 			((HttpServletResponse)response).setHeader("Cache-Control", "no-store");  
 			((HttpServletResponse)response).setDateHeader("Expires", 0);  
 			((HttpServletResponse)response).setHeader("Prama", "no-cache");  
-			((HttpServletResponse)response).sendRedirect("/Feedback/User/login.do?url="+path); 
+			((HttpServletResponse)response).sendRedirect("/Feedback/User/login.do?url="+URLEncoder.encode(path + "?" + params)); 
 		}else{
 			chain.doFilter(request, response);
 		}

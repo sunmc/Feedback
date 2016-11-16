@@ -6,11 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("common")
-public class CommonController {
+public class CommonController  extends BaseController{
 
 	@RequestMapping()
 	public ModelAndView index(){
-		return new ModelAndView("mobile/wtgz/wtgzlist");
+		return new ModelAndView("mobile/a6wtgz/wtgzlist");
 	}
 	
 	

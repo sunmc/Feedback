@@ -26,9 +26,9 @@
 						
 						<div class="title" style="margin-bottom: 25px;" ><%= Common.mllb %></div>
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-							<li class="mui-table-view-cell" id="wtsl">
+							<li class="mui-table-view-cell" id="wtpd">
 								<a class="mui-navigate-right">
-									<%= Common.wtsl %>
+									<%= Common.wtpd %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtfx">
@@ -36,12 +36,17 @@
 									<%= Common.wtfx %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtjj">
+							<li class="mui-table-view-cell" id="wtzg">
 								<a class="mui-navigate-right">
-									<%= Common.wtjj %>
+									<%= Common.wtzg %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtgb">
+							<li class="mui-table-view-cell" id="wtqr">
+								<a class="mui-navigate-right">
+									<%= Common.wtqr %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtgn">
 								<a class="mui-navigate-right">
 									<%= Common.wtgb %>
 								</a>
@@ -146,10 +151,10 @@
 					}
 				});
 			})
-			document.getElementById('wtsl').addEventListener('tap', function() {
+			document.getElementById('wtpd').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtsl.do',
-					id : 'wtsl',
+					url : '/Feedback/wtpd.do',
+					id : 'wtpd',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -170,10 +175,22 @@
 					}
 				});
 			})
-			document.getElementById('wtjj').addEventListener('tap', function() {
+			document.getElementById('wtzg').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtjj.do',
-					id : 'wtjj',
+					url : '/Feedback/wtzg.do',
+					id : 'wtzg',
+					show : {
+						aniShow : 'pop-in'
+					},
+					waiting : {
+						autoShow : false
+					}
+				});
+			})
+			document.getElementById('wtqr').addEventListener('tap', function() {
+				mui.openWindow({
+					url : '/Feedback/wtqr.do',
+					id : 'wtqr',
 					show : {
 						aniShow : 'pop-in'
 					},

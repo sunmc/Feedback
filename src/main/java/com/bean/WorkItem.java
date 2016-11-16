@@ -36,6 +36,8 @@ public class WorkItem {
     private Integer eitherorall;
 
     private String instanceid;
+    
+    private ProjectIssueManage projectIssueManage;
 
     public String getObjectid() {
         return objectid;
@@ -172,4 +174,13 @@ public class WorkItem {
     public void setInstanceid(String instanceid) {
         this.instanceid = instanceid == null ? null : instanceid.trim();
     }
+
+	public ProjectIssueManage getProjectIssueManage() {
+		return projectIssueManage;
+	}
+
+	public void setProjectIssueManage(ProjectIssueManage projectIssueManage) {
+		this.projectIssueManage = projectIssueManage;
+	}
+
 }

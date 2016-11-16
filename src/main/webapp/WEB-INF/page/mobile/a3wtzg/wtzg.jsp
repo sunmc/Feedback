@@ -176,14 +176,25 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title"><%= Common.wtsl %></h1>
+			<h1 class="mui-title"><%= Common.wtzg %></h1>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
 				<div class="mui-input-row">
+					<label>流水号</label>
+					<input type="text" readonly="readonly" value="${project.lsh }">
+				</div>
+				<div class="mui-input-row">
+					<label>发起人</label>
+					<input type="text" readonly="readonly" value="${project.fqr.xm }">
+				</div>
+				<div class="mui-input-row">
+					<label>发起时间</label>
+					<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.createtime }" />
+				</div>
+				<div class="mui-input-row">
 					<label>项目编号</label>
-					<input name="xmbh" type="text" readonly="readonly" value="${project.xmbh }">
+					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
 				</div>
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
@@ -238,41 +249,69 @@
 						</div>
 					</div>
 				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">问题判定信息</a>
+					<div class="mui-collapse-content">
+						<div class="mui-input-row">
+							<label>责任类别</label>
+							<input name="zrlb" type="text" readonly="readonly" value="${project.zrlb }">
+						</div>
+						<div class="mui-input-row">
+							<label>问题类别</label>
+							<input name="wtlb" type="text" readonly="readonly" value="${project.wtlb }">
+						</div>
+						<div class="mui-input-row">
+							<label>责任人</label>
+							<input name="uzrr.xm" type="text" readonly="readonly" value="${project.uzrr.xm }">
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">问题原因及方案</a>
+					<div class="mui-collapse-content">
+						<div class="mui-input-row" style="margin: 5px 0 0 0;">
+							<div class="mui-inline">原因分析</div>
+							<textarea name="yyfx" rows="5" readonly="readonly">${project.yyfx }</textarea>
+						</div>
+						<div class="mui-input-row" style="margin: 5px 0 0 0;">
+							<div class="mui-inline">处理方案</div>
+							<textarea name="clfa" rows="5" readonly="readonly">${project.clfa }</textarea>
+						</div>
+					</div>
+				</li>
 			</ul>
+			<form action="/Feedback/wtzg/submitzg.do" method="post">
+				<c:forEach items="${project.implementations}" var="implementation" varStatus="status">
+			      	<div hidden="hidden">
+			      		<input name="implementations[${status.index}].objectid" value="${implementation.objectid}">
+			      	</div>
+			      	<div class="mui-input-row">
+						<div class="mui-inline">工作任务</div>
+						<textarea  rows="3" readonly="readonly" >${implementation.jjcs}</textarea>
+					</div>
+			      	<div class="mui-input-row mui-input-range required">
+						<label>工作进度</label>
+						<input name="implementations[${status.index}].gzjd" type="range"  value="${implementation.gzjd}" min="0" max="100" >
+					</div>
+					<div class="mui-input-row required">
+						<div class="mui-inline">工作内容</div>
+						<textarea id="gznr" name="implementations[${status.index}].jjcsjjwt" rows="3" placeholder="请详细描述您本次的工作内容...">${implementation.jjcsjjwt}</textarea>
+					</div>
+			    </c:forEach>
 				
-			<div class="mui-content-padded" style="margin: 5px;">
-				<form action="/Feedback/wtsl/submit.do">
-				<div class="mui-inline">问题受理</div>
-				<div class="mui-input-group required">
-					<div class="mui-input-row">
-						<label>责任类别</label>
-						<select id="zrlb" name="zrlb" class=" mui-btn-block">
-							<option></option>
-						</select>
-					</div>
-					<div class="mui-input-row">
-						<label>问题类别</label>
-						<select id="wtlb" name="wtlb" class=" mui-btn-block">
-							<option></option>
-						</select>
-					</div>
-					<div class="mui-input-row">
-						<label>责任人</label>
-						<input type="text" id="zrrshow" class=" mui-btn-block" onchange="search(this.id)"> 
-					</div>
-				</div>
 				<div class="mui-button-row">
-					<input type="submit" class="mui-btn mui-btn-primary" value="提交" >
+					<input type="submit" class="mui-btn mui-btn-primary" value="提交">
 				</div>
 				<div hidden="hidden">
 					<input type="text"  name="objectid" value="${project.objectid }">
-					<input type="text" id="zrr" name="zrr" >
 				</div>
-				</form>
-			</div>
-				
+			</form>
+			
 		</div>
-		
+				
+		<div hidden="hidden">
+			<input type="text" id="error" value="${error} ">
+		</div>
 		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
@@ -287,40 +326,10 @@
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
 			$(document).ready(function(){
-				//加载责任类别选项
-				$.ajax({
-					url:url,
-					data:{belong:'责任类别'},
-					dataType:'json',
-					type: "post", 
-					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-					success:function(data){
-						if(data.flag){
-							var zrlbdata = data.data;
-							for(var i = 0; i < zrlbdata.length; i++){
-								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
-								$("#zrlb").append(option);
-							}
-						}
-					}
-				});
-				//加载问题类别选项
-				$.ajax({
-					url:url,
-					data:{belong:'问题类别'},
-					dataType:'json',
-					type: "post", 
-					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-					success:function(data){
-						if(data.flag){
-							var zrlbdata = data.data;
-							for(var i = 0; i < zrlbdata.length; i++){
-								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
-								$("#wtlb").append(option);
-							}
-						}
-					}
-				});
+				var error = $("#error").val();
+				if(error != null && error.trim().length > 0){
+					alert(error);
+				}
 				//form提交验证
 				$("form").submit(function(event){
 					var check = true;
@@ -344,7 +353,6 @@
 					return check;
 				});
 			});
-			
 			function search(textid){
 				var picker = new mui.PopPicker(); 
 				var dataselect = new Array();
@@ -361,18 +369,17 @@
 							for(var i = 0; i < sdata.length; i++){
 								var d = new Object();
 								d.value = sdata[i].objectid;
-								d.text = sdata[i].xm + "-" + sdata[i].zh;
+								d.text = sdata[i].name + "-" + sdata[i].code;
 								dataselect.push(d);
 							}
 							picker.setData(dataselect);
 							picker.show(function(items) {
 								document.getElementById(textid).value = items[0].text;
-								valueid = textid.substring(0,textid.indexOf("show"));
-								document.getElementById(valueid).value = items[0].value;
 							});
 						}
 					}
 				});
+				
 			}
 			var i=0;
 			function addPlan(){
@@ -381,8 +388,8 @@
 						'<a class="mui-navigate-right" href="#">措施'+i+'</a>'+
 						'<div class="mui-collapse-content">'+
 							'<div class="mui-input-group">'+
-								'<div class="mui-inline">解决措施</div>'+
-								'<textarea name="clfa" rows="5" placeholder="请详细描述解决措施..."></textarea>'+
+								'<div class="mui-inline">工作内容</div>'+
+								'<textarea name="clfa" rows="5" placeholder="请详细描述工作内容..."></textarea>'+
 								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
 									'<label>责任人</label>'+
 									'<input type="text" id="zrr'+i+'" class=" mui-btn-block" onchange="search(this.id)">'+
@@ -395,9 +402,9 @@
 							'<div id="jj'+i+'" class="mui-input-group">'+
 								'<div class="mui-inline">解决问题</div>'+
 								'<textarea name="clfa" rows="5" placeholder="请详细描述工作内容..."></textarea>'+
-								'<div class="mui-input-row  mui-input-range" style="margin: 5px 0 0 0;">'+
-									'<label>进度</label>'+
-									'<input type="range" name="" class="mui-btn-block">'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>完成时间</label>'+
+									'<input type="date" id="wcsj'+i+'" class="mui-btn-block">'+
 								'</div>'+
 							'</div>'+
 						'</div>'+

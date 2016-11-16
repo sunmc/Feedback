@@ -168,6 +168,7 @@
 				max-width: 100%;
 				height: auto;
 			}
+			
 		</style>
 	</head>
 
@@ -188,14 +189,18 @@
 							</ul>
 						</div>
 					</div>
-					<div class="mui-input-group required" style="margin: 0 0 0 0;">
-						<div class="mui-input-row">
-							<label>项目编号</label>
+					<div class="mui-input-group" style="margin: 0 0 0 0;">
+						<div class="mui-input-row required">
+							<label style="color: red;">项目编号</label>
 							<input id="xmbh" name="xmbh" type="text" class="mui-input-clear" placeholder="项目编号">
 						</div>
 						<div class="mui-input-row">
 							<label>客户名称</label>
 							<input id="khmc" name="khmc" type="text" class="mui-input-clear" placeholder="客户名称">
+						</div>
+						<div class="mui-input-row">
+							<label>项目名称</label>
+							<input id="xmmc" name="xmmc" type="text" class="mui-input-clear" placeholder="产品名称">
 						</div>
 						<div class="mui-input-row">
 							<label>产品名称</label>
@@ -205,18 +210,20 @@
 							<label>项目阶段</label>
 							<input id="xmjd" name="xmjd" type="text" class="mui-input-clear" placeholder="项目阶段">
 						</div>
-						<div class="mui-input-row" style="height:auto">
-							<label >要求完成日期</label>
-							<input type="date" id="yqwcsj" name="yqwcsj" class=" mui-btn-block">
-						</div> 
 						<div class="mui-input-row mui-input-range">
 							<label>紧急程度</label>
-			            	<input id='jjcd' name="jjcd" type="range"  value="1" min="1" max="3" >
+							<select id="jjcd" name="jjcd">
+								<option value="建议">建议</option>
+								<option value="轻微">轻微</option>
+								<option value="一般">一般</option>
+								<option value="紧急">紧急</option>
+								<option value="非常紧急">非常紧急</option>
+							</select>
 			        	</div>
 			        </div>
-					<div class="mui-input-group required" style="margin: 10px 0 0 0;">
-						<div class="mui-input-row">
-							<label>部套名称</label>
+					<div class="mui-input-group" style="margin: 10px 0 0 0;">
+						<div class="mui-input-row required">
+							<label style="color: red;">部套名称</label>
 							<input id="btmc" name="btmc" type="text" class="mui-input-clear" placeholder="部套名称">
 						</div>
 						<div class="mui-input-row">
@@ -229,7 +236,7 @@
 						</div>
 					</div>
 					<div class="mui-input-row required" style="margin: 5px 0 0 0;">
-						<div class="mui-inline">问题描述</div>
+						<div class="mui-inline" style="color: red;">问题描述</div>
 						<textarea id="wtms" name="wtms" rows="5" placeholder="请详细描述你的问题..."></textarea>
 					</div>
 					<div class="mui-inline">图片(选填,提供问题截图,总大小10M以下)</div>
@@ -318,7 +325,7 @@
 		         xhr.onload = function () {
 		        	 var data = JSON.parse(this.response);
 		        	 var imgsrc = "<div class='image-item' id='img"+ ++imgid+"'>"+
-		        	 					"<img src='/Feedback/resource/images/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
+		        	 					"<img src='/" + data.data + "' class='image-item' data-preview-src=''  data-preview-group='1' />"+
 		        	 					"<a href='#' class='image-close' onclick='removeImg(\"img"+ imgid+"\")'>X</a>"+
 		        	 			  "</div>";
 		        	 var checkbox = $(imgsrc).appendTo($("#image-list"));
@@ -395,6 +402,7 @@
 				$('#khmc').val(khmc);
 				$('#cpmc').val(cpmc);
 				$('#xmjd').val(xmjd);
+				$('#xmmc').val(cpmc);
 			}
 			
 		</script>

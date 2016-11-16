@@ -22,4 +22,6 @@ public interface UserMapper {
     User loginValidate(String code, String passwd);
     
     List<User> search(String text);
+    
+    List<User> selectByWorkItem(String bizobjectid, String activityCode);
 }

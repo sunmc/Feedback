@@ -32,6 +32,12 @@
     from FB_User
     where ObjectId = #{objectid,jdbcType=CHAR}
   </select>
+  <select id="selectByWorkItem" resultMap="BaseResultMap">
+  	select *
+  	from FB_User u
+  	inner join FB_WorkItem w on u.ObjectId = w.Finisher
+  	where w.BizObjectId = #{0} and w.ActivityCode = #{1} 
+  </select>
   <select id="search" resultMap="BaseResultMap"  parameterType="java.lang.String">
   	select 
   	<include refid="Base_Column_List" />

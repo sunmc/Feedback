@@ -176,11 +176,22 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title"><%= Common.wtfx %></h1>
+			<h1 class="mui-title"><%= Common.wtzg %></h1>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
+				<div class="mui-input-row">
+					<label>流水号</label>
+					<input type="text" readonly="readonly" value="${project.lsh }">
+				</div>
+				<div class="mui-input-row">
+					<label>发起人</label>
+					<input type="text" readonly="readonly" value="${project.fqr.xm }">
+				</div>
+				<div class="mui-input-row" style="line-height: 40px">
+					<label>发起时间</label>
+					<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.createtime }" />
+				</div>
 				<div class="mui-input-row">
 					<label>项目编号</label>
 					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
@@ -206,13 +217,13 @@
 							<label>部套名称</label>
 							<input name="btmc" type="text" readonly="readonly" value="${project.btmc }">
 						</div>
-						<div class="mui-input-row" style="height:auto">
+						<div class="mui-input-row" style="height:auto;line-height: 40px">
 							<label >要求完成日期</label>
 							<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.yqwcsj }" />
 						</div> 
 						<div class="mui-input-row mui-input-range">
 							<label>紧急程度</label>
-			            	<input name="jjcd" type="range"  value="${project.jjcd }" min="1" max="3" readonly="readonly" >
+			            	<input name="jjcd" type="text"  value="${project.jjcd }" readonly="readonly" >
 			        	</div>
 						<div class="mui-input-row">
 							<label>图号</label>
@@ -255,34 +266,50 @@
 						</div>
 					</div>
 				</li>
-			</ul>
-			<form action="/Feedback/wtfx/submit.do" method="post">
-				<div class="mui-content-padded required" style="margin: 5px;">
-					<div class="mui-inline">问题分析</div>
-					<div class="mui-input-group">
-						<div class="mui-inline">原因分析</div>
-						<textarea id="yyfx" name="yyfx" rows="3" placeholder="请详细分析问题原因..."></textarea>
-						<div class="mui-inline">处理方案</div>
-						<textarea id="clfa" name="clfa" rows="3" placeholder="请详细描述处理方案..."></textarea>
-						<div class="mui-inline">解决计划</div>
-						<div class="mui-input-row">
-							<label>执行人</label>
-							<input type="text" id="fazxrshow" class=" mui-btn-block" onchange="search(this.id)">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">问题原因及方案</a>
+					<div class="mui-collapse-content">
+						<div class="mui-input-row" style="margin: 5px 0 0 0;">
+							<div class="mui-inline">原因分析</div>
+							<textarea name="yyfx" rows="5" readonly="readonly">${project.yyfx }</textarea>
+						</div>
+						<div class="mui-input-row" style="margin: 5px 0 0 0;">
+							<div class="mui-inline">处理方案</div>
+							<textarea name="clfa" rows="5" readonly="readonly">${project.clfa }</textarea>
 						</div>
 					</div>
-				</div>
-				<div class="mui-button-row">
-					<input type="submit" class="mui-btn mui-btn-primary" value="提交">
-				</div>
-				<div hidden="hidden">
-					<input type="text"  name="objectid" value="${project.objectid }">
-					<input type="text" id="fazxr" name="fazxr" >
-					<input type="text" id="error" value="${error} ">
-				</div>
-			</form>
+				</li>
+			</ul>
+			<div class="required">
+			
+				<form action="/Feedback/wtzg/submitfp.do" method="post">
+					<div class="mui-input-row mui-input-range">
+						<label>工作进度</label>
+						<input name="gzjd" type="range"  value="0" min="0" max="100" >
+					</div>
+					<div class="mui-input-row">
+						<div class="mui-inline">工作内容</div>
+						<textarea id="implementations[0].jjcsjjwt" name="implementations[0].jjcsjjwt" rows="3" placeholder="请详细描述您本次的工作内容..."></textarea>
+					</div>
+					<div id="cs">
+					</div>
+					<div class="mui-button-row">
+						<input type="submit" class="mui-btn mui-btn-primary" value="提交">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="addPlan()">工作分派</button>
+					</div>
+					<div hidden="hidden">
+						<input type="text"  name="objectid" value="${project.objectid }">
+					</div>
+				</form>
+			</div>
+			<div hidden="hidden">
+				<input type="text" id="error" value="${error} ">				
+			</div>
+			
 		</div>
+				
 		
-		<script src="/Feedback/resource/js/jquery-3.0.0.js"></script>
+		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>
@@ -296,6 +323,10 @@
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
 			$(document).ready(function(){
+				var error = $("#error").val();
+				if(error != null && error.trim().length > 0){
+					alert(error);
+				}
 				//form提交验证
 				$("form").submit(function(event){
 					var check = true;
@@ -314,14 +345,24 @@
 					});
 					if(!check){
 						var text = $("#" + invalid).prev().text();
-						alert("[" + text + "]不能为空!");
+						if(!text){
+							var i = invalid.substring(invalid.indexOf("[") + 1, invalid.indexOf("]"));
+							i ++;
+							var name = invalid.substring(invalid.indexOf(".") + 1);
+							if(name.indexOf("jjcs") >= 0){
+								name = "工作任务";
+							}else if(name.indexOf("jjcszrrshow") >= 0){
+								name = "责任人";
+							}else if(name.indexOf("jjcsjhwcsj") >= 0){
+								name = "时间计划"
+							}
+							alert("第" + i  + "条指派内容,[" + name + "]不能为空");
+						}else{
+							alert("[" + text + "]不能为空!");
+						}
 					}
 					return check;
 				});
-				var error = $("#error").val();
-				if(error != null && error.trim().length > 0){
-					alert(error);
-				}
 			});
 			function search(textid){
 				var picker = new mui.PopPicker(); 
@@ -345,14 +386,39 @@
 							picker.setData(dataselect);
 							picker.show(function(items) {
 								document.getElementById(textid).value = items[0].text;
-								valueid = textid.substring(0,textid.indexOf("show"));
-								document.getElementById(valueid).value = items[0].value;
+								textid = textid.substring(0,textid.indexOf("show"));
+								document.getElementById(textid).value = items[0].value;
 							});
 						}
 					}
 				});
+				
 			}
-	</script>
+			var i=1;
+			function addPlan(){
+				$("#cs").append(
+							'<div class="mui-input-group required" id="cs'+i+'" >'+
+								'<a href="#" style="float:right;" onclick="delPlan(cs'+i+')">移除分派</a>'+
+								'<div id="123" class="mui-inline">工作任务</div>'+
+								'<textarea id="implementations['+i+'].jjcs" name="implementations['+i+'].jjcs" rows="5" placeholder="请详细描述任务内容..."></textarea>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>责任人</label>'+
+									'<input type="text" id="implementations['+i+'].jjcszrrshow" class="责任人 mui-btn-block" onchange="search(this.id)">'+
+								'</div>'+
+								'<div class="mui-input-row" style="margin: 5px 0 0 0;">'+
+									'<label>时间计划</label>'+
+									'<input type="date" id="implementations['+i+'].jjcsjhwcsj" name="implementations['+i+'].jjcsjhwcsj" class=" mui-btn-block">'+
+								'</div>'+
+								'<div hidden="hidden">'+
+									'<input type="text" id="implementations['+i+'].jjcszrr" name="implementations['+i+'].jjcszrr" class=" mui-btn-block" '+
+								'</div>'+
+							'</div>');
+				i++;
+			}
+			function delPlan(item){
+				item.remove();
+			}
+		</script>
 	</body>
 
 </html>

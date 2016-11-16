@@ -25,9 +25,9 @@
 						
 						<div class="title" style="margin-bottom: 25px;" ><%= Common.mllb %></div>
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-							<li class="mui-table-view-cell" id="wtsl">
+							<li class="mui-table-view-cell" id="wtpd">
 								<a class="mui-navigate-right">
-									<%= Common.wtsl %>
+									<%= Common.wtpd %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtfx">
@@ -35,9 +35,19 @@
 									<%= Common.wtfx %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtjj">
+							<li class="mui-table-view-cell" id="wtfp">
 								<a class="mui-navigate-right">
-									<%= Common.wtjj %>
+									<%= Common.wtfp %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtzg">
+								<a class="mui-navigate-right">
+									<%= Common.wtzg %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtqr">
+								<a class="mui-navigate-right">
+									<%= Common.wtqr %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgb">
@@ -141,7 +151,7 @@
 			document.getElementById('wttc').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wttc.do',
-					id : 'wtmx',
+					id : 'wttc',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -150,10 +160,10 @@
 					}
 				});
 			})
-			document.getElementById('wtsl').addEventListener('tap', function() {
+			document.getElementById('wtpd').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtsl.do',
-					id : 'wtmx',
+					url : '/Feedback/wtpd.do',
+					id : 'wtpd',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -165,7 +175,7 @@
 			document.getElementById('wtfx').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtfx.do',
-					id : 'wtmx',
+					id : 'wtfx',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -174,10 +184,34 @@
 					}
 				});
 			})
-			document.getElementById('wtjj').addEventListener('tap', function() {
+			document.getElementById('wtfp').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtjj.do',
-					id : 'wtmx',
+					url : '/Feedback/wtfp.do',
+					id : 'wtfp',
+					show : {
+						aniShow : 'pop-in'
+					},
+					waiting : {
+						autoShow : false
+					}
+				});
+			})
+			document.getElementById('wtzg').addEventListener('tap', function() {
+				mui.openWindow({
+					url : '/Feedback/wtzg.do',
+					id : 'wtzg',
+					show : {
+						aniShow : 'pop-in'
+					},
+					waiting : {
+						autoShow : false
+					}
+				});
+			})
+			document.getElementById('wtqr').addEventListener('tap', function() {
+				mui.openWindow({
+					url : '/Feedback/wtqr.do',
+					id : 'wtqr',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -189,7 +223,7 @@
 			document.getElementById('wtgb').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtgb.do',
-					id : 'wtmx',
+					id : 'wtgb',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -201,7 +235,7 @@
 			document.getElementById('wtgz').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtgz.do',
-					id : 'wtmx',
+					id : 'wtgz',
 					show : {
 						aniShow : 'pop-in'
 					},

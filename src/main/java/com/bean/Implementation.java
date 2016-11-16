@@ -17,7 +17,7 @@ public class Implementation {
 
     private Integer state;
 
-    private Integer deteleteflag;
+    private Integer deleteflag;
 
     private String jjcs;
 
@@ -28,6 +28,10 @@ public class Implementation {
     private String jjcsjjwt;
 
     private Date jjcswcsj;
+    
+    private Integer gzjd;
+    
+    private String zrrxm;
 
     public String getObjectid() {
         return objectid;
@@ -85,12 +89,12 @@ public class Implementation {
         this.state = state;
     }
 
-    public Integer getDeteleteflag() {
-        return deteleteflag;
+    public Integer getDeleteflag() {
+        return deleteflag;
     }
 
-    public void setDeteleteflag(Integer deteleteflag) {
-        this.deteleteflag = deteleteflag;
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
     }
 
     public String getJjcs() {
@@ -132,4 +136,20 @@ public class Implementation {
     public void setJjcswcsj(Date jjcswcsj) {
         this.jjcswcsj = jjcswcsj;
     }
+
+	public Integer getGzjd() {
+		return gzjd;
+	}
+
+	public void setGzjd(Integer gzjd) {
+		this.gzjd = gzjd;
+	}
+
+	public String getZrrxm() {
+		return zrrxm;
+	}
+
+	public void setZrrxm(String zrrxm) {
+		this.zrrxm = zrrxm;
+	}
 }

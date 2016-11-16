@@ -1,7 +1,10 @@
 package com;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.qq.weixin.mp.aes.WXService;
 import com.qq.weixin.mp.aes.bean.Articles;
@@ -22,8 +25,8 @@ public class CommonTest {
 //		nm.agentid = 27;
 //		String res = WXService.sendNewsMessage(nm);
 //		System.out.println(res);
-		String cpm = "S-2016070023";
-		cpm = cpm.substring(6,8);
-		System.out.println(cpm);
+		String url = "http://bpm.mesnac.com:8087/Feedback/wtjj/wtjj.do?objectid=32A6D13A-0AD5-4922-A875-EA3C781AED5A&workitemid=1429730F-0A3C-4567-A44F-14BC27BCAD3A";
+		url = URLEncoder.encode(url);
+		System.out.println(url);
 	}
 }

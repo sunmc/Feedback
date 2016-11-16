@@ -29,6 +29,7 @@
     <result column="YYFX" property="yyfx" jdbcType="VARCHAR" />
     <result column="CLFA" property="clfa" jdbcType="VARCHAR" />
     <result column="ZRR" property="zrr" jdbcType="CHAR" />
+    <result column="JHWCSJ" property="jhwcsj" jdbcType="TIMESTAMP" />
     <result column="FAZXR" property="fazxr" jdbcType="CHAR" />
     <result column="YQWCSJ" property="yqwcsj" jdbcType="TIMESTAMP" />
     <result column="SJWCSJ" property="sjwcsj" jdbcType="TIMESTAMP" />
@@ -46,22 +47,38 @@
     <result column="WTS" property="wts" jdbcType="INTEGER" />
     <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
     <result column="BZ" property="bz" jdbcType="VARCHAR" />
+    <result column="LSH" property="lsh" jdbcType="VARCHAR" />
+    <association property="fqr" select="selectUser" column="createby" javaType="com.bean.User" ></association>
     <association property="uzrr" select="selectUser" column="zrr" javaType="com.bean.User" ></association>
     <association property="ufazxr" select="selectUser" column="fazxr" javaType="com.bean.User" ></association>
     <association property="utzbgzrr" select="selectUser" column="tzbgzrr" javaType="com.bean.User" ></association>
     <collection property="implementations" select="selectImplementationByParentId" column="ObjectId" ofType="com.mapper.ImplementationMapper.BaseResultMap"></collection>
     <collection property="wttps" select="selectWttpByParentId" column="ObjectId" ofType="com.mapper.AttachmentMapper.BaseResultMap"></collection>
   </resultMap>
+  <resultMap type="com.bean.ProjectListItem" id="ProjectListItem">
+  	<result column="objectid" property="objectid" jdbcType="CHAR" />
+    <result column="bizobjectid" property="bicobjectid" jdbcType="CHAR" />
+    <result column="xmbh" property="xmbh" jdbcType="VARCHAR" />
+    <result column="wtms" property="wtms" jdbcType="VARCHAR" />
+    <result column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="fqrxm" property="fqrxm" jdbcType="VARCHAR" />
+    <result column="bizschemacode" property="bizschemacode" jdbcType="VARCHAR" />
+    <result column="activitycode" property="activitycode" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="yqwcsj" property="yqwcsj" jdbcType="TIMESTAMP" />
+    <result column="qrstate" property="qrstate" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, DeleteFlag, 
     XH, TBRQ, KHMC, CPMC, XMBH, TBR, XMJD, JJCD, BTMC, WTJTH, WLBM, WTMS, WTTP, WTVedio, 
     ZRLB, WTLB, YYFX, CLFA, ZRR, FAZXR, YQWCSJ, SJWCSJ, WCQK, LSJDH, SFBGTZ, TZBGZRR, 
-    SJCNBGSJ, SJTZBGSJ, SJTZBGDH, BGWCQK, CPJX, WTSFCFFS, SJQD, WTS, BZ
+    SJCNBGSJ, SJTZBGSJ, SJTZBGDH, BGWCQK, CPJX, WTSFCFFS, SJQD, WTS, BZ, GZJD, JHWCSJ, LSH
   </sql>
   <select id="selectImplementationByParentId" resultMap="com.mapper.ImplementationMapper.BaseResultMap" parameterType="java.lang.String" >
-  	select * 
-  	from I_Implementation
-  	where ParentObjectId = #{0}
+  	select a.*, b.XM ZRRXM 
+  	from I_Implementation a
+  	left join FB_User b on a.JJCSZRR = b.ObjectId
+  	where a.ParentObjectId = #{0}
   </select>
   <select id="selectWttpByParentId" resultMap="com.mapper.AttachmentMapper.BaseResultMap" parameterType="java.lang.String">
   	select *
@@ -91,7 +108,7 @@
       WCQK, LSJDH, SFBGTZ, TZBGZRR, 
       SJCNBGSJ, SJTZBGSJ, SJTZBGDH, 
       BGWCQK, CPJX, WTSFCFFS, SJQD, 
-      WTS,GZJD, BZ)
+      WTS,GZJD, BZ, JHWCSJ, LSH)
     values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createby,jdbcType=CHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, #{xh,jdbcType=INTEGER}, 
@@ -104,7 +121,7 @@
       #{wcqk,jdbcType=CHAR}, #{lsjdh,jdbcType=VARCHAR}, #{sfbgtz,jdbcType=CHAR}, #{tzbgzrr,jdbcType=CHAR}, 
       #{sjcnbgsj,jdbcType=TIMESTAMP}, #{sjtzbgsj,jdbcType=TIMESTAMP}, #{sjtzbgdh,jdbcType=VARCHAR}, 
       #{bgwcqk,jdbcType=CHAR}, #{cpjx,jdbcType=VARCHAR}, #{wtsfcffs,jdbcType=CHAR}, #{sjqd,jdbcType=VARCHAR}, 
-      #{wts,jdbcType=INTEGER}, #{gzjd,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR});
+      #{wts,jdbcType=INTEGER}, #{gzjd,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR}, #{jhwcsj,jdbcType=TIMESTAMP}, #{lsh,jdbcType=VARCHAR});
       <!-- 插入图片 -->
       <if test="wttps != null" >
 	      
@@ -143,7 +160,7 @@
 	    </if>
   </insert>
   <insert id="insertImplementation" parameterType="com.bean.ProjectIssueManage" >
-  	<if test="wttps != null" >
+  	<if test="implementations != null" >
      	<foreach item="item" index="index" collection="implementations" > 
      	insert into I_Implementation          
 	       ([ObjectId]
@@ -158,9 +175,10 @@
 	           ,[JJCSZRR]
 	           ,[JJCSJHWCSJ]
 	           ,[JJCSJJWT]
-	           ,[JJCSWCSJ])
+	           ,[JJCSWCSJ]
+	           ,[GZJD])
 	     		VALUES  
-		        (#{implementations[${index}].objectid},
+		        (newid(),
 		        #{implementations[${index}].parentobjectid},
 		        #{implementations[${index}].createtime},
 		        #{implementations[${index}].createby},
@@ -172,7 +190,8 @@
 		        #{implementations[${index}].jjcszrr},
 		        #{implementations[${index}].jjcsjhwcsj},
 		        #{implementations[${index}].jjcsjjwt},
-		        #{implementations[${index}].jjcswcsj})  ;
+		        #{implementations[${index}].jjcswcsj},
+		        #{implementations[${index}].gzjd})  ;
     	</foreach>
     </if>
   </insert>
@@ -311,6 +330,12 @@
       <if test="bz != null" >
         BZ,
       </if>
+      <if test="jhwcsj != null" >
+        JHWCSJ,
+      </if>
+      <if test="lsh != null" >
+        LSH,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="objectid != null" >
@@ -444,6 +469,12 @@
       </if>
       <if test="bz != null" >
         #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="jhwcsj != null" >
+       #{jhwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -579,6 +610,12 @@
       <if test="bz != null" >
         BZ = #{bz,jdbcType=VARCHAR},
       </if>
+       <if test="jhwcsj != null" >
+       JHWCSJ = #{jhwcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lsh != null" >
+        LSH = #{lsh,jdbcType=VARCHAR},
+      </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
@@ -626,10 +663,52 @@
       SJQD = #{sjqd,jdbcType=VARCHAR},
       WTS = #{wts,jdbcType=INTEGER},
       GZJD = #{gzjd,jdbcType=INTEGER},
+      JHWCSJ = #{jhwcsj,jdbcType=TIMESTAMP},
+      LSH = #{lsh,jdbcType=VARCHAR},
       BZ = #{bz,jdbcType=VARCHAR}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
   <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
   	select * from FB_User where ObjectId = #{0}
+  </select>
+  <select id="selectTaskByUserAndActivity" resultMap="ProjectListItem">
+  	select a.ObjectId objectid,c.ObjectId workitemid,a.XMBH xmbh,a.WTMS wtms, b.SequnceNo lsh, fqr.XM fqrxm, a.CreateTime createtime
+	from I_ProjectIssueManage a
+	inner join FB_InstanceContext b on a.ObjectId = b.BizObjectId 
+	inner join FB_WorkItem c on c.BizObjectId = a.ObjectId
+	inner join FB_User u on c.Receiver = u.ObjectId
+	inner join FB_User fqr on fqr.ObjectId = a.CreateBy
+	where c.ActivityCode =  #{0}  and c.Receiver = #{1}  and c.State = #{2}  
+  </select>  
+  <select id="searchPli" resultMap = "ProjectListItem"  parameterType="com.bean.ProjectListItem">
+  	  select a.ObjectId objectid,
+		a.XMBH xmbh,
+		a.WTMS wtms, 
+		b.SequnceNo lsh, 
+		fqr.XM fqrxm, 
+		a.CreateTime createtime,
+		a.YQWCSJ yqwcsj,
+		wi.State qrstate
+		from I_ProjectIssueManage a
+		inner join FB_InstanceContext b on a.ObjectId = b.BizObjectId 
+		inner join FB_User fqr on fqr.ObjectId = a.CreateBy
+		left join FB_WorkItem wi on wi.BizObjectId = a.ObjectId and wi.ActivityCode = 'WTGB' and wi.State = '3'
+		where 1=1
+	<if test="lsh != null" >
+        and b.SequnceNo like '%${lsh}%'
+    </if>
+    <if test="xmbh != null" >
+        and a.xmbh like  '%${xmbh}%'
+    </if>
+    <if test="wtlb != null" >
+        and a.wtlb like '%${wtlb}%'
+    </if>
+    <if test="createtimeStart != null" >
+        and a.createtime &gt;= #{createtimeStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createtimeEnd != null" >
+        and a.createtime &lt;= #{createtimeEnd,jdbcType=TIMESTAMP}
+    </if>
+	order by xmbh,lsh,a.JJCD
   </select>
 </mapper>

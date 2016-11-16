@@ -20,6 +20,72 @@
     <result column="EitherOrAll" property="eitherorall" jdbcType="INTEGER" />
     <result column="InstanceId" property="instanceid" jdbcType="CHAR" />
   </resultMap>
+  <resultMap id="WPMap" type="com.bean.WorkItem" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="BizObjectId" property="bizobjectid" jdbcType="CHAR" />
+    <result column="BizObjectSchemaCode" property="bizobjectschemacode" jdbcType="NVARCHAR" />
+    <result column="ActivityCode" property="activitycode" jdbcType="NVARCHAR" />
+    <result column="ActivityName" property="activityname" jdbcType="NVARCHAR" />
+    <result column="Originator" property="originator" jdbcType="CHAR" />
+    <result column="Receiver" property="receiver" jdbcType="CHAR" />
+    <result column="Sender" property="sender" jdbcType="NVARCHAR" />
+    <result column="Finisher" property="finisher" jdbcType="NCHAR" />
+    <result column="ReceiveTime" property="receivetime" jdbcType="TIMESTAMP" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="FinishTime" property="finishtime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="EitherOrAll" property="eitherorall" jdbcType="INTEGER" />
+    <result column="InstanceId" property="instanceid" jdbcType="CHAR" />
+    <association property="projectIssueManage" select="selectProjectIssueManage" column="bizobjectid" javaType="com.bean.ProjectIssueManage" ></association>
+  </resultMap>
+  <resultMap id="projectIssueManage" type="com.bean.ProjectIssueManage" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
+    <result column="XH" property="xh" jdbcType="INTEGER" />
+    <result column="TBRQ" property="tbrq" jdbcType="TIMESTAMP" />
+    <result column="KHMC" property="khmc" jdbcType="VARCHAR" />
+    <result column="CPMC" property="cpmc" jdbcType="VARCHAR" />
+    <result column="XMBH" property="xmbh" jdbcType="VARCHAR" />
+    <result column="TBR" property="tbr" jdbcType="CHAR" />
+    <result column="XMJD" property="xmjd" jdbcType="VARCHAR" />
+    <result column="JJCD" property="jjcd" jdbcType="CHAR" />
+    <result column="BTMC" property="btmc" jdbcType="VARCHAR" />
+    <result column="WTJTH" property="wtjth" jdbcType="VARCHAR" />
+    <result column="WLBM" property="wlbm" jdbcType="VARCHAR" />
+    <result column="WTMS" property="wtms" jdbcType="VARCHAR" />
+    <result column="WTTP" property="wttp" jdbcType="VARCHAR" />
+    <result column="WTVedio" property="wtvedio" jdbcType="VARCHAR" />
+    <result column="ZRLB" property="zrlb" jdbcType="CHAR" />
+    <result column="WTLB" property="wtlb" jdbcType="VARCHAR" />
+    <result column="YYFX" property="yyfx" jdbcType="VARCHAR" />
+    <result column="CLFA" property="clfa" jdbcType="VARCHAR" />
+    <result column="ZRR" property="zrr" jdbcType="CHAR" />
+    <result column="FAZXR" property="fazxr" jdbcType="CHAR" />
+    <result column="YQWCSJ" property="yqwcsj" jdbcType="TIMESTAMP" />
+    <result column="SJWCSJ" property="sjwcsj" jdbcType="TIMESTAMP" />
+    <result column="WCQK" property="wcqk" jdbcType="CHAR" />
+    <result column="LSJDH" property="lsjdh" jdbcType="VARCHAR" />
+    <result column="SFBGTZ" property="sfbgtz" jdbcType="CHAR" />
+    <result column="TZBGZRR" property="tzbgzrr" jdbcType="CHAR" />
+    <result column="SJCNBGSJ" property="sjcnbgsj" jdbcType="TIMESTAMP" />
+    <result column="SJTZBGSJ" property="sjtzbgsj" jdbcType="TIMESTAMP" />
+    <result column="SJTZBGDH" property="sjtzbgdh" jdbcType="VARCHAR" />
+    <result column="BGWCQK" property="bgwcqk" jdbcType="CHAR" />
+    <result column="CPJX" property="cpjx" jdbcType="VARCHAR" />
+    <result column="WTSFCFFS" property="wtsfcffs" jdbcType="CHAR" />
+    <result column="SJQD" property="sjqd" jdbcType="VARCHAR" />
+    <result column="WTS" property="wts" jdbcType="INTEGER" />
+    <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+    </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, BizObjectId, BizObjectSchemaCode, ActivityCode, ActivityName, Originator, 
     Receiver, Sender, Finisher, ReceiveTime, StartTime, FinishTime, CreateTime, UpdateTime, 
@@ -31,11 +97,15 @@
     from FB_WorkItem
     where ObjectId = #{objectid,jdbcType=CHAR}
   </select>
+  <select id="selectProjectIssueManage" resultMap="projectIssueManage">
+  	select *
+  	from I_ProjectIssueManage where objectid = #{0}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from FB_WorkItem
     where ObjectId = #{objectid,jdbcType=CHAR}
   </delete>
-  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.bean.WorkItem">
+  <select id="selectBySelective" resultMap="WPMap" parameterType="com.bean.WorkItem">
   	select
   	<include refid="Base_Column_List" />
     from FB_WorkItem
@@ -161,6 +231,7 @@
       <if test="instanceid != null" >
         InstanceId,
       </if>
+     
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="objectid != null" >
@@ -214,6 +285,7 @@
       <if test="instanceid != null" >
         #{instanceid,jdbcType=CHAR},
       </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.bean.WorkItem" >

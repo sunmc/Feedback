@@ -13,17 +13,23 @@ public class Common {
 	
 	public final static String wttc = "问题提出";
 	
-	public final static String wtsl = "问题判定";
+	public final static String wtpd = "问题判定";
 	
 	public final static String wtfx = "问题分析";
 	
-	public final static String wtjj = "问题整改";
+	public final static String wtfp = "问题分派";
+	
+	public final static String wtzg = "问题整改";
 	
 	public final static String wtgb = "问题关闭";
 	
 	public final static String wtcx = "问题查询";
 	
 	public final static String wtgz = "问题跟踪";
+	
+	public final static String wtqr = "问题确认";
+	
+	public final static String wtxx = "问题信息";
 	
 	public final static String lb = "列表";
 	

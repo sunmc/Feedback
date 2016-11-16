@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +18,7 @@ import com.util.bean.Result;
 
 @Controller
 @RequestMapping("User")
-public class UserController {
+public class UserController  extends BaseController{
 
 	@Autowired
 	private IUserService userService;
@@ -33,7 +34,7 @@ public class UserController {
 				if(session.getAttribute("url") != null){
 					String url = session.getAttribute("url").toString();	
 					if(url.length() > 0 && !url.contains("login")){
-						url = Base64Util.getFromBase64(url);
+						url = URLDecoder.decode(url);
 						return new ModelAndView("redirect:" + url);
 					}
 				}
@@ -58,8 +59,12 @@ public class UserController {
 	}
 	@RequestMapping("login")
 	public ModelAndView login(String url, HttpSession session){
-		url = Base64Util.getBase64(url);
 		session.setAttribute("url", url);
+		return new ModelAndView("mobile/login");
+	}
+	@RequestMapping("logout")
+	public ModelAndView logout(HttpSession session){
+		session.setAttribute("user", null);
 		return new ModelAndView("mobile/login");
 	}
 }

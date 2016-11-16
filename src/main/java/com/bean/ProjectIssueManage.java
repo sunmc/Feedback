@@ -12,6 +12,8 @@ public class ProjectIssueManage {
     private String parentobjectid;
 
     private String createby;
+    
+    private User fqr;
 
     private Date createtime;
 
@@ -63,6 +65,8 @@ public class ProjectIssueManage {
 
     private String zrr;
     
+    private Date jhwcsj;
+    
     private User uzrr;
 
     private String fazxr;
@@ -102,6 +106,8 @@ public class ProjectIssueManage {
     private Integer gzjd;
 
     private String bz;
+    
+    private String lsh;
     
     private List<Implementation> implementations;
 
@@ -532,5 +538,29 @@ public class ProjectIssueManage {
 
 	public void setGzjd(Integer gzjd) {
 		this.gzjd = gzjd;
+	}
+
+	public String getLsh() {
+		return lsh;
+	}
+
+	public void setLsh(String lsh) {
+		this.lsh = lsh;
+	}
+
+	public Date getJhwcsj() {
+		return jhwcsj;
+	}
+
+	public void setJhwcsj(Date jhwcsj) {
+		this.jhwcsj = jhwcsj;
+	}
+
+	public User getFqr() {
+		return fqr;
+	}
+
+	public void setFqr(User fqr) {
+		this.fqr = fqr;
 	}
 }

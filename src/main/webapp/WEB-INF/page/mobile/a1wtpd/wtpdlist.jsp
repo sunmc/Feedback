@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.util.bean.Common" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -12,8 +14,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/mui.min.css">
-		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/ch.css">
+		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
+		<link rel="stylesheet" href="/Feedback/resource/css/ch.css">
 		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/app.css" />
 	</head>
 
@@ -25,9 +27,9 @@
 					<div class="mui-scroll">
 						<div class="title" style="margin-bottom: 25px;" ><%= Common.mllb %></div>
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-							<li class="mui-table-view-cell" id="wtsl">
+							<li class="mui-table-view-cell" id="wtpd">
 								<a class="mui-navigate-right">
-									<%= Common.wtsl %>
+									<%= Common.wtpd %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtfx">
@@ -35,9 +37,14 @@
 									<%= Common.wtfx %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtjj">
+							<li class="mui-table-view-cell" id="wtzg">
 								<a class="mui-navigate-right">
-									<%= Common.wtjj %>
+									<%= Common.wtzg %>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" id="wtqr">
+								<a class="mui-navigate-right">
+									<%= Common.wtqr %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtgb">
@@ -60,37 +67,47 @@
 				<a href="#offCanvasSide"
 					class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 				<!-- <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a> -->
-				<h1 class="mui-title"><%= Common.wtgb + Common.lb%></h1>
+				<h1 class="mui-title"><%= Common.wtpd + Common.lb%></h1>
 			</header>
-
-			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron">
-						<li id='1' class="mui-table-view-cell mui-media">
-							<a class="mui-navigate-right">
-								S-201407048
-								<p class='mui-ellipsis'>反包臂气缸快插需换成快插节流</p>
-							</a>
-						</li>
-						<li id='2' class="mui-table-view-cell mui-media">
-							<a class='mui-navigate-right' href="javascript:;">
-								S-201407049
-								<p class='mui-ellipsis'>后压车摆转零点、负极限开关支架现用一个螺丝固定，时间长了会松动，建议调整好位置后，打孔，用俩螺丝固定（049同）</p>
-							</a>
-						</li>
-						<li id='1' class="mui-table-view-cell mui-media">
-							<a class="mui-navigate-right">
-								S-201407049
-								<p class='mui-ellipsis'>后压车径向正、负、零点开关不合适，需现场调整好位置后重新固定。（049同）</p>
-							</a>
-						</li>
+						<c:forEach items="${items}" var="item" varStatus="status">
+						    <li id='${status.index}' class="mui-table-view-cell mui-media wi" >
+								<a class="mui-navigate-right">
+									${item.lsh}  ${item.xmbh}  ${item.wtms}
+									<p class='mui-ellipsis'>${item.fqrxm}      ${item.createtimes}</p>
+								</a>
+								<div hidden="hidden">
+									<input type="text" id="objectid${status.index}" value="${item.objectid}">
+									<input type="text" id="workitemid${status.index}" value="${item.workitemid}">
+								</div>
+							</li>
+							<script>
+								var wturl = '/Feedback/wtpd/wtpd.do?objectid=${item.objectid}&workitemid=${item.workitemid}';
+								document.getElementById('${status.index}').addEventListener('tap', function() {
+									mui.openWindow({
+										url : wturl,
+										id : 'wtfx',
+										show : {
+											aniShow : 'pop-in'
+										},
+										waiting : {
+											autoShow : false
+										}
+									});
+								});
+							</script>
+					    </c:forEach>
 					</ul>
 				</div>
 			</div>
+			
+			
 		</div>
 	</div>
 	<script src="/Feedback/resource/js/mui.min.js"></script>
+	<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 		<script>
 			mui.init({
 				pullRefresh : {
@@ -131,40 +148,7 @@
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh(
 							(++count > 2)); //参数为true代表没有更多数据了。
-							document.getElementById('1').addEventListener('tap', function() {
-								mui.openWindow({
-									url : '/Feedback/wtgb/wtgb.do',
-									id : 'wtmx',
-									show : {
-										aniShow : 'pop-in'
-									},
-									waiting : {
-										autoShow : false
-									}
-								});
-							})
-							document.getElementById('2').addEventListener('tap', function() {
-								mui.openWindow({
-									url : '/Feedback/wtgb/wtgb.do',
-									id : 'wtmx',
-									show : {
-										aniShow : 'pop-in'
-									},
-									waiting : {
-										autoShow : false
-									}
-								});
-							})
-					/* var table = document.body.querySelector('.mui-table-view');
-					var cells = document.body
-							.querySelectorAll('.mui-table-view-cell');
-					for (var i = cells.length, len = i + 20; i < len; i++) {
-						var li = document.createElement('li');
-						li.className = 'mui-table-view-cell';
-						li.innerHTML = '<a class="mui-navigate-right">Item '
-								+ (i + 1) + '</a>';
-						table.appendChild(li);
-					} */
+							
 				}, 1500);
 			}
 			if (mui.os.plus) {
@@ -179,10 +163,17 @@
 					mui('#pullrefresh').pullRefresh().pullupLoading();
 				});
 			}
-			
-			document.getElementById('wtsl').addEventListener('tap', function() {
+			$(document).ready(function(){
+				var index = 0;
+				mui(".wi li").each(function() {
+					var objectid = $("#objectid" + index ).val();
+					var workitemid = $("#workitemid" + index ).val();
+					index++;
+				}); 
+			});
+			document.getElementById('wtpd').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtsl.do',
+					url : '/Feedback/wtpd.do',
 					id : 'wtsl',
 					show : {
 						aniShow : 'pop-in'
@@ -204,10 +195,22 @@
 					}
 				});
 			})
-			document.getElementById('wtjj').addEventListener('tap', function() {
+			document.getElementById('wtzg').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtjj.do',
+					url : '/Feedback/wtzg.do',
 					id : 'wtjj',
+					show : {
+						aniShow : 'pop-in'
+					},
+					waiting : {
+						autoShow : false
+					}
+				});
+			})
+			document.getElementById('wtqr').addEventListener('tap', function() {
+				mui.openWindow({
+					url : '/Feedback/wtqr.do',
+					id : 'wtgb',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -219,7 +222,7 @@
 			document.getElementById('wtgb').addEventListener('tap', function() {
 				mui.openWindow({
 					url : '/Feedback/wtgb.do',
-					id : 'wtgb',
+					id : 'wtgn',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -240,6 +243,11 @@
 					}
 				});
 			})
+			function openwi(id){
+				var objectid = $("#objectid" + id).val();
+				var workitemid = $("#workitemid" + id).val();
+				window.location.href="/Feedback/wtpd/wtpd.do?objectid=" + objectid + "&workitemid="+workitemid;
+			}
 		</script>
 	</body>
 

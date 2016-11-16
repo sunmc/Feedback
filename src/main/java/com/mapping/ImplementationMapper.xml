@@ -9,21 +9,24 @@
     <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
     <result column="State" property="state" jdbcType="INTEGER" />
-    <result column="DeteleteFlag" property="deteleteflag" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
     <result column="JJCS" property="jjcs" jdbcType="VARCHAR" />
     <result column="JJCSZRR" property="jjcszrr" jdbcType="CHAR" />
+    <result column="ZRRXM" property="zrrxm" jdbcType="CHAR" />
     <result column="JJCSJHWCSJ" property="jjcsjhwcsj" jdbcType="TIMESTAMP" />
     <result column="JJCSJJWT" property="jjcsjjwt" jdbcType="VARCHAR" />
     <result column="JJCSWCSJ" property="jjcswcsj" jdbcType="TIMESTAMP" />
+    <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ObjectId, ParentObjectId, CreateTime, CreateBy, UpdateTime, UpdateBy, State, DeteleteFlag, 
-    JJCS, JJCSZRR, JJCSJHWCSJ, JJCSJJWT, JJCSWCSJ
+    ObjectId, ParentObjectId, CreateTime, CreateBy, UpdateTime, UpdateBy, State, deleteflag, 
+    JJCS, JJCSZRR, JJCSJHWCSJ, JJCSJJWT, JJCSWCSJ, GZJD
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from I_Implementation
+    a.*,b.XM ZRRXM
+    from I_Implementation a
+    left join FB_User b on a.JJCSZRR = b.ObjectId
     where ObjectId = #{objectid,jdbcType=CHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -33,14 +36,14 @@
   <insert id="insert" parameterType="com.bean.Implementation" >
     insert into I_Implementation (ObjectId, ParentObjectId, CreateTime, 
       CreateBy, UpdateTime, UpdateBy, 
-      State, DeteleteFlag, JJCS, 
+      State, DeleteFlag, JJCS, 
       JJCSZRR, JJCSJHWCSJ, JJCSJJWT, 
-      JJCSWCSJ)
-    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      JJCSWCSJ,GZJD)
+    values (newid(), #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
-      #{state,jdbcType=INTEGER}, #{deteleteflag,jdbcType=INTEGER}, #{jjcs,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, #{jjcs,jdbcType=VARCHAR}, 
       #{jjcszrr,jdbcType=CHAR}, #{jjcsjhwcsj,jdbcType=TIMESTAMP}, #{jjcsjjwt,jdbcType=VARCHAR}, 
-      #{jjcswcsj,jdbcType=TIMESTAMP})
+      #{jjcswcsj,jdbcType=TIMESTAMP}, #{gzjd,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bean.Implementation" >
     insert into I_Implementation
@@ -66,8 +69,8 @@
       <if test="state != null" >
         State,
       </if>
-      <if test="deteleteflag != null" >
-        DeteleteFlag,
+      <if test="deleteflag != null" >
+        DeleteFlag,
       </if>
       <if test="jjcs != null" >
         JJCS,
@@ -83,6 +86,9 @@
       </if>
       <if test="jjcswcsj != null" >
         JJCSWCSJ,
+      </if>
+      <if test="gzjd != null" >
+        GZJD,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -107,8 +113,8 @@
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
       </if>
-      <if test="deteleteflag != null" >
-        #{deteleteflag,jdbcType=INTEGER},
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
       </if>
       <if test="jjcs != null" >
         #{jjcs,jdbcType=VARCHAR},
@@ -124,6 +130,9 @@
       </if>
       <if test="jjcswcsj != null" >
         #{jjcswcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gzjd != null" >
+         #{gzjd,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -148,8 +157,8 @@
       <if test="state != null" >
         State = #{state,jdbcType=INTEGER},
       </if>
-      <if test="deteleteflag != null" >
-        DeteleteFlag = #{deteleteflag,jdbcType=INTEGER},
+      <if test="deleteflag != null" >
+        DeleteFlag = #{deleteflag,jdbcType=INTEGER},
       </if>
       <if test="jjcs != null" >
         JJCS = #{jjcs,jdbcType=VARCHAR},
@@ -166,6 +175,9 @@
       <if test="jjcswcsj != null" >
         JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP},
       </if>
+      <if test="gzjd != null" >
+        GZJD = #{gzjd,jdbcType=INTEGER},
+      </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
@@ -177,12 +189,13 @@
       UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
       UpdateBy = #{updateby,jdbcType=CHAR},
       State = #{state,jdbcType=INTEGER},
-      DeteleteFlag = #{deteleteflag,jdbcType=INTEGER},
+      DeleteFlag = #{deleteflag,jdbcType=INTEGER},
       JJCS = #{jjcs,jdbcType=VARCHAR},
       JJCSZRR = #{jjcszrr,jdbcType=CHAR},
       JJCSJHWCSJ = #{jjcsjhwcsj,jdbcType=TIMESTAMP},
       JJCSJJWT = #{jjcsjjwt,jdbcType=VARCHAR},
-      JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP}
+      JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP},
+      GZJD = #{gzjd,jdbcType=INTEGER}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
 </mapper>
