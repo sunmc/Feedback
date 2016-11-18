@@ -16,10 +16,16 @@ public class WorkItem {
     private String originator;
 
     private String receiver;
+    
+    private String receivername;
 
     private String sender;
+    
+    private String sendername;
 
     private String finisher;
+    
+    private String finishername;
 
     private Date receivetime;
 
@@ -181,6 +187,30 @@ public class WorkItem {
 
 	public void setProjectIssueManage(ProjectIssueManage projectIssueManage) {
 		this.projectIssueManage = projectIssueManage;
+	}
+
+	public String getReceivername() {
+		return receivername;
+	}
+
+	public void setReceivername(String receivername) {
+		this.receivername = receivername;
+	}
+
+	public String getSendername() {
+		return sendername;
+	}
+
+	public void setSendername(String sendername) {
+		this.sendername = sendername;
+	}
+
+	public String getFinishername() {
+		return finishername;
+	}
+
+	public void setFinishername(String finishername) {
+		this.finishername = finishername;
 	}
 
 }

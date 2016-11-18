@@ -178,6 +178,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a id="toWTGZ" class="mui-icon  mui-icon-back"></a>
 			<h1 class="mui-title"><%= Common.wtxx %></h1>
+			<a id="wtzt" class="mui-icon mui-icon-more mui-pull-right"></a>
 		</header>
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
@@ -308,6 +309,9 @@
 				<label>工作进度</label>
 				<input  type="range"  value="${project.gzjd}" min="0" max="100" readonly="readonly">
 			</div>
+			<div hidden="hidden">
+				<input id="objectid" type="text" value="${project.objectid }" />
+			</div>
 		</div>
 				
 		
@@ -359,6 +363,19 @@
 				mui.openWindow({
 					url : '/Feedback/wtgz.do',
 					id : 'wtgz',
+					show : {
+						aniShow : 'pop-in'
+					},
+					waiting : {
+						autoShow : false
+					}
+				});
+			})
+			document.getElementById('wtzt').addEventListener('tap', function() {
+				var urls = '/Feedback/wtcx/wtzt.do?objectid=' + $("#objectid").val();
+				mui.openWindow({
+					url : urls,
+					id : 'wtzt',
 					show : {
 						aniShow : 'pop-in'
 					},

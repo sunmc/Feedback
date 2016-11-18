@@ -20,4 +20,6 @@ public interface WorkItemMapper {
     int updateByBizCode(WorkItem record);
     
     List<WorkItem> selectBySelective(WorkItem record);
+    
+    List<WorkItem> selectWorkFlowStatus(String bizobjectid);
 }

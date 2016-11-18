@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,21 @@ public class WorkItemService implements IWorkItemService{
 	@Override
 	public Result<WorkItem> insert(WorkItem wi) {
 		return null;
+	}
+
+	@Override
+	public Result<List<WorkItem>> getWorkFlowStatus(String bizobjectid) {
+		Result<List<WorkItem>> res = new Result<>();
+		try{
+			List<WorkItem> data = workItemMapper.selectWorkFlowStatus(bizobjectid);
+			res.setData(data);
+			res.setFlag(true);
+		}catch(Exception e){
+			res.setFlag(false);
+			res.setMessage(e.getMessage());
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 }
