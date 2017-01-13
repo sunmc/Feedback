@@ -17,10 +17,11 @@
     <result column="JJCSJJWT" property="jjcsjjwt" jdbcType="VARCHAR" />
     <result column="JJCSWCSJ" property="jjcswcsj" jdbcType="TIMESTAMP" />
     <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
+    <result column="Sort" property="sort" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, CreateTime, CreateBy, UpdateTime, UpdateBy, State, deleteflag, 
-    JJCS, JJCSZRR, JJCSJHWCSJ, JJCSJJWT, JJCSWCSJ, GZJD
+    JJCS, JJCSZRR, JJCSJHWCSJ, JJCSJJWT, JJCSWCSJ, GZJD, Sort
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -38,12 +39,12 @@
       CreateBy, UpdateTime, UpdateBy, 
       State, DeleteFlag, JJCS, 
       JJCSZRR, JJCSJHWCSJ, JJCSJJWT, 
-      JJCSWCSJ,GZJD)
+      JJCSWCSJ,GZJD,Sort)
     values (newid(), #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
       #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, #{jjcs,jdbcType=VARCHAR}, 
       #{jjcszrr,jdbcType=CHAR}, #{jjcsjhwcsj,jdbcType=TIMESTAMP}, #{jjcsjjwt,jdbcType=VARCHAR}, 
-      #{jjcswcsj,jdbcType=TIMESTAMP}, #{gzjd,jdbcType=INTEGER})
+      #{jjcswcsj,jdbcType=TIMESTAMP}, #{gzjd,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bean.Implementation" >
     insert into I_Implementation
@@ -90,6 +91,9 @@
       <if test="gzjd != null" >
         GZJD,
       </if>
+      <if test="sort != null" >
+        Sort,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="objectid != null" >
@@ -134,8 +138,63 @@
       <if test="gzjd != null" >
          #{gzjd,jdbcType=INTEGER},
       </if>
+      <if test="sort != null" >
+         #{sort,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
+  <update id="updateImplementations" parameterType="com.bean.ProjectIssueManage" >
+  	<if test="implementations != null" >
+     	<foreach item="item" index="index" collection="implementations" > 
+     		update I_Implementation
+		    <set >
+		      <if test="item.parentobjectid != null" >
+		        ParentObjectId = #{implementations[${index}].parentobjectid,jdbcType=CHAR},
+		      </if>
+		      <if test="item.createtime != null" >
+		        CreateTime = #{implementations[${index}].createtime,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="item.createby != null" >
+		        CreateBy = #{implementations[${index}].createby,jdbcType=CHAR},
+		      </if>
+		      <if test="item.updatetime != null" >
+		        UpdateTime = #{implementations[${index}].updatetime,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="item.updateby != null" >
+		        UpdateBy = #{implementations[${index}].updateby,jdbcType=CHAR},
+		      </if>
+		      <if test="item.state != null" >
+		        State = #{implementations[${index}].state,jdbcType=INTEGER},
+		      </if>
+		      <if test="item.deleteflag != null" >
+		        DeleteFlag = #{implementations[${index}].deleteflag,jdbcType=INTEGER},
+		      </if>
+		      <if test="item.jjcs != null" >
+		        JJCS = #{implementations[${index}].jjcs,jdbcType=VARCHAR},
+		      </if>
+		      <if test="item.jjcszrr != null" >
+		        JJCSZRR = #{implementations[${index}].jjcszrr,jdbcType=CHAR},
+		      </if>
+		      <if test="item.jjcsjhwcsj != null" >
+		        JJCSJHWCSJ = #{implementations[${index}].jjcsjhwcsj,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="item.jjcsjjwt != null" >
+		        JJCSJJWT = #{implementations[${index}].jjcsjjwt,jdbcType=VARCHAR},
+		      </if>
+		      <if test="item.jjcswcsj != null" >
+		        JJCSWCSJ = #{implementations[${index}].jjcswcsj,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="item.gzjd != null" >
+		        GZJD = #{implementations[${index}].gzjd,jdbcType=INTEGER},
+		      </if>
+		      <if test="item.sort != null" >
+		        Sort = #{implementations[${index}].sort,jdbcType=INTEGER},
+		      </if>
+		    </set>
+		    where ObjectId = #{implementations[${index}].objectid,jdbcType=CHAR}
+     	</foreach>
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.bean.Implementation" >
     update I_Implementation
     <set >
@@ -178,6 +237,9 @@
       <if test="gzjd != null" >
         GZJD = #{gzjd,jdbcType=INTEGER},
       </if>
+      <if test="sort != null" >
+        Sort = #{sort,jdbcType=INTEGER},
+      </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
@@ -195,7 +257,8 @@
       JJCSJHWCSJ = #{jjcsjhwcsj,jdbcType=TIMESTAMP},
       JJCSJJWT = #{jjcsjjwt,jdbcType=VARCHAR},
       JJCSWCSJ = #{jjcswcsj,jdbcType=TIMESTAMP},
-      GZJD = #{gzjd,jdbcType=INTEGER}
+      GZJD = #{gzjd,jdbcType=INTEGER},
+      Sort = #{sort,jdbcType=INTEGER}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
 </mapper>

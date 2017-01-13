@@ -171,6 +171,7 @@
 				max-width: 100%;
 				height: auto;
 			}
+			
 		</style>
 	</head>
 
@@ -181,7 +182,7 @@
 		<div class="mui-content" >
 			<div class="mui-input-group" style="margin: 5px;">
 				<div class="mui-input-row">
-					<label>流水号</label>
+					<label>问题号</label>
 					<input type="text" readonly="readonly" value="${project.lsh }">
 				</div>
 				<div class="mui-input-row">
@@ -194,11 +195,11 @@
 				</div>
 				<div class="mui-input-row">
 					<label>项目编号</label>
-					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
+					<input name="xmbh" type="text" readonly="readonly" value="${project.xmbh }">
 				</div>
 			</div>
 			<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
-				<li class="mui-table-view-cell mui-collapse">
+				<li class="mui-table-view-cell mui-collapse mui-active">
 					<a class="mui-navigate-right" href="#">项目问题信息</a>
 					<div class="mui-collapse-content">
 						<div class="mui-input-row">
@@ -206,7 +207,11 @@
 							<input name="khmc" type="text"  readonly="readonly" value="${project.khmc}">
 						</div>
 						<div class="mui-input-row">
-							<label>产品名称</label>
+							<label>项目名称</label>
+							<input name="xmmc" type="text" readonly="readonly" value="${project.xmmc}">
+						</div>
+						<div class="mui-input-row">
+							<label>产品类别</label>
 							<input name="cpmc" type="text" readonly="readonly" value="${project.cpmc }">
 						</div>
 						<div class="mui-input-row">
@@ -214,17 +219,28 @@
 							<input name="xmjd" type="text" readonly="readonly" value="${project.xmjd }">
 						</div>
 						<div class="mui-input-row">
+								<label>项目经理</label>
+								<input id="xmjlname" name="xmjlname" type="text" readonly="readonly" value="${project.xmjlname}" onchange="searchUser(this.id)">
+							</div>
+						<div class="mui-input-row">
 							<label>部套名称</label>
 							<input name="btmc" type="text" readonly="readonly" value="${project.btmc }">
 						</div>
+						<div class="mui-input-row">
+							<label>部套数量</label>
+							<input type="text" readonly="readonly" value="${project.btsl }">
+						</div>
 						<div class="mui-input-row" style="height:auto;line-height: 40px">
-							<label >要求完成日期</label>
+							<label style="width:40%" >要求完成日期</label>
 							<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.yqwcsj }" />
 						</div> 
-						<div class="mui-input-row mui-input-range">
+						<div class="mui-input-row">
 							<label>紧急程度</label>
-			            	<input name="jjcd" type="text"  value="${project.jjcd }" readonly="readonly" >
+			            	<select id="jjcd" name="jjcd" disabled="disabled">
+								<option></option>
+							</select>
 			        	</div>
+						<input hidden="hidden" type="text" id="jjcds" value="${project.jjcd }" />
 						<div class="mui-input-row">
 							<label>图号</label>
 							<input name="wtjth" type="text" readonly="readonly" value="${project.wtjth }">
@@ -235,7 +251,7 @@
 						</div>
 						<div class="mui-input-row">
 							<div class="mui-inline">问题描述</div>
-							<textarea name="wtms" rows="5" readonly="readonly">${project.wtms }</textarea>
+							<textarea name="wtms" style="height:auto;" readonly="readonly">${project.wtms }</textarea>
 						</div>
 						<div class="mui-input-row" style="margin: 5px 0 0 0;">
 							<div class="mui-inline">图片</div>
@@ -264,38 +280,82 @@
 							<label>责任人</label>
 							<input name="uzrr.xm" type="text" readonly="readonly" value="${project.uzrr.xm }">
 						</div>
+						<div class="mui-input-row" style="height:auto;">
+							<label style="width:40%">重复发生问题</label>
+							<input name="wtsfcffs" type="text" readonly="readonly"  style="width:60%" value="${project.wtsfcffs }">
+						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
 					<a class="mui-navigate-right" href="#">问题原因及方案</a>
 					<div class="mui-collapse-content">
-						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">原因分析</div>
-							<textarea name="yyfx" rows="5" readonly="readonly">${project.yyfx }</textarea>
+						<div class="mui-inline">原因分析</div>
+						<textarea id="yyfx" name="yyfx" style="height:auto;" readonly="readonly">${project.yyfx }</textarea>
+						<div class="mui-inline required">处理方案</div>
+						<textarea id="clfa" name="clfa" style="height:auto;" readonly="readonly">${project.clfa }</textarea>
+						<div class="mui-inline">解决计划</div>
+						<div class="mui-input-row" style="height:auto;">
+							<label style="width:40%">方案执行人</label>
+							<input type="text" id="fazxrshow" style="width:60%" readonly="readonly" value="${project.ufazxr.xm }">
 						</div>
-						<div class="mui-input-row" style="margin: 5px 0 0 0;">
-							<div class="mui-inline">处理方案</div>
-							<textarea name="clfa" rows="5" readonly="readonly">${project.clfa }</textarea>
+						<div class="mui-input-row" style="height:auto;line-height:40px">
+							<label style="width:40%">计划完成时间</label>
+							<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.jhwcsj }" />
+						</div> 
+						<div class="mui-inline">完成情况</div>
+						<textarea id="gznr" name="gznr" style="height:auto" readonly="readonly">${project.gznr}</textarea>
+						<div class="mui-input-row mui-input-range">
+							<label id="gzjdlabel" style="width:40%">进度:${project.gzjd}%</label>
+							<input id="gzjd" name="gzjd" type="range" style="width:60%"  value="${project.gzjd}" min="0" max="100" readonly="readonly">
 						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell mui-collapse">
-					<a class="mui-navigate-right" href="#">详细实施措施</a>
-					<div class="mui-collapse-content">
+						<div class="mui-input-row" style="height:auto">
+							<label style="width:40%">是否变更图纸</label>
+							<input id="sfbgtz" name="sfbgtz" style="width:60%" readonly="readonly" value="${project.sfbgtz}" />
+						</div> 
+						<div class="mui-input-row">
+							<label>外协厂家</label>
+							<input id="wxcj" name="wxcj" type="text" readonly="readonly" class="" value="${project.wxcj }">
+						</div>
 						<c:forEach items="${project.implementations}" var="implementation" varStatus="status">
-					      	<div class="mui-input-row">
-								<div class="mui-inline">工作任务</div>
-								<textarea  rows="3" readonly="readonly" >${implementation.jjcs}</textarea>
-							</div>
-					      	<div class="mui-input-row mui-input-range required">
-								<label>工作进度</label>
-								<input  type="range"  value="${implementation.gzjd}" min="0" max="100" readonly="readonly">
-							</div>
-							<div class="mui-input-row required">
-								<div class="mui-inline">工作内容</div>
-								<textarea  rows="3" readonly="readonly">${implementation.jjcsjjwt}</textarea>
+							<div class="mui-card">
+								<div class="mui-card-content" style="margin-top: 5px">
+									<div class="mui-inline">解决措施${status.index + 1}</div>
+									<div class="mui-input-group" id="cs${status.index}" style="margin-bottom: 15px;">
+										<div class="mui-input-row">
+											<label style="width:40%">责任人</label>
+											<input style="width:60%" type="text" readonly="readonly" class=" mui-btn-block" value="${implementation.zrrxm}">
+										</div>
+										<div class="mui-inline" style="text-align: left;">工作任务</div>
+										<textarea name="implementation[${status.index}].jjcs" readonly="readonly" style="height:atuo">${implementation.jjcs}</textarea>
+										<div class="mui-input-row" style="margin: 5px 0 0 0;height:auto;">
+											<label style="width:40%">要求完成时间</label>
+											<input style="width:60%" type="date" id="implementations[${status.index}].jjcsjhwcsj" readonly="readonly" name="implementations[${status.index}].jjcsjhwcsj" class=" mui-btn-block">
+											<script>
+												var date = new Date("${implementation.jjcsjhwcsj }");
+												document.getElementById("implementations[${status.index}].jjcsjhwcsj").value = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+											</script>
+										</div>
+										<div class="mui-inline">完成情况</div>
+										<textarea name="implementation[${status.index}].jjcsjjwt" style="height:auto" readonly="readonly">${implementation.jjcsjjwt}</textarea>
+										<div class="mui-input-row mui-input-range">
+											<label id="implementation[${status.index}].gzjdlabel" style="width:40%">进度:${implementation.gzjd}%</label>
+											<input id="implementation[${status.index}].gzjd" style="width:60%" name="implementation[${status.index}].gzjd" type="range"  value="${implementation.gzjd}" min="0" max="100" readonly="readonly">
+										</div>
+										<div hidden="hidden">
+											<input name="implementations[${status.index}].objectid" value="${implementation.objectid}">
+											<input type="text" id="implementations[${status.index}].jjcszrr" name="implementations[${status.index}].jjcszrr" class=" mui-btn-block" />
+											<input name="implementations[${status.index}].sort" value="${implementation.sort}">
+											<input id="implementations[${status.index}].deleteflag" name="implementations[${status.index}].deleteflag" value="${implementation.deleteflag}"/>
+										</div>
+									</div>
+								</div>
 							</div>
 					    </c:forEach>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse" hidden="hidden">
+					<a class="mui-navigate-right" href="#">详细实施措施</a>
+					<div class="mui-collapse-content" style="background-color: #efeff4">
 				    </div>
 				</li>
 			</ul>
@@ -324,7 +384,26 @@
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
 			$(document).ready(function(){
-				
+				//加载紧急程度选项
+				$.ajax({
+					url:url,
+					data:{belong:'紧急程度'},
+					dataType:'json',
+					type: "post", 
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					success:function(data){
+						if(data.flag){
+							var zrlbdata = data.data;
+							for(var i = 0; i < zrlbdata.length; i++){
+								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
+								$("#jjcd").append(option);
+							}
+							//设置紧急程度选项
+							var jjcd = $("#jjcds").val();
+							$("#jjcd").val(jjcd);
+						}
+					}
+				});
 			});
 			function search(textid){
 				var picker = new mui.PopPicker(); 

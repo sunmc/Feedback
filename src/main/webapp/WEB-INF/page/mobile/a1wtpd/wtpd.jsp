@@ -172,6 +172,7 @@
 				height: auto;
 			}
 		</style>
+		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
 	</head>
 
 	<body>
@@ -182,7 +183,7 @@
 			
 			<div class="mui-input-group" style="margin: 5px;">
 				<div class="mui-input-row">
-					<label>流水号</label>
+					<label>问题号</label>
 					<input type="text" readonly="readonly" value="${project.lsh }">
 				</div>
 				<div class="mui-input-row">
@@ -195,40 +196,42 @@
 				</div>
 				<div class="mui-input-row">
 					<label>项目编号</label>
-					<input name="xmbh" type="text" readonly="readonly" value="S-201407048">
+					<input name="xmbh" type="text" readonly="readonly" value="${project.xmbh }">
 				</div>
 			</div>
 			<form action="/Feedback/wtpd/submit.do" method="post">
 				<ul class="mui-table-view" style="margin: 0 5px 5px 5px ;">
-					<li class="mui-table-view-cell mui-collapse">
+					<li class="mui-table-view-cell mui-collapse mui-active">
 						<a class="mui-navigate-right" href="#">项目问题信息</a>
 						<div class="mui-collapse-content">
-							<div class="mui-input-row">
+							<div class="mui-input-row" hidden="hidden">
 								<label>客户名称</label>
 								<input name="khmc" type="text" value="${project.khmc}">
 							</div>
 							<div class="mui-input-row">
-								<label>产品名称</label>
-								<input name="cpmc" type="text" value="${project.cpmc }">
+								<label>项目名称</label>
+								<input name="xmmc" type="text" value="${project.xmmc}">
 							</div>
 							<div class="mui-input-row">
-								<label>项目阶段</label>
-								<input name="xmjd" type="text" value="${project.xmjd }">
-							</div>
-							<div class="mui-input-row">
-								<label>部套名称</label>
-								<input name="btmc" type="text" value="${project.btmc }">
+								<label>项目经理</label>
+								<select id="xmjl" name="xmjl">
+									<option></option>
+									<c:forEach items="${xmjls}" var="xmjl" varStatus="status">
+										<option value="${xmjl.user.objectid}">${xmjl.user.xm}</option>
+									</c:forEach>
+								</select>
+								<input id="xmjlvalue" type="text" value="${project.xmjl}" hidden="hidden"/>
+								<script>
+									var xmjl = $("#xmjlvalue").val();
+									$("#xmjl").val(xmjl);
+								</script>
 							</div>
 							<div class="mui-input-row mui-input-range">
 								<label>紧急程度</label>
-								<select id="jjcd" name="jjcd">
-									<option value="建议">建议</option>
-									<option value="轻微">轻微</option>
-									<option value="一般">一般</option>
-									<option value="紧急">紧急</option>
-									<option value="非常紧急">非常紧急</option>
-								</select>
 								<input hidden="hidden" type="text" id="jjcds" value="${project.jjcd }" />
+								<select id="jjcd" name="jjcd">
+									<option></option>
+								</select>
 				        	</div>
 							<div class="mui-input-row">
 								<label>图号</label>
@@ -257,28 +260,87 @@
 				</ul>
 					
 				<div class="mui-content-padded" style="margin: 5px;">
-					<div class="mui-inline">问题受理</div>
 					<div class="mui-input-group required">
+						<div class="mui-input-row required">
+							<label  style="color: red;">产品类别</label>
+							<select id="cplb" name="cplb">
+								<option />
+								<c:forEach items="${cplbs}" var="cplb">
+									<c:if test="${cplb.value == project.cplb}">
+										<option value="${cplb.value}" selected="selected">${cplb.text}</option>
+									</c:if>
+									<c:if test="${cplb.value != project.cplb}">
+										<option value="${cplb.value}">${cplb.text}</option>
+									</c:if>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="mui-input-row required">
+							<label style="color: red;">项目阶段</label>
+							<select id="xmjd" name="xmjd">
+								<option></option>
+								<c:forEach items="${xmjds}" var="xmjd">
+									<c:if test="${xmjd.value == project.xmjd}">
+										<option value="${xmjd.value}" selected="selected">${xmjd.text}</option>
+									</c:if>
+									<c:if test="${xmjd.value != project.xmjd}">
+										<option value="${xmjd.value}">${xmjd.text}</option>
+									</c:if>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="mui-input-row required">
+							<label>部套名称</label>
+							<input id="btmc" name="btmc" type="text" onclick="btpickershow()" value="${project.btmc }">
+						</div>
+						<div class="mui-input-row required">
+							<label style="color: red;">部套数量</label>
+							<input id="btsl" name="btsl" type="number" class="" value="${project.btsl }" >
+						</div>
 						<div class="mui-input-row">
 							<label>责任类别</label>
 							<select id="zrlb" name="zrlb" class=" mui-btn-block">
 								<option></option>
+								<c:forEach items="${zrlbs}" var="zrlb">
+									<c:if test="${zrlb.value == project.zrlb}">
+										<option value="${zrlb.value}" selected="selected">${zrlb.text}</option>
+									</c:if>
+									<c:if test="${zrlb.value != project.zrlb}">
+										<option value="${zrlb.value}">${zrlb.text}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</div>
 						<div class="mui-input-row">
 							<label>问题类别</label>
 							<select id="wtlb" name="wtlb" class=" mui-btn-block">
 								<option></option>
+								<c:forEach items="${wtlbs}" var="wtlb">
+									<c:if test="${wtlb.value == project.wtlb}">
+										<option value="${wtlb.value}" selected="selected">${wtlb.text}</option>
+									</c:if>
+									<c:if test="${wtlb.value != project.wtlb}">
+										<option value="${wtlb.value}">${wtlb.text}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</div>
 						<div class="mui-input-row">
 							<label>责任人</label>
 							<input type="text" id="zrrshow" class=" mui-btn-block" onchange="search(this.id)"> 
 						</div>
-						<div class="mui-input-row" style="height:auto">
-							<label >要求完成日期</label>
-							<input type="date" id="yqwcsj" name="yqwcsj"  value="${project.yqwcsj }" />
+						<div class="mui-input-row" style="height:auto;">
+							<label style="width: 40%">要求完成日期</label>
+							<input style="width: 60%" type="date" id="yqwcsj" name="yqwcsj"  value="${project.yqwcsj }" />
 						</div> 
+						<div class="mui-input-row" style="height:auto;">
+							<label style="width: 40%">重复发生问题</label>
+							<select id="wtsfcffs" name="wtsfcffs" class=" mui-btn-block" style="width: 60%">
+								<option></option>
+								<option value="是">是</option>
+								<option value="否">否</option>
+							</select>
+						</div>
 					</div>
 					<div class="mui-button-row">
 						<input type="submit" class="mui-btn mui-btn-primary" value="提交" >
@@ -292,7 +354,7 @@
 				
 		</div>
 		
-		<script src="/Feedback/resource/js/jquery1.8.0.min.js"></script>
+		
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>
@@ -305,14 +367,15 @@
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();
 			var url = "/Feedback/wtdata.do";
+			var btpicker = new mui.PopPicker(); 
+			var databt = new Array();
 			$(document).ready(function(){
-				//设置紧急程度选项
-				var jjcd = $("#jjcds").val();
-				$("#jjcd").val(jjcd);
-				//加载责任类别选项
+				
+				
+				//加载紧急程度选项
 				$.ajax({
 					url:url,
-					data:{belong:'责任类别'},
+					data:{belong:'紧急程度'},
 					dataType:'json',
 					type: "post", 
 					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
@@ -321,25 +384,32 @@
 							var zrlbdata = data.data;
 							for(var i = 0; i < zrlbdata.length; i++){
 								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
-								$("#zrlb").append(option);
+								$("#jjcd").append(option);
 							}
+							//设置紧急程度选项
+							var jjcd = $("#jjcds").val();
+							$("#jjcd").val(jjcd);
 						}
 					}
 				});
-				//加载问题类别选项
+				//加载部套名称选项
 				$.ajax({
-					url:url,
-					data:{belong:'问题类别'},
+					url:'/Feedback/wtdata.do',
+					data:{belong:'部套名称'},
 					dataType:'json',
 					type: "post", 
 					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
 					success:function(data){
 						if(data.flag){
-							var zrlbdata = data.data;
-							for(var i = 0; i < zrlbdata.length; i++){
-								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
-								$("#wtlb").append(option);
+							var sdata = data.data;
+							for(var i = 0; i < sdata.length; i++){
+								var d = new Object();
+								d.value = sdata[i].value;
+								d.text = sdata[i].text;
+								databt.push(d);
 							}
+							btpicker.setData(databt);
+							
 						}
 					}
 				});
@@ -366,7 +436,11 @@
 					return check;
 				});
 			});
-			
+			function btpickershow(){
+				btpicker.show(function(items) {
+					document.getElementById("btmc").value = items[0].value;
+				});
+			}
 			function search(textid){
 				var picker = new mui.PopPicker(); 
 				var dataselect = new Array();
@@ -431,6 +505,40 @@
 				}
 				$('#cs' + i).remove();
 				--i;
+			}
+			function setValue(selectid){
+				var selectvalue = $('#' + selectid + ' option:selected') .val();
+				var inputid = selectid.substring(0, selectid.indexOf("select"));
+				$("#" + inputid).val(selectvalue);
+			}
+			function searchUser(textid){
+				var picker = new mui.PopPicker(); 
+				var dataselect = new Array();
+				var textv = document.getElementById(textid).value;
+				$.ajax({
+					url:'/Feedback/User/search.do',
+					data:{text:textv},
+					dataType:'json',
+					type: "post", 
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					success:function(data){
+						if(data.flag){
+							var sdata = data.data;
+							for(var i = 0; i < sdata.length; i++){
+								var d = new Object();
+								d.value = sdata[i].objectid;
+								d.text = sdata[i].xm + "-" + sdata[i].zh;
+								dataselect.push(d);
+							}
+							picker.setData(dataselect);
+							picker.show(function(items) {
+								document.getElementById(textid).value = items[0].text;
+								valueid = textid.substring(0,textid.indexOf("name"));
+								document.getElementById(valueid).value = items[0].value;
+							});
+						}
+					}
+				});
 			}
 		</script>
 	</body>

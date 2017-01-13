@@ -2,8 +2,7 @@ package com.bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.util.StringUtil;
+import java.util.List;
 
 public class ProjectListItem {
 
@@ -11,7 +10,17 @@ public class ProjectListItem {
 	
 	private String workitemid;
 	
+	private String cplb;
+	
+	private String zrlb;
+	
+	private String state;
+	
+	private String btmc;
+	
 	private String xmbh;
+	
+	private String xmmc;
 	
 	private String wtms;
 	
@@ -21,11 +30,19 @@ public class ProjectListItem {
 	
 	private String fqrxm;
 	
+	private String xmjl;
+	
+	private String zrr;
+	
 	private String bizschemacode;
 	
 	private String activitycode;
 	
+	private String receiver;
+	
 	private Date yqwcsj;
+	
+	private Date sjwcsj;
 	
 	private Integer qrstate;
 	
@@ -38,6 +55,18 @@ public class ProjectListItem {
 	private Date createtimeEnd;
 	
 	private String createtimes;
+	
+	private List<String> objectids;
+	
+	private Integer pagecurrent;
+	
+	private String sfylsjlc;
+	
+	private String wtsfcffs;
+	
+	private String xmjd;
+	
+	private String fqr;
 
 	public String getObjectid() {
 		return objectid;
@@ -45,6 +74,47 @@ public class ProjectListItem {
 
 	public void setObjectid(String objectid) {
 		this.objectid = objectid;
+	}
+
+	
+	public String getCplb() {
+		return cplb;
+	}
+
+	public void setCplb(String cplb) {
+		this.cplb = cplb;
+	}
+
+	public String getZrlb() {
+		return zrlb;
+	}
+
+	public void setZrlb(String zrlb) {
+		this.zrlb = zrlb;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getBtmc() {
+		return btmc;
+	}
+
+	public void setBtmc(String btmc) {
+		this.btmc = btmc;
+	}
+
+	public Date getCreatetimeEnd() {
+		return createtimeEnd;
+	}
+
+	public void setCreatetimeEnd(Date createtimeEnd) {
+		this.createtimeEnd = createtimeEnd;
 	}
 
 	public String getWorkitemid() {
@@ -129,13 +199,6 @@ public class ProjectListItem {
 		this.createtimeStart = createtimeStart;
 	}
 
-	public Date getcreatetimeEnd() {
-		return createtimeEnd;
-	}
-
-	public void setcreatetimeEnd(Date createtimeEnd) {
-		this.createtimeEnd = createtimeEnd;
-	}
 
 	public String getWtlb() {
 		return wtlb;
@@ -177,17 +240,107 @@ public class ProjectListItem {
 		Date now = new Date();
 		if((this.qrstate == null || (this.qrstate != null && this.qrstate < ProjectState.DOWN)) && this.yqwcsj != null){
 			if(now.before(this.yqwcsj)){
-				this.statecolor = "#DDFFF5"; //未完成
+				this.statecolor = "#87CEFA"; //未完成
 			}else if(now.after(this.yqwcsj)){
-				this.statecolor = "#CD5C5C"; //拖期未完成
+				this.statecolor = "#FA8072"; //拖期未完成
 			}
 		}else if(this.qrstate != null && this.qrstate == ProjectState.DOWN  && this.yqwcsj != null){
 			if(now.before(this.yqwcsj)){
-				this.statecolor = "#FFFF99"; //完成
+				this.statecolor = "#DDFFF5"; //完成
 			}else if(now.after(this.yqwcsj)){
-				this.statecolor = "#F0A29B"; //拖期完成
+				this.statecolor = "#FFB6C1"; //拖期完成
 			}
+		}else if(this.qrstate == ProjectState.END){
+			this.statecolor = "#efeff4"; //关闭
 		}
+	}
+
+	public List<String> getObjectids() {
+		return objectids;
+	}
+
+	public void setObjectids(List<String> objectids) {
+		this.objectids = objectids;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getXmmc() {
+		return xmmc;
+	}
+
+	public void setXmmc(String xmmc) {
+		this.xmmc = xmmc;
+	}
+
+	public Integer getPagecurrent() {
+		return pagecurrent;
+	}
+
+	public void setPagecurrent(Integer pagecurrent) {
+		this.pagecurrent = pagecurrent;
+	}
+
+	public String getXmjl() {
+		return xmjl;
+	}
+
+	public void setXmjl(String xmjl) {
+		this.xmjl = xmjl;
+	}
+
+	public String getZrr() {
+		return zrr;
+	}
+
+	public void setZrr(String zrr) {
+		this.zrr = zrr;
+	}
+
+	public Date getSjwcsj() {
+		return sjwcsj;
+	}
+
+	public void setSjwcsj(Date sjwcsj) {
+		this.sjwcsj = sjwcsj;
+	}
+
+	public String getSfylsjlc() {
+		return sfylsjlc;
+	}
+
+	public void setSfylsjlc(String sfylsjlc) {
+		this.sfylsjlc = sfylsjlc;
+	}
+
+	public String getWtsfcffs() {
+		return wtsfcffs;
+	}
+
+	public void setWtsfcffs(String wtsfcffs) {
+		this.wtsfcffs = wtsfcffs;
+	}
+
+	public String getXmjd() {
+		return xmjd;
+	}
+
+	public void setXmjd(String xmjd) {
+		this.xmjd = xmjd;
+	}
+
+	public String getFqr() {
+		return fqr;
+	}
+
+	public void setFar(String fqr) {
+		this.fqr = fqr;
 	}
 	
 }

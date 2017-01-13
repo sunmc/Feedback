@@ -7,13 +7,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.ProjectIssueManage;
 import com.bean.ProjectListItem;
 import com.bean.ProjectState;
 import com.bean.User;
+import com.bean.WorkItem;
 import com.service.IProjectIssueManageService;
+import com.service.IWorkItemService;
 import com.util.StringUtil;
 import com.util.bean.Result;
 
@@ -23,11 +26,16 @@ public class A4WTQRController extends BaseController{
 
 	@Autowired
 	private IProjectIssueManageService projectService;
-	
+	@Autowired
+	private IWorkItemService workItemService;
 	@RequestMapping
 	public ModelAndView index(HttpSession session){
 		User user = (User)session.getAttribute("user");
-		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(ProjectState.WTQR, user.getObjectid(), ProjectState.START);
+		ProjectListItem pli = new ProjectListItem();
+		pli.setActivitycode(ProjectState.WTQR);
+		pli.setReceiver(user.getObjectid());
+		pli.setQrstate(ProjectState.START);
+		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(pli);
 		ModelAndView model = null;
 		if(res.isFlag()){
 			model = new ModelAndView("mobile/a4wtqr/wtqrlist");
@@ -38,22 +46,46 @@ public class A4WTQRController extends BaseController{
 		}
 		return model;
 	}
+	@ResponseBody
+	@RequestMapping("wtqrlist")
+	public Result<List<ProjectListItem>> wtqrlist(HttpSession session){
+		User user = (User)session.getAttribute("user");
+		ProjectListItem pli = new ProjectListItem();
+		pli.setActivitycode(ProjectState.WTQR);
+		pli.setReceiver(user.getObjectid());
+		pli.setQrstate(ProjectState.START);
+		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(pli);
+		return res;
+	}
 	@RequestMapping("wtqr")
-	public ModelAndView wtgb(String objectid, String workitemid,HttpSession session){ 
+	public ModelAndView wtqr(String objectid, String workitemid,HttpSession session){ 
+		ModelAndView model = null;
 		//将当前用户要处理的节点id存放
 		User user = (User)session.getAttribute("user");
 		if(!StringUtil.isNullOrEmpty(workitemid)){
 			user.setWorkItemId(workitemid);
 		}
 		session.setAttribute("user", user);
-		Result<ProjectIssueManage> res = projectService.selectByObjectId(objectid);
-		ModelAndView model = null;
-		if(res.isFlag()){
-			model  = new ModelAndView("mobile/a4wtqr/wtqr");
-			model.addObject("project", res.getData());
-		}else{
-			model  = new ModelAndView("mobile/error");
-			model.addObject("error", res.getMessage());
+		//获取工作任务，检验是否已完成
+		Result<WorkItem> wres = workItemService.getByObjectId(workitemid);
+		if(wres.isFlag()){
+			Result<ProjectIssueManage> res = projectService.selectByObjectId(objectid);
+			ProjectIssueManage project = res.getData();
+			WorkItem wi = wres.getData();
+			if(res.isFlag()){
+				if(wi.getState() > ProjectState.DOING || !wi.getActivitycode().equals(ProjectState.WTQR)){//已完成的任务直接打开问题明细页
+					model  = new ModelAndView("mobile/a6wtcx/wtcx");
+					model.addObject("project", project);
+					return model;
+				}else{
+					model  = new ModelAndView("mobile/a4wtqr/wtqr");
+					model.addObject("project", project);
+				}
+			}else{
+				model  = new ModelAndView("mobile/error");
+				model.addObject("error", res.getMessage());
+			}
+			
 		}
 		return model;
 	}
@@ -63,7 +95,7 @@ public class A4WTQRController extends BaseController{
 		User user = (User)session.getAttribute("user");
 		Result<ProjectIssueManage> res = projectService.wtqr(project,user);
 		if(res.isFlag()){
-			model = new ModelAndView("mobile/success");
+			model = new ModelAndView("mobile/a4wtqr/wtqrlist");
 			model.addObject("objectid", res.getData().getObjectid());
 		}else{
 			model = new ModelAndView("mobile/error");

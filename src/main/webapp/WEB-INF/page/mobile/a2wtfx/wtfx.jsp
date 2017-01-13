@@ -206,6 +206,10 @@
 							<input name="khmc" type="text"  readonly="readonly" value="${project.khmc}">
 						</div>
 						<div class="mui-input-row">
+							<label>项目名称</label>
+							<input name="xmmc" type="text" readonly="readonly" value="${project.xmmc}">
+						</div>
+						<div class="mui-input-row">
 							<label>产品名称</label>
 							<input name="cpmc" type="text" readonly="readonly" value="${project.cpmc }">
 						</div>
@@ -221,7 +225,7 @@
 							<label >要求完成日期</label>
 							<fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${project.yqwcsj }" />
 						</div> 
-						<div class="mui-input-row mui-input-range">
+						<div class="mui-input-row">
 							<label>紧急程度</label>
 			            	<input name="jjcd" type="text"  value="${project.jjcd }" readonly="readonly" >
 			        	</div>

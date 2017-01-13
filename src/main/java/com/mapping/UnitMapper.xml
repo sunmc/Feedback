@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.UnitMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.Unit" >
+    <id column="ObjectId" property="objectid" jdbcType="CHAR" />
+    <result column="ParentObjectId" property="parentobjectid" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="DATE" />
+    <result column="CreateBy" property="createby" jdbcType="CHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="DATE" />
+    <result column="UpdateBy" property="updateby" jdbcType="CHAR" />
+    <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ObjectId, ParentObjectId, CreateTime, CreateBy, UpdateTime, UpdateBy, DeleteFlag, 
+    Name, Code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FB_Unit
+    where ObjectId = #{objectid,jdbcType=CHAR} and DeleteFlag = 0
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from FB_Unit
+    where DeleteFlag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FB_Unit
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.Unit" >
+    insert into FB_Unit (ObjectId, ParentObjectId, CreateTime, 
+      CreateBy, UpdateTime, UpdateBy, 
+      DeleteFlag, Name, Code
+      )
+    values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=DATE}, 
+      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=DATE}, #{updateby,jdbcType=CHAR}, 
+      #{deleteflag,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.Unit" >
+    insert into FB_Unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="parentobjectid != null" >
+        ParentObjectId,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateby != null" >
+        UpdateBy,
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="code != null" >
+        Code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objectid != null" >
+        #{objectid,jdbcType=CHAR},
+      </if>
+      <if test="parentobjectid != null" >
+        #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Unit" >
+    update FB_Unit
+    <set >
+      <if test="parentobjectid != null" >
+        ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="updateby != null" >
+        UpdateBy = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="deleteflag != null" >
+        DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        Code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Unit" >
+    update FB_Unit
+    set ParentObjectId = #{parentobjectid,jdbcType=CHAR},
+      CreateTime = #{createtime,jdbcType=DATE},
+      CreateBy = #{createby,jdbcType=CHAR},
+      UpdateTime = #{updatetime,jdbcType=DATE},
+      UpdateBy = #{updateby,jdbcType=CHAR},
+      DeleteFlag = #{deleteflag,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      Code = #{code,jdbcType=VARCHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
+</mapper>

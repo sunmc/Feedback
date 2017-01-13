@@ -32,6 +32,8 @@ public class Implementation {
     private Integer gzjd;
     
     private String zrrxm;
+    
+    private String sort;
 
     public String getObjectid() {
         return objectid;
@@ -151,5 +153,13 @@ public class Implementation {
 
 	public void setZrrxm(String zrrxm) {
 		this.zrrxm = zrrxm;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 }

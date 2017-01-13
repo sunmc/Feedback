@@ -22,4 +22,9 @@ public interface WorkItemMapper {
     List<WorkItem> selectBySelective(WorkItem record);
     
     List<WorkItem> selectWorkFlowStatus(String bizobjectid);
+    
+    List<WorkItem> selectWorkItemUsers(WorkItem record);
+    
+    List<WorkItem> selectWorkItemJd(String bizobjectid);
+    
 }

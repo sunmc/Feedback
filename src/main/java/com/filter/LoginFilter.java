@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bean.User;
+import com.google.gson.Gson;
 import com.qq.weixin.mp.aes.WXService;
 import com.qq.weixin.mp.aes.bean.UserId;
 import com.qq.weixin.mp.aes.bean.UserInfo;
@@ -53,6 +54,25 @@ public class LoginFilter implements Filter{
 		User user = (User)srequest.getSession().getAttribute("user");
 		boolean isWX = false;
 		if(user == null){
+			//
+			String zh = request.getParameter("zh");
+			if(!StringUtil.isNullOrEmpty(zh)){
+				UserInfo wxuser = WXService.getUserInfo(zh);
+				Gson gson = new Gson();
+				log.debug("wxuser:" + gson.toJson(wxuser));
+				if(wxuser != null){
+					IUserService userService = (UserService)SpringContextUtil.getBean("userService");
+					Result<User> res = userService.syncWXUser(wxuser);
+					if(res.isFlag()){ 
+						srequest.getSession().setAttribute("user", res.getData());
+						log.debug("微信用户:" + wxuser.userid + "-" + wxuser.name);
+					}
+					isWX = true;
+				}else{
+					log.debug("微信用户信息获取失败");
+				}
+			}
+			//
 			String code = request.getParameter("code");
 			log.debug("code"+code);
 			if(!StringUtil.isNullOrEmpty(code)){
@@ -60,6 +80,8 @@ public class LoginFilter implements Filter{
 				log.debug("ui"+ui.toString());
 				if(!StringUtil.isNullOrEmpty(ui.UserId)){
 					UserInfo wxuser = WXService.getUserInfo(ui.UserId);
+					Gson gson = new Gson();
+					log.debug("wxuser:" + gson.toJson(wxuser));
 					if(wxuser != null){
 						IUserService userService = (UserService)SpringContextUtil.getBean("userService");
 						Result<User> res = userService.syncWXUser(wxuser);

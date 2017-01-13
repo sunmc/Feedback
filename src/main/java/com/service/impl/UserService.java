@@ -1,16 +1,21 @@
 package com.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bean.Post;
+import com.bean.ProjectState;
 import com.bean.User;
 import com.mapper.InstanceContextMapper;
+import com.mapper.PostMapper;
 import com.mapper.UserMapper;
 import com.qq.weixin.mp.aes.bean.UserInfo;
 import com.service.IUserService;
+import com.util.StringUtil;
 import com.util.bean.Result;
 
 @Service
@@ -18,6 +23,8 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private PostMapper postMapper;
 	@Autowired
 	private InstanceContextMapper instanceMapper;
 	@Override
@@ -115,6 +122,41 @@ public class UserService implements IUserService {
 			userMapper.insertSelective(u);
 			res.setData(u);
 			res.setFlag(true);
+		}
+		return res;
+	}
+
+	@Override
+	public boolean ifAdmin(String userid) {
+		if(StringUtil.isNullOrEmpty(userid)){
+			return false;
+		}
+		try{
+			List<Post> posts = postMapper.selectByUserid(userid);
+			for(Post p : posts){
+				if(p.getPostcode().equals(ProjectState.WTPD)){
+					return true;
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public Result<User> update(User user) {
+		Result<User> res = new Result<>();
+		try{
+			user.setUpdatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			userMapper.updateByPrimaryKeySelective(user);
+			user = userMapper.selectByPrimaryKey(user.getObjectid());
+			res.setData(user);
+			res.setFlag(true);
+		}catch(Exception e){
+			res.setFlag(false);
+			res.setMessage(e.getMessage());
 		}
 		return res;
 	}

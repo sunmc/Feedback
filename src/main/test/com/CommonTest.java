@@ -1,18 +1,13 @@
 package com;
 
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.List;
 
-import com.qq.weixin.mp.aes.WXService;
-import com.qq.weixin.mp.aes.bean.Articles;
-import com.qq.weixin.mp.aes.bean.NewsMessage;
+import com.bean.ProjectIssueManage;
 
 public class CommonTest {
 
-	public static void main(String []args){
+	public static void main(String []args) throws UnsupportedEncodingException{
 		//给流程接收人发微信
 //		NewsMessage nm = new NewsMessage();
 //		Articles articles = new Articles();
@@ -25,8 +20,23 @@ public class CommonTest {
 //		nm.agentid = 27;
 //		String res = WXService.sendNewsMessage(nm);
 //		System.out.println(res);
-		String url = "http://bpm.mesnac.com:8087/Feedback/wtjj/wtjj.do?objectid=32A6D13A-0AD5-4922-A875-EA3C781AED5A&workitemid=1429730F-0A3C-4567-A44F-14BC27BCAD3A";
-		url = URLEncoder.encode(url);
-		System.out.println(url);
+		
+//		DgsData data = new DgsData("admin", "a1a97d559f25c58a1b7377a562d674ef", "C:\\test\\测试.xlsx", "C:\\test\\解密\\测试.xlsx", "1", "BPM", "BPIT0304");
+//		Gson gson = new Gson();
+//		String datas = gson.toJson(data);
+//		String s = HttpUtil.sendPost("http://172.16.251.141:8100/DGS/dg/interface/dgDecrypt", datas);
+//		s=s+"";
+		
+//		PDMMapper pdm = new PDMMapper();
+//		pdm.selectByWth("123");
+		
+//		SAPUtil sap = new SAPUtil();
+//		sap.execute("ZBPM_GET_T001W_INFO", new HashMap<String, String>());
+		ProjectIssueManage project = new ProjectIssueManage();
+		String a = "aaa";
+		project.setZrr(a);
+		a = "bbb";
+		project.setFazxr(a);
+		System.out.println(project.getZrr() + ":" + project.getFazxr());
 	}
 }

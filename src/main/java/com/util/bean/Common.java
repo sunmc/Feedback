@@ -1,10 +1,5 @@
 package com.util.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bean.Wtdata;
-
 public class Common {
 
 	public final static String title = "项目质量问题管理"; 
@@ -14,6 +9,8 @@ public class Common {
 	public final static String wttc = "问题提出";
 	
 	public final static String wtpd = "问题判定";
+	
+	public final static String wtcl = "问题处理";
 	
 	public final static String wtfx = "问题分析";
 	
@@ -27,10 +24,17 @@ public class Common {
 	
 	public final static String wtgz = "问题跟踪";
 	
-	public final static String wtqr = "问题确认";
+	public final static String wtqr = "问题解决";
 	
 	public final static String wtxx = "问题信息";
 	
 	public final static String lb = "列表";
 	
+	public final static String xmjl = "xmjl";
+	
+	public final static String cpfzr = "cpjsfzr";
+	
+	public final static String bmfzr = "bmfzr";
+	
+	public static int width = 640;
 }

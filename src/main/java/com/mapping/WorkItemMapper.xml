@@ -85,14 +85,20 @@
 	    <result column="WTS" property="wts" jdbcType="INTEGER" />
 	    <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
 	    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+	    <result column="BTSL" property="btsl" jdbcType="INTEGER" />
+	    <result column="WXCJ" property="wxcj" jdbcType="VARCHAR" />
+	    <association property="fqr" select="selectUser" column="createby" javaType="com.bean.User" ></association>
     </resultMap>
     <resultMap type="com.bean.WorkItem" id="WorkItemStatus">
     	<result column="ActivityName" property="activityname" jdbcType="VARCHAR" />
+    	<result column="ActivityCode" property="activitycode" jdbcType="VARCHAR" />
+    	<result column="BizObjectSchemaCode" property="bizobjectschemacode" jdbcType="VARCHAR" />
     	<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
 	    <result column="receivetime" property="receivetime" jdbcType="TIMESTAMP" />
 	    <result column="finishtime" property="finishtime" jdbcType="TIMESTAMP" />
 	    <result column="receivername" property="receivername" jdbcType="VARCHAR" />
 	    <result column="finishername" property="finishername" jdbcType="VARCHAR" />
+	    <result column="Receiver" property="receiver" jdbcType="VARCHAR" />
 	    <result column="sendername" property="sendername" jdbcType="VARCHAR" />
 	    <result column="state" property="state" jdbcType="INTEGER" />
     </resultMap>
@@ -115,63 +121,68 @@
     delete from FB_WorkItem
     where ObjectId = #{objectid,jdbcType=CHAR}
   </delete>
+  <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
+  	select * from FB_User where ObjectId = #{0}
+  </select>
   <select id="selectBySelective" resultMap="WPMap" parameterType="com.bean.WorkItem">
   	select
-  	<include refid="Base_Column_List" />
-    from FB_WorkItem
+  	a.*
+    from FB_WorkItem a
+    inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
     <where>
 		  <if test="objectid != null">
-			AND ObjectId = #{objectid,jdbcType=CHAR}
+			AND a.ObjectId = #{objectid,jdbcType=CHAR}
 		  </if>
 		  <if test="bizobjectid != null" >
-	        AND BizObjectId = #{bizobjectid,jdbcType=CHAR}
+	        AND a.BizObjectId = #{bizobjectid,jdbcType=CHAR}
 	      </if>
 	      <if test="bizobjectschemacode != null" >
-	        AND BizObjectSchemaCode = #{bizobjectschemacode,jdbcType=VARCHAR}
+	        AND a.BizObjectSchemaCode = #{bizobjectschemacode,jdbcType=VARCHAR}
 	      </if>
 	      <if test="activitycode != null" >
-	        AND ActivityCode = #{activitycode,jdbcType=VARCHAR}
+	        AND a.ActivityCode = #{activitycode,jdbcType=VARCHAR}
 	      </if>
 	      <if test="activityname != null" >
-	        AND ActivityName = #{activityname,jdbcType=VARCHAR}
+	        AND a.ActivityName = #{activityname,jdbcType=VARCHAR}
 	      </if>
 	      <if test="originator != null" >
-	        AND Originator = #{originator,jdbcType=CHAR}
+	        AND a.Originator = #{originator,jdbcType=CHAR}
 	      </if>
 	      <if test="receiver != null" >
-	        AND Receiver = #{receiver,jdbcType=CHAR}
+	        AND a.Receiver = #{receiver,jdbcType=CHAR}
 	      </if>
 	      <if test="sender != null" >
-	        AND Sender = #{sender,jdbcType=CHAR}
+	        AND a.Sender = #{sender,jdbcType=CHAR}
 	      </if>
 	      <if test="finisher != null" >
-	        AND Finisher = #{finisher,jdbcType=CHAR}
+	        AND a.Finisher = #{finisher,jdbcType=CHAR}
 	      </if>
 	      <if test="receivetime != null" >
-	        AND ReceiveTime = #{receivetime,jdbcType=TIMESTAMP}
+	        AND a.ReceiveTime = #{receivetime,jdbcType=TIMESTAMP}
 	      </if>
 	      <if test="starttime != null" >
-	        AND StartTime = #{starttime,jdbcType=TIMESTAMP}
+	        AND a.StartTime = #{starttime,jdbcType=TIMESTAMP}
 	      </if>
 	      <if test="finishtime != null" >
-	        AND FinishTime = #{finishtime,jdbcType=TIMESTAMP}
+	        AND a.FinishTime = #{finishtime,jdbcType=TIMESTAMP}
 	      </if>
 	      <if test="createtime != null" >
-	        AND CreateTime = #{createtime,jdbcType=TIMESTAMP}
+	        AND a.CreateTime = #{createtime,jdbcType=TIMESTAMP}
 	      </if>
 	      <if test="updatetime != null" >
-	        AND UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+	        AND a.UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
 	      </if>
 	      <if test="state != null" >
-	        AND State = #{state,jdbcType=INTEGER}
+	        AND a.State = #{state,jdbcType=INTEGER}
 	      </if>
 	      <if test="eitherorall != null" >
-	        AND EitherOrAll = #{eitherorall,jdbcType=INTEGER}
+	        AND a.EitherOrAll = #{eitherorall,jdbcType=INTEGER}
 	      </if>
 	      <if test="instanceid != null" >
-	        AND InstanceId = #{instanceid,jdbcType=CHAR}
+	        AND a.InstanceId = #{instanceid,jdbcType=CHAR}
 	      </if>
 	</where>
+	order by b.xmbh
   </select>
   <insert id="insert" parameterType="com.bean.WorkItem" >
     insert into FB_WorkItem (ObjectId, BizObjectId, BizObjectSchemaCode, 
@@ -398,7 +409,7 @@
 	        State = #{state,jdbcType=INTEGER},
 	      </if>
 	    </set>
-	    where ActivityCode = #{activitycode,jdbcType=NVARCHAR} and BizObjectId = #{bizobjectid,jdbcType=CHAR}
+	    where ActivityCode = #{activitycode,jdbcType=NVARCHAR} and BizObjectId = #{bizobjectid,jdbcType=CHAR}  and State != 4 and State != 5
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bean.WorkItem" >
     update FB_WorkItem
@@ -423,6 +434,7 @@
   <select id="selectWorkFlowStatus" resultMap="WorkItemStatus">
   	select 
 		a.ActivityName,
+		a.ActivityCode,
 		a.CreateTime createtime,
 		a.FinishTime finishtime,
 		a.ReceiveTime receivetime,
@@ -431,7 +443,27 @@
 		(select xm from FB_User u where u.ObjectId = a.Sender) sendername,
 		a.State state
 	from FB_WorkItem a 
-	where a.BizObjectId = #{0}
+	where a.BizObjectId = #{0} and a.State != 4 and a.State != 5
 	order by createtime,finishtime
+  </select>
+  <select id="selectWorkItemJd" resultMap="BaseResultMap">
+  	select distinct
+		a.ActivityName,
+		a.ActivityCode,
+		a.BizObjectSchemaCode,
+		BizObjectId
+	from FB_WorkItem a
+	where BizObjectId = #{0} and a.State != 4 and a.State != 5
+  </select>
+  <select id="selectWorkItemUsers" resultMap="WorkItemStatus" parameterType="com.bean.WorkItem">
+  	select 
+		a.ActivityName,
+		a.BizObjectSchemaCode,
+		u.XM receivername,
+		a.Receiver
+	from FB_WorkItem a
+	inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+	inner join FB_User u on u.ObjectId = a.Receiver
+	where a.BizObjectSchemaCode = #{activitycode,jdbcType=VARCHAR} and a.BizObjectId = #{bizobjectid,jdbcType=VARCHAR} and a.State != 4 and a.State != 5
   </select>
 </mapper>

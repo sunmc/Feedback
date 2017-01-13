@@ -24,4 +24,6 @@ public interface UserMapper {
     List<User> search(String text);
     
     List<User> selectByWorkItem(String bizobjectid, String activityCode);
+    
+    List<User> selectByName(String xm);
 }

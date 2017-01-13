@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.XGXXMapper" >
+  <resultMap type="com.bean.LsjData" id="LsjData">
+  	<result column="SequenceNo" property="SequenceNo" jdbcType="VARCHAR" />
+  	<result column="WLBM" property="WLBM" jdbcType="VARCHAR" />
+  	<result column="WLMC" property="WLMC" jdbcType="VARCHAR" />
+  	<result column="XQSL" property="XQSL" jdbcType="VARCHAR" />
+  	<result column="JBDW" property="JBDW" jdbcType="VARCHAR" />
+  	<result column="LYR" property="LYR" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.bean.DA02Data" id="DA02Data">
+  	<result column="DJBH" property="DJBH" jdbcType="VARCHAR" />
+  	<result column="BM" property="BM" jdbcType="VARCHAR" />
+  	<result column="TH" property="TH" jdbcType="VARCHAR" />
+  	<result column="TZTS" property="TZTS" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 获取非BOM流程数据 -->
+  <select id="selectLsjData" resultMap="LsjData">
+  	select *
+	from I_LSJInfo
+	where WTH = #{0}
+  </select>
+  <!-- 获取非BOM流程节点信息 -->
+  <select id="getLsjWorkItem" resultMap="com.mapper.WorkItemMapper.WorkItemStatus">
+  	select 
+		*
+	from I_LSJWorkItem
+	where lsh = #{0}
+	order by createtime
+  </select>
+  <!-- 获取图纸变更流程数据 -->
+  <select id="selectDA02Data" resultMap="DA02Data">
+  	SELECT DJBH, BM,TH,TZTS 
+  	FROM [172.16.21.117].iFlow_test.dbo.DA02 A
+  	LEFT JOIN [172.16.21.117].iFlow_test.dbo.DA02_MX B ON A.RSID = B.RSID 
+  	WHERE WTH = #{0}
+  </select>
+  <!-- 获取图纸变更流程节点信息 -->
+  <select id="getDA02WorkItem" resultMap="com.mapper.WorkItemMapper.WorkItemStatus" parameterType="java.lang.String">
+  	SELECT 
+		GenStepName ActivityName,
+		UserDspName receivername,
+		RecTime createtime, 
+		ProcTime finishtime 
+	FROM [172.16.21.117].iFlow_test.dbo.wfi_task a
+	LEFT JOIN [172.16.21.117].iFlow_test.dbo.wfi_proc b ON a.TaskID = b.TaskID
+	LEFT JOIN [172.16.21.117].iFlow_test.dbo.tb_users c ON b.UserID = c.UserID
+	LEFT JOIN [172.16.21.117].iFlow_test.dbo.TB_WFNODES d ON b.NodeID = d.NodeID
+	WHERE TaskName LIKE '%' + #{0} + '%' AND d.NodeID != '13868'
+	ORDER BY RecTime
+  </select>
+</mapper>

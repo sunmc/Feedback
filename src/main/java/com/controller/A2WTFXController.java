@@ -32,7 +32,11 @@ public class A2WTFXController extends BaseController{
 	@RequestMapping
 	public ModelAndView index(HttpSession session){
 		User user = (User)session.getAttribute("user");
-		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(ProjectState.WTFX, user.getObjectid(), ProjectState.START);
+		ProjectListItem pli = new ProjectListItem();
+		pli.setActivitycode(ProjectState.WTFX);
+		pli.setReceiver(user.getObjectid());
+		pli.setQrstate(ProjectState.START);
+		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(pli);
 		ModelAndView model = null;
 		if(res.isFlag()){
 			model = new ModelAndView("mobile/a2wtfx/wtfxlist");

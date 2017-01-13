@@ -44,6 +44,8 @@ public class WorkItem {
     private String instanceid;
     
     private ProjectIssueManage projectIssueManage;
+    
+    private String statecolor;
 
     public String getObjectid() {
         return objectid;
@@ -162,6 +164,9 @@ public class WorkItem {
     }
 
     public void setState(Integer state) {
+    	if(state != null && state.equals(ProjectState.START)){
+    		this.statecolor = "#FFFF99";
+    	}
         this.state = state;
     }
 
@@ -211,6 +216,14 @@ public class WorkItem {
 
 	public void setFinishername(String finishername) {
 		this.finishername = finishername;
+	}
+
+	public String getStatecolor() {
+		return statecolor;
+	}
+
+	public void setStatecolor(String statecolor) {
+		this.statecolor = statecolor;
 	}
 
 }

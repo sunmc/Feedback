@@ -7,7 +7,7 @@
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="CreateBy" property="createby" jdbcType="CHAR" />
     <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="UpdateBy" property="updateby" jdbcType="TIMESTAMP" />
+    <result column="UpdateBy" property="updateby" jdbcType="VARCHAR" />
     <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
     <result column="State" property="state" jdbcType="INTEGER" />
     <result column="Owner" property="owner" jdbcType="CHAR" />
@@ -21,7 +21,7 @@
       DeleteFlag, State, Owner, 
       PostCode, PostName)
     values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=VARCHAR}, 
       #{deleteflag,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{owner,jdbcType=CHAR}, 
       #{postcode,jdbcType=VARCHAR}, #{postname,jdbcType=VARCHAR})
   </insert>
@@ -79,7 +79,7 @@
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateby != null" >
-        #{updateby,jdbcType=TIMESTAMP},
+        #{updateby,jdbcType=VARCHAR},
       </if>
       <if test="deleteflag != null" >
         #{deleteflag,jdbcType=INTEGER},
@@ -99,12 +99,58 @@
     </trim>
   </insert>
   <select id="getPostByName" resultMap="BaseResultMap">
-  	select * from FB_Post where PostName = #{0}
+  	select * from FB_Post where PostName = #{0} and deleteflag = 0
   </select>
   <select id="getPostByCode" resultMap="BaseResultMap">
-  	select * from FB_Post where PostCode = #{0}
+  	select * from FB_Post where PostCode = #{0} and deleteflag = 0
   </select>
   <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
   	select * from FB_User where ObjectId = #{0}
   </select>
+  <select id="selectByUserid" resultMap="BaseResultMap">
+  	select *
+  	from FB_Post where Owner = #{0} and deleteflag = 0
+  </select>
+  <select id="selectPosts" resultMap="BaseResultMap">
+  	select distinct PostCode ,PostName 
+  	from FB_Post 
+  	where deleteflag = 0
+  	order by postcode
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Post" >
+    update FB_Post
+    <set >
+      <if test="parentobjectid != null" >
+        parentobjectid = #{parentobjectid,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        createby = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        updateby = #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteflag != null" >
+        deleteflag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=CHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="postname != null" >
+        postname = #{postname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ObjectId = #{objectid,jdbcType=CHAR}
+  </update>
 </mapper>

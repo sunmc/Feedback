@@ -21,13 +21,15 @@ public class Wtdata {
 
     private Integer deleteflag;
 
-    private Integer value;
+    private String value;
 
     private String text;
 
     private String descripe;
 
     private String belongto;
+    
+    private Integer sort;
 
     public String getObjectid() {
         return objectid;
@@ -101,11 +103,11 @@ public class Wtdata {
         this.deleteflag = deleteflag;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -132,4 +134,12 @@ public class Wtdata {
     public void setBelongto(String belongto) {
         this.belongto = belongto == null ? null : belongto.trim();
     }
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 }

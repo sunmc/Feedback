@@ -22,6 +22,8 @@ public class ProjectIssueManage {
     private Date updatetime;
 
     private Integer state;
+    
+    private String statetext;
 
     private Integer deleteflag;
 
@@ -30,6 +32,8 @@ public class ProjectIssueManage {
     private Date tbrq;
 
     private String khmc;
+    
+    private String xmmc;
 
     private String cpmc;
 
@@ -76,6 +80,8 @@ public class ProjectIssueManage {
 	private Date yqwcsj;
 
     private Date sjwcsj;
+    
+    private Date wtgbsj;
 
     private String wcqk;
 
@@ -104,12 +110,26 @@ public class ProjectIssueManage {
     private Integer wts;
     
     private Integer gzjd;
+    
+    private String gznr;
 
     private String bz;
     
     private String lsh;
     
+    private String xmjl;
+    
+    private String xmjlname;
+    
+    private String sfylsjlc;
+    
+    private Integer btsl;
+    
+    private String wxcj;
+    
     private List<Implementation> implementations;
+    
+    private String workitemid;
 
     public String getObjectid() {
         return objectid;
@@ -165,6 +185,28 @@ public class ProjectIssueManage {
 
     public void setState(Integer state) {
         this.state = state;
+        if(this.yqwcsj != null){
+        	Date now = new Date();
+        	if(now.before(this.yqwcsj)){
+        		if(state < 3){
+        			this.statetext = "处理中";
+        		}else if(state == 3){
+        			this.statetext = "按期完成";
+        		}else if(state == 6){
+        			this.setStatetext("已关闭");
+        		}
+        	}else{
+        		if(state < 3){
+        			this.statetext = "拖期未完成";
+        		}else if(state == 3){
+        			this.statetext = "拖期完成";
+        		}else if(state == 6){
+        			this.setStatetext("已关闭");
+        		}
+        	}
+        }else{
+        	this.setStatetext("处理中");
+        }
     }
 
     public Integer getDeleteflag() {
@@ -365,6 +407,28 @@ public class ProjectIssueManage {
 
     public void setYqwcsj(Date yqwcsj) {
         this.yqwcsj = yqwcsj;
+        if(this.state != null && this.state != 0){
+        	Date now = new Date();
+        	if(now.before(this.yqwcsj)){
+        		if(state < 3){
+        			this.statetext = "处理中";
+        		}else if(state == 3){
+        			this.statetext = "按期完成";
+        		}else if(state == 6){
+        			this.setStatetext("已关闭");
+        		}
+        	}else{
+        		if(state < 3){
+        			this.statetext = "拖期未完成";
+        		}else if(state == 3){
+        			this.statetext = "拖期完成";
+        		}else if(state == 6){
+        			this.setStatetext("已关闭");
+        		}
+        	}
+        }else{
+        	this.setStatetext("处理中");
+        }
     }
 
     public Date getSjwcsj() {
@@ -562,5 +626,85 @@ public class ProjectIssueManage {
 
 	public void setFqr(User fqr) {
 		this.fqr = fqr;
+	}
+
+	public String getGznr() {
+		return gznr;
+	}
+
+	public void setGznr(String gznr) {
+		this.gznr = gznr;
+	}
+
+	public Date getWtgbsj() {
+		return wtgbsj;
+	}
+
+	public void setWtgbsj(Date wtgbsj) {
+		this.wtgbsj = wtgbsj;
+	}
+
+	public String getXmmc() {
+		return xmmc;
+	}
+
+	public void setXmmc(String xmmc) {
+		this.xmmc = xmmc;
+	}
+
+	public String getXmjl() {
+		return xmjl;
+	}
+
+	public void setXmjl(String xmjl) {
+		this.xmjl = xmjl;
+	}
+
+	public String getXmjlname() {
+		return xmjlname;
+	}
+
+	public void setXmjlname(String xmjlname) {
+		this.xmjlname = xmjlname;
+	}
+
+	public String getStatetext() {
+		return statetext;
+	}
+
+	public void setStatetext(String statetext) {
+		this.statetext = statetext;
+	}
+
+	public String getSfylsjlc() {
+		return sfylsjlc;
+	}
+
+	public void setSfylsjlc(String sfylsjlc) {
+		this.sfylsjlc = sfylsjlc;
+	}
+
+	public Integer getBtsl() {
+		return btsl;
+	}
+
+	public void setBtsl(Integer btsl) {
+		this.btsl = btsl;
+	}
+
+	public String getWxcj() {
+		return wxcj;
+	}
+
+	public void setWxcj(String wxcj) {
+		this.wxcj = wxcj;
+	}
+
+	public String getWorkitemid() {
+		return workitemid;
+	}
+
+	public void setWorkitemid(String workitemid) {
+		this.workitemid = workitemid;
 	}
 }

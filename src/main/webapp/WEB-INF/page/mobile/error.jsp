@@ -20,7 +20,6 @@
 	<body>
 		<div align="center" style="margin-top: 240px">
 		${error}<br/>
-		<a  class="mui-btn" href="/Feedback/wtgz.do">返回</a>
 		</div>
 	</body>
 </html>

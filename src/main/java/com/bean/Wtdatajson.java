@@ -1,12 +1,12 @@
 package com.bean;
 
 public class Wtdatajson{
-	private int value;
+	private String value;
 	private String text;
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	public String getText() {

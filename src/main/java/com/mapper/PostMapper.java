@@ -12,4 +12,10 @@ public interface PostMapper {
     List<Post> getPostByName(String postname);
     
     List<Post> getPostByCode(String postcode);
+    
+    List<Post> selectByUserid(String userid);
+    
+    int updateByPrimaryKeySelective(Post post);
+    
+    List<Post> selectPosts();
 }

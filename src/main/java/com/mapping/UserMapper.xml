@@ -21,10 +21,11 @@
     <result column="XB" property="xb" jdbcType="INTEGER" />
     <result column="TX" property="tx" jdbcType="VARCHAR" />
     <result column="Passwd" property="passwd" jdbcType="VARCHAR" />
+    <result column="Role" property="role" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, DelFlag, 
-    XM, ZH, WXH, SJH, EMAIL, SZBM, ZW, memo, XB, TX
+    XM, ZH, WXH, SJH, EMAIL, SZBM, ZW, memo, XB, TX, Role
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -40,15 +41,23 @@
   </select>
   <select id="search" resultMap="BaseResultMap"  parameterType="java.lang.String">
   	select 
-  	<include refid="Base_Column_List" />
-    from FB_User
+  	a.*
+    from FB_User a
+    inner join OT_User b on a.EMAIL = b.Email and b.state = 0 and a.EMAIL != ''
     where XM like #{0} or ZH like #{0}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  	select 
+  	a.*
+    from FB_User a
+    inner join OT_User b on a.EMAIL = b.Email and b.state = 0 and a.EMAIL != ''
+    where charindex(ltrim(rtrim(a.XM)), #{0}, 0) > 0
   </select>
   <select id="loginValidate" resultMap="BaseResultMap" >
   	select
   	<include refid="Base_Column_List" />
     from FB_User
-    where ZH = #{0,jdbcType=CHAR} and Passwd = #{1,jdbcType=CHAR}
+    where (ZH = #{0,jdbcType=CHAR} or DLM = #{0,jdbcType=CHAR}) and Passwd = #{1,jdbcType=CHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from FB_User
@@ -59,14 +68,14 @@
       CreateTime, UpdateBy, UpdateTime, 
       State, DelFlag, XM, ZH, 
       WXH, SJH, EMAIL, SZBM, 
-      ZW, memo, XB, TX, 
+      ZW, memo, XB, TX, Role,
       Passwd)
     values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createby,jdbcType=CHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{updatetime,jdbcType=CHAR}, 
       #{state,jdbcType=INTEGER}, #{delflag,jdbcType=INTEGER}, #{xm,jdbcType=CHAR}, #{zh,jdbcType=CHAR}, 
       #{wxh,jdbcType=CHAR}, #{sjh,jdbcType=CHAR}, #{email,jdbcType=CHAR}, #{szbm,jdbcType=VARCHAR}, 
       #{zw,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{xb,jdbcType=INTEGER}, #{tx,jdbcType=VARCHAR}, 
-      #{passwd,jdbcType=VARCHAR})
+      #{role,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bean.User" >
     insert into FB_User
@@ -126,6 +135,9 @@
       <if test="passwd != null" >
         Passwd,
       </if>
+      <if test="role != null" >
+        Role,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
         #{objectid,jdbcType=CHAR},
@@ -182,6 +194,9 @@
       </if>
       <if test="passwd != null" >
         #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -242,6 +257,9 @@
       <if test="passwd != null" >
         Passwd = #{passwd,jdbcType=VARCHAR},
       </if>
+      <if test="role != null" >
+        Role = #{role,jdbcType=VARCHAR},
+      </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
@@ -300,6 +318,9 @@
       <if test="passwd != null" >
         and Passwd = #{passwd,jdbcType=VARCHAR}
       </if> 
+      <if test="role != null" >
+        and Role = #{role,jdbcType=VARCHAR}
+      </if> 
   </select>
   <update id="updateByPrimaryKey" parameterType="com.bean.User" >
     update FB_User
@@ -321,6 +342,7 @@
       XB = #{xb,jdbcType=INTEGER},
       TX = #{tx,jdbcType=VARCHAR},
       Passwd = #{passwd,jdbcType=VARCHAR}
+      Role = #{role,jdbcType=INTEGER}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
 </mapper>

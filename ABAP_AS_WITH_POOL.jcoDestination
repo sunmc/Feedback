@@ -1,0 +1,10 @@
+#for tests only !
+#Sat Dec 31 10:49:32 CST 2016
+jco.client.lang=ZH
+jco.destination.peak_limit=10
+jco.client.client=900
+jco.client.passwd=654321
+jco.client.user=QASBPM
+jco.client.sysnr=00
+jco.destination.pool_capacity=3
+jco.client.ashost=172.16.251.225

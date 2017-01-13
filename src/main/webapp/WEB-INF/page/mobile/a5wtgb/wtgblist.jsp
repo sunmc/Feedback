@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
 		<link rel="stylesheet" href="/Feedback/resource/css/ch.css">
 		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/app.css" />
+		<script>
+			var urls = new Array();
+		</script>
 	</head>
 
 	<body>
@@ -32,14 +35,9 @@
 									<%= Common.wtpd %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtfx">
+							<li class="mui-table-view-cell" id="wtcl">
 								<a class="mui-navigate-right">
-									<%= Common.wtfx %>
-								</a>
-							</li>
-							<li class="mui-table-view-cell" id="wtzg">
-								<a class="mui-navigate-right">
-									<%= Common.wtzg %>
+									<%= Common.wtcl %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtqr">
@@ -52,9 +50,9 @@
 									<%= Common.wtgb %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtgz">
+							<li class="mui-table-view-cell" id="wtcx">
 								<a class="mui-navigate-right">
-									<%= Common.wtgz %>
+									<%= Common.wtcx %>
 								</a>
 							</li>
 						</ul>
@@ -86,11 +84,11 @@
 								</div>
 							</li>
 							<script>
-								var wturl = '/Feedback/wtgb/wtgb.do?objectid=${item.objectid}&workitemid=${item.workitemid}';
+								urls['${status.index}'] = '/Feedback/wtgb/wtgb.do?objectid=${item.objectid}&workitemid=${item.workitemid}';
 								document.getElementById('${status.index}').addEventListener('tap', function() {
 									mui.openWindow({
-										url : wturl,
-										id : 'wtfx',
+										url : urls[this.id],
+										id : 'wtcl',
 										show : {
 											aniShow : 'pop-in'
 										},
@@ -132,22 +130,10 @@
 					}
 				});
 			})
-			document.getElementById('wtfx').addEventListener('tap', function() {
+			document.getElementById('wtcl').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtfx.do',
-					id : 'wtfx',
-					show : {
-						aniShow : 'pop-in'
-					},
-					waiting : {
-						autoShow : false
-					}
-				});
-			})
-			document.getElementById('wtzg').addEventListener('tap', function() {
-				mui.openWindow({
-					url : '/Feedback/wtzg.do',
-					id : 'wtzg',
+					url : '/Feedback/wtcl.do',
+					id : 'wtcl',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -180,10 +166,10 @@
 					}
 				});
 			})
-			document.getElementById('wtgz').addEventListener('tap', function() {
+			document.getElementById('wtcx').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtgz.do',
-					id : 'wtgz',
+					url : '/Feedback/wtcx.do',
+					id : 'wtcx',
 					show : {
 						aniShow : 'pop-in'
 					},

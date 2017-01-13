@@ -42,6 +42,8 @@ public class User {
     private String passwd;
     
     private String workItemId;
+    
+    private Integer role;
 
     public String getObjectid() {
         return objectid;
@@ -201,5 +203,13 @@ public class User {
 
 	public void setWorkItemId(String workItemId) {
 		this.workItemId = workItemId;
+	}
+
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
 	}
 }

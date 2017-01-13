@@ -63,7 +63,7 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>/common.do</welcome-file>
+		<welcome-file>/wtcx.do</welcome-file>
 	</welcome-file-list>
 	
 </web-app> 

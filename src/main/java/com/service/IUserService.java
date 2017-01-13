@@ -18,4 +18,8 @@ public interface IUserService {
 	
 	public Result<User> syncWXUser(UserInfo user);
 	
+	public boolean ifAdmin(String userid);
+	
+	public Result<User> update(User user);
+	
 }

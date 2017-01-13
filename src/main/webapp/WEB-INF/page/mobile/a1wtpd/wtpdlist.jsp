@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
 		<link rel="stylesheet" href="/Feedback/resource/css/ch.css">
 		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/app.css" />
+		<script>
+			var urls = new Array();
+		</script>
 	</head>
 
 	<body>
@@ -32,14 +35,9 @@
 									<%= Common.wtpd %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtfx">
+							<li class="mui-table-view-cell" id="wtcl">
 								<a class="mui-navigate-right">
-									<%= Common.wtfx %>
-								</a>
-							</li>
-							<li class="mui-table-view-cell" id="wtzg">
-								<a class="mui-navigate-right">
-									<%= Common.wtzg %>
+									<%= Common.wtcl %>
 								</a>
 							</li>
 							<li class="mui-table-view-cell" id="wtqr">
@@ -52,9 +50,9 @@
 									<%= Common.wtgb %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtgz">
+							<li class="mui-table-view-cell" id="wtcx">
 								<a class="mui-navigate-right">
-									<%= Common.wtgz %>
+									<%= Common.wtcx %>
 								</a>
 							</li>
 						</ul>
@@ -71,34 +69,7 @@
 			</header>
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
-					<ul class="mui-table-view mui-table-view-chevron">
-						<c:forEach items="${items}" var="item" varStatus="status">
-						    <li id='${status.index}' class="mui-table-view-cell mui-media wi" >
-								<a class="mui-navigate-right">
-									${item.lsh}  ${item.xmbh}  ${item.wtms}
-									<p class='mui-ellipsis'>${item.fqrxm}      ${item.createtimes}</p>
-								</a>
-								<div hidden="hidden">
-									<input type="text" id="objectid${status.index}" value="${item.objectid}">
-									<input type="text" id="workitemid${status.index}" value="${item.workitemid}">
-								</div>
-							</li>
-							<script>
-								var wturl = '/Feedback/wtpd/wtpd.do?objectid=${item.objectid}&workitemid=${item.workitemid}';
-								document.getElementById('${status.index}').addEventListener('tap', function() {
-									mui.openWindow({
-										url : wturl,
-										id : 'wtfx',
-										show : {
-											aniShow : 'pop-in'
-										},
-										waiting : {
-											autoShow : false
-										}
-									});
-								});
-							</script>
-					    </c:forEach>
+					<ul id="itemlist" class="mui-table-view mui-table-view-chevron">
 					</ul>
 				</div>
 			</div>
@@ -113,54 +84,72 @@
 				pullRefresh : {
 					container : '#pullrefresh',
 					down : {
-						callback : pulldownRefresh
-					},
-					up : {
 						contentrefresh : '正在加载...',
-						callback : pullupRefresh
+						callback : pulldownRefresh
 					}
 				}
 			});
-			/**
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				mui('#pullrefresh').pullRefresh().pulldownLoading();
+			});
+			 /**
 			 * 下拉刷新具体业务实现
 			 */
 			function pulldownRefresh() {
-				setTimeout(function() {
-					/* var table = document.body.querySelector('.mui-table-view');
-					var cells = document.body
-							.querySelectorAll('.mui-table-view-cell');
-					for (var i = cells.length, len = i + 3; i < len; i++) {
-						var li = document.createElement('li');
-						li.className = 'mui-table-view-cell';
-						li.innerHTML = '<a class="mui-navigate-right">Item '
-								+ (i + 1) + '</a>';
-						//下拉刷新，新纪录插到最前面；
-						table.insertBefore(li, table.firstChild);
-					} */
-					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-				}, 1500);
+				
+				$.post("/Feedback/wtpd/wtpdlist.do",
+				         function(data){
+							if(data.flag){
+								var wtpddata = data.data;
+								var urls = new Array(); 
+								$("#itemlist").empty();
+								for(var i = 0; i < wtpddata.length; i++){
+									var li = '<li id='+ i +' class="mui-table-view-cell mui-media wi">'+
+												'<a class="mui-navigate-right">' + 
+												wtpddata[i].lsh + ' ' +  wtpddata[i].xmbh + ' ' + wtpddata[i].wtms +
+													'<p class="mui-ellipsis">' + wtpddata[i].fqrxm + ' ' + wtpddata[i].createtimes + '</p>' +
+												'</a>' +
+												'<div hidden="hidden">' +
+													'<input type="text" id="objectid' + i + '" value="' + wtpddata[i].objectid + '">' + 
+													'<input type="text" id="workitemid' + i + '" value="' + wtpddata[i].workitemid + '">' + 
+												'</div>' +
+											'</li>';
+											
+									//下拉刷新，新纪录插到最前面；
+									$("#itemlist").prepend(li);
+									urls[i] = '/Feedback/wtpd/wtpd.do?objectid=' + wtpddata[i].objectid + '&workitemid=' + wtpddata[i].workitemid;
+									document.getElementById(i).addEventListener('tap', function() {
+										mui.openWindow({
+											url : urls[this.id],
+											id : 'wtpd',
+											show : {
+												aniShow : 'pop-in'
+											},
+											waiting : {
+												autoShow : false
+											}
+										});
+									});
+								}
+							}
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				        });
+				
 			}
-			var count = 0;
-			/**
-			 * 上拉加载具体业务实现
-			 */
-			function pullupRefresh() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(
-							(++count > 2)); //参数为true代表没有更多数据了。
-							
-				}, 1500);
-			}
+			
 			if (mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
-						mui('#pullrefresh').pullRefresh().pullupLoading();
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
 					}, 1000);
 
 				});
 			} else {
 				mui.ready(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
+					mui('#pullrefresh').pullRefresh().pulldownLoading();
 				});
 			}
 			$(document).ready(function(){
@@ -183,22 +172,10 @@
 					}
 				});
 			})
-			document.getElementById('wtfx').addEventListener('tap', function() {
+			document.getElementById('wtcl').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtfx.do',
-					id : 'wtfx',
-					show : {
-						aniShow : 'pop-in'
-					},
-					waiting : {
-						autoShow : false
-					}
-				});
-			})
-			document.getElementById('wtzg').addEventListener('tap', function() {
-				mui.openWindow({
-					url : '/Feedback/wtzg.do',
-					id : 'wtjj',
+					url : '/Feedback/wtcl.do',
+					id : 'wtcl',
 					show : {
 						aniShow : 'pop-in'
 					},
@@ -231,10 +208,10 @@
 					}
 				});
 			})
-			document.getElementById('wtgz').addEventListener('tap', function() {
+			document.getElementById('wtcx').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtgz.do',
-					id : 'wtgz',
+					url : '/Feedback/wtcx.do',
+					id : 'wtcx',
 					show : {
 						aniShow : 'pop-in'
 					},

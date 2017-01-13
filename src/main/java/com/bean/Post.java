@@ -13,7 +13,7 @@ public class Post {
 
     private Date updatetime;
 
-    private Date updateby;
+    private String updateby;
 
     private Integer deleteflag;
 
@@ -67,11 +67,11 @@ public class Post {
         this.updatetime = updatetime;
     }
 
-    public Date getUpdateby() {
+    public String getUpdateby() {
         return updateby;
     }
 
-    public void setUpdateby(Date updateby) {
+    public void setUpdateby(String updateby) {
         this.updateby = updateby;
     }
 

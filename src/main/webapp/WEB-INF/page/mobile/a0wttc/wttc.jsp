@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.util.bean.Common" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html class="feedback">
 
@@ -16,6 +18,9 @@
 		<link rel="stylesheet" href="/Feedback/resource/css/mui.min.css">
 		<link rel="stylesheet" href="/Feedback/resource/css/feedback.css">
 		<link rel="stylesheet" type="text/css" href="/Feedback/resource/css/app.css" />
+		<link href="/Feedback/resource/css/mui.picker.css" rel="stylesheet" />
+		<link href="/Feedback/resource/css/mui.poppicker.css" rel="stylesheet" />
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 		<style type="text/css">
 			.mui-preview-image.mui-fullscreen {
 				position: fixed;
@@ -194,37 +199,46 @@
 							<label style="color: red;">项目编号</label>
 							<input id="xmbh" name="xmbh" type="text" class="mui-input-clear" placeholder="项目编号">
 						</div>
-						<div class="mui-input-row">
+						<div class="mui-input-row" hidden="hidden">
 							<label>客户名称</label>
 							<input id="khmc" name="khmc" type="text" class="mui-input-clear" placeholder="客户名称">
 						</div>
 						<div class="mui-input-row">
 							<label>项目名称</label>
-							<input id="xmmc" name="xmmc" type="text" class="mui-input-clear" placeholder="产品名称">
+							<input id="xmmc" name="xmmc" type="text" class="mui-input-clear" placeholder="项目名称">
 						</div>
-						<div class="mui-input-row">
+						<div class="mui-input-row" hidden="hidden">
 							<label>产品名称</label>
 							<input id="cpmc" name="cpmc" type="text" class="mui-input-clear" placeholder="产品名称">
 						</div>
-						<div class="mui-input-row">
+						<div class="mui-input-row" hidden="hidden">
 							<label>项目阶段</label>
 							<input id="xmjd" name="xmjd" type="text" class="mui-input-clear" placeholder="项目阶段">
+						</div>
+						<div class="mui-input-row">
+							<label>项目经理</label>
+							<select id="xmjl" name="xmjl" onchange="setXMJLName(this.options[this.selectedIndex].text)">
+								<option></option>
+								<c:forEach items="${xmjls}" var="xmjl" varStatus="status">
+									<option value="${xmjl.user.objectid}">${xmjl.user.xm}</option>
+								</c:forEach>
+							</select>
+							<input type="text" hidden="hidden" id="xmjlname" name="xmjlname" />
 						</div>
 						<div class="mui-input-row mui-input-range">
 							<label>紧急程度</label>
 							<select id="jjcd" name="jjcd">
-								<option value="建议">建议</option>
-								<option value="轻微">轻微</option>
-								<option value="一般">一般</option>
-								<option value="紧急">紧急</option>
-								<option value="非常紧急">非常紧急</option>
 							</select>
 			        	</div>
 			        </div>
 					<div class="mui-input-group" style="margin: 10px 0 0 0;">
 						<div class="mui-input-row required">
 							<label style="color: red;">部套名称</label>
-							<input id="btmc" name="btmc" type="text" class="mui-input-clear" placeholder="部套名称">
+							<input id="btmc" name="btmc" type="text" class="" onclick="btpickershow()"  placeholder="部套名称">
+						</div>
+						<div class="mui-input-row required">
+							<label style="color: red;">部套数量</label>
+							<input id="btsl" name="btsl" type="number" class="" placeholder="部套数量" >
 						</div>
 						<div class="mui-input-row">
 							<label>图号</label>
@@ -240,11 +254,11 @@
 						<textarea id="wtms" name="wtms" rows="5" placeholder="请详细描述你的问题..."></textarea>
 					</div>
 					<div class="mui-inline">图片(选填,提供问题截图,总大小10M以下)</div>
+					<div class="mui-inline" style="color: red">请严格遵守客户现场的安全生产规范</div>
 					<div class="">
 						<div id='image-list'>			
 							<img id='addImg' src='/Feedback/resource/images/add.png' class="image-item"  onclick="add()" />
 						</div>
-						
 					</div>
 					<!-- <div class="mui-inline">
 						<label>视频/语音</label>
@@ -260,7 +274,7 @@
 					<input id="wttp" name="wttp" type="text">
 				</div>
 				<div class="mui-button-row">
-					<input type="submit" class="mui-btn mui-btn-primary" >
+					<input type="submit" class="mui-btn mui-btn-primary" value="提交">
 				</div>
 			</form>
 		</div>
@@ -269,14 +283,21 @@
 		<script src="/Feedback/resource/js/mui.min.js"></script>
 		<script src="/Feedback/resource/js/mui.zoom.js"></script>
 		<script src="/Feedback/resource/js/mui.previewimage.js"></script>
+		<script src="/Feedback/resource/js/mui.picker.js"></script>
+		<script src="/Feedback/resource/js/mui.poppicker.js"></script>
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
 			mui('.mui-scroll-wrapper').scroll();
 			mui.previewImage();
+			var btpicker = new mui.PopPicker(); 
+			var databt = new Array();
 			$(document).ready(function(){
+				//表单验证
 				$("form").submit(function(event){
+					var wtms = $("#wtms").val();
+					$("#wtms").val(wtms);
 					var check = true;
 					var invalid;
 					mui(".required input").each(function() {
@@ -299,7 +320,50 @@
 					setImgInput();
 					return check;
 				});
+				//加载紧急程度选项
+				$.ajax({
+					url:'/Feedback/wtdata.do',
+					data:{belong:'紧急程度'},
+					dataType:'json',
+					type: "post", 
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					success:function(data){
+						if(data.flag){
+							var zrlbdata = data.data;
+							for(var i = 0; i < zrlbdata.length; i++){
+								var option = $('<option>').val(zrlbdata[i].value).text(zrlbdata[i].text);
+								$("#jjcd").append(option);
+							}
+						}
+					}
+				});
+				//加载部套名称选项
+				$.ajax({
+					url:'/Feedback/wtdata.do',
+					data:{belong:'部套名称'},
+					dataType:'json',
+					type: "post", 
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					success:function(data){
+						if(data.flag){
+							var sdata = data.data;
+							for(var i = 0; i < sdata.length; i++){
+								var d = new Object();
+								d.value = sdata[i].value;
+								d.text = sdata[i].text;
+								databt.push(d);
+							}
+							btpicker.setData(databt);
+							
+						}
+					}
+				});
 			});
+			function btpickershow(){
+				btpicker.show(function(items) {
+					document.getElementById("btmc").value = items[0].value;
+				});
+			}
 			var imgid = 1;
 			function add(){
 				//图片数量
@@ -379,7 +443,7 @@
 				$('#search').val('');
 			}
 			function searchXM(sval){
-				$("#xmlist").find("li").remove(); 
+				$("#xmlist").empty(); 
 				$.ajax({
 					url:'/Feedback/xmxx/searchxm.do',
 					data:{text:sval},
@@ -390,19 +454,58 @@
 						if(data.flag){
 							var xmdata = data.data;
 							for(var i = 0; i < xmdata.length; i++){
-								$("#xmlist").append('<li class="mui-table-view-cell" onclick="setXMXX(\''+xmdata[i].xmbh+'\',\''+xmdata[i].khmc+'\',\''+xmdata[i].cpmc+'\',\''+xmdata[i].cpjd+'\')"> '+xmdata[i].xmbh+'-'+xmdata[i].cpmc+'</li>');
+								var li = '<li class="mui-table-view-cell" '+
+											'onclick="setXMXX(\''+xmdata[i].xmbh+'\',\''+xmdata[i].khmc+'\',\''+xmdata[i].cpmc+'\',\''+xmdata[i].cpjd+'\',\''+xmdata[i].xmjl+'\',\''+xmdata[i].xmjlname+'\')"> '+
+											xmdata[i].xmbh+'-'+xmdata[i].cpmc+'</li>';
+								$("#xmlist").append(li);
 							}
 						}
 					}
 				});
 			}
-			function setXMXX(xmbh,khmc,cpmc,xmjd){
+			function setXMXX(xmbh,khmc,cpmc,xmjd,xmjl,xmjlname){
 				$('#hint').fadeOut();
 				$('#xmbh').val(xmbh);
 				$('#khmc').val(khmc);
 				$('#cpmc').val(cpmc);
 				$('#xmjd').val(xmjd);
 				$('#xmmc').val(cpmc);
+				if(xmjl != null && xmjl != 'null' && xmjl.length > 0){
+					$('#xmjl').val(xmjl);
+					$("#xmjlname").val(xmjlname);
+				}	
+			}
+			function searchUser(textid){
+				var picker = new mui.PopPicker(); 
+				var dataselect = new Array();
+				var textv = document.getElementById(textid).value;
+				$.ajax({
+					url:'/Feedback/User/search.do',
+					data:{text:textv},
+					dataType:'json',
+					type: "post", 
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					success:function(data){
+						if(data.flag){
+							var sdata = data.data;
+							for(var i = 0; i < sdata.length; i++){
+								var d = new Object();
+								d.value = sdata[i].objectid;
+								d.text = sdata[i].xm + "-" + sdata[i].zh;
+								dataselect.push(d);
+							}
+							picker.setData(dataselect);
+							picker.show(function(items) {
+								document.getElementById(textid).value = items[0].text;
+								valueid = textid.substring(0,textid.indexOf("name"));
+								document.getElementById(valueid).value = items[0].value;
+							});
+						}
+					}
+				});
+			}
+			function setXMJLName(xmjlname){
+				$("#xmjlname").val(xmjlname);
 			}
 			
 		</script>

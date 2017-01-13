@@ -1,5 +1,7 @@
 package com.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.User;
 import com.util.UploadUtil;
 import com.util.bean.Result;
 
@@ -19,8 +22,9 @@ public class UploadController  extends BaseController{
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Result<String> uploadFile(@RequestParam(value = "file", required = true) MultipartFile file,
-			@RequestParam(value = "userId", required = false) String userId) {
-		Result<String> res = UploadUtil.uploadFile(userId, file);
+			HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		Result<String> res = UploadUtil.uploadFile(user.getZh(), file);
 		return res;
 	}
 

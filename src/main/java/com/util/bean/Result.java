@@ -5,6 +5,7 @@ public class Result<T> {
 	private T data;
 	private boolean flag;
 	private String message;
+	private Integer count;
 	public T getData() {
 		return data;
 	}
@@ -22,6 +23,12 @@ public class Result<T> {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 	

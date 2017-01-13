@@ -15,6 +15,10 @@ public interface WtdataMapper {
     
     List<Wtdata> selectByFlag(String belongTo);
     
+    List<Wtdata> selectAll();
+    
+    List<String> selectWtlb();
+    
     Wtdata selectByFlagValue(String belongTo, String value);
 
     int updateByPrimaryKeySelective(Wtdata record);

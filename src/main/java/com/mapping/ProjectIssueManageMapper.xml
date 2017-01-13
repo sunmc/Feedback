@@ -13,6 +13,7 @@
     <result column="XH" property="xh" jdbcType="INTEGER" />
     <result column="TBRQ" property="tbrq" jdbcType="TIMESTAMP" />
     <result column="KHMC" property="khmc" jdbcType="VARCHAR" />
+    <result column="XMMC" property="xmmc" jdbcType="VARCHAR" />
     <result column="CPMC" property="cpmc" jdbcType="VARCHAR" />
     <result column="XMBH" property="xmbh" jdbcType="VARCHAR" />
     <result column="TBR" property="tbr" jdbcType="CHAR" />
@@ -33,6 +34,7 @@
     <result column="FAZXR" property="fazxr" jdbcType="CHAR" />
     <result column="YQWCSJ" property="yqwcsj" jdbcType="TIMESTAMP" />
     <result column="SJWCSJ" property="sjwcsj" jdbcType="TIMESTAMP" />
+    <result column="WTGBSJ" property="wtgbsj" jdbcType="TIMESTAMP" />
     <result column="WCQK" property="wcqk" jdbcType="CHAR" />
     <result column="LSJDH" property="lsjdh" jdbcType="VARCHAR" />
     <result column="SFBGTZ" property="sfbgtz" jdbcType="CHAR" />
@@ -46,8 +48,13 @@
     <result column="SJQD" property="sjqd" jdbcType="VARCHAR" />
     <result column="WTS" property="wts" jdbcType="INTEGER" />
     <result column="GZJD" property="gzjd" jdbcType="INTEGER" />
+     <result column="GZNR" property="gznr" jdbcType="VARCHAR" />
     <result column="BZ" property="bz" jdbcType="VARCHAR" />
     <result column="LSH" property="lsh" jdbcType="VARCHAR" />
+    <result column="XMJL" property="xmjl" jdbcType="VARCHAR" />
+    <result column="XMJLNAME" property="xmjlname" jdbcType="VARCHAR" />
+    <result column="BTSL" property="btsl" jdbcType="INTEGER" />
+     <result column="WXCJ" property="wxcj" jdbcType="VARCHAR" />
     <association property="fqr" select="selectUser" column="createby" javaType="com.bean.User" ></association>
     <association property="uzrr" select="selectUser" column="zrr" javaType="com.bean.User" ></association>
     <association property="ufazxr" select="selectUser" column="fazxr" javaType="com.bean.User" ></association>
@@ -66,19 +73,39 @@
     <result column="activitycode" property="activitycode" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="yqwcsj" property="yqwcsj" jdbcType="TIMESTAMP" />
+    <result column="sjwcsj" property="sjwcsj" jdbcType="TIMESTAMP" />
     <result column="qrstate" property="qrstate" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap type="com.bean.OverTaskParam" id="OverTaskParam">
+  	<result column="dbrw" property="dbrw" jdbcType="VARCHAR" />
+  	<result column="ytn" property="ytn" jdbcType="VARCHAR" />
+  	<result column="stn" property="stn" jdbcType="VARCHAR" />
+  	<result column="wtn" property="wtn" jdbcType="VARCHAR" />
+  	<result column="wts" property="wts" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.bean.TQProject" id="TQProject">
+  	<result column="ytnwjj" property="ytnwjj" jdbcType="VARCHAR" />
+  	<result column="stnwjj" property="stnwjj" jdbcType="VARCHAR" />
+  	<result column="wtnwjj" property="wtnwjj" jdbcType="VARCHAR" />
+  	<result column="wtswjj" property="wtswjj" jdbcType="VARCHAR" />
+  	<result column="ytnwgb" property="ytnwgb" jdbcType="VARCHAR" />
+  	<result column="stnwgb" property="stnwgb" jdbcType="VARCHAR" />
+  	<result column="wtnwgb" property="wtnwgb" jdbcType="VARCHAR" />
+  	<result column="wtswgb" property="wtswgb" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, State, DeleteFlag, 
-    XH, TBRQ, KHMC, CPMC, XMBH, TBR, XMJD, JJCD, BTMC, WTJTH, WLBM, WTMS, WTTP, WTVedio, 
-    ZRLB, WTLB, YYFX, CLFA, ZRR, FAZXR, YQWCSJ, SJWCSJ, WCQK, LSJDH, SFBGTZ, TZBGZRR, 
-    SJCNBGSJ, SJTZBGSJ, SJTZBGDH, BGWCQK, CPJX, WTSFCFFS, SJQD, WTS, BZ, GZJD, JHWCSJ, LSH
+    XH, TBRQ, KHMC, XMMC, CPMC, XMBH, TBR, XMJD, JJCD, BTMC, WTJTH, WLBM, WTMS, WTTP, WTVedio, 
+    ZRLB, WTLB, YYFX, CLFA, ZRR, FAZXR, YQWCSJ, SJWCSJ, WTGBSJ, WCQK, LSJDH, SFBGTZ, TZBGZRR, 
+    SJCNBGSJ, SJTZBGSJ, SJTZBGDH, BGWCQK, CPJX, WTSFCFFS, SJQD, WTS, BZ, GZJD, GZNR, JHWCSJ, LSH, XMJL,XMJLNAME,BTSL,WXCJ
   </sql>
   <select id="selectImplementationByParentId" resultMap="com.mapper.ImplementationMapper.BaseResultMap" parameterType="java.lang.String" >
   	select a.*, b.XM ZRRXM 
   	from I_Implementation a
   	left join FB_User b on a.JJCSZRR = b.ObjectId
-  	where a.ParentObjectId = #{0}
+  	where a.ParentObjectId = #{0} and a.DeleteFlag = 0
+  	order by Sort
   </select>
   <select id="selectWttpByParentId" resultMap="com.mapper.AttachmentMapper.BaseResultMap" parameterType="java.lang.String">
   	select *
@@ -89,39 +116,41 @@
     select 
     <include refid="Base_Column_List" />
     from I_ProjectIssueManage
-    where ObjectId = #{objectid,jdbcType=CHAR}
+    where ObjectId = #{objectid,jdbcType=CHAR} and DeleteFlag = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from I_ProjectIssueManage
+    update I_ProjectIssueManage
+    set DeleteFlag = 0
     where ObjectId = #{objectid,jdbcType=CHAR}
   </delete>
   <insert id="insert" parameterType="com.bean.ProjectIssueManage" >
     insert into I_ProjectIssueManage (ObjectId, ParentObjectId, CreateBy, 
       CreateTime, UpdateBy, UpdateTime, 
       State, DeleteFlag, XH, 
-      TBRQ, KHMC, CPMC, 
+      TBRQ, KHMC, XMMC, CPMC, 
       XMBH, TBR, XMJD, JJCD, 
       BTMC, WTJTH, WLBM, 
       WTMS, WTTP, WTVedio, 
       ZRLB, WTLB, YYFX, CLFA, 
-      ZRR, FAZXR, YQWCSJ, SJWCSJ, 
+      ZRR, FAZXR, YQWCSJ, SJWCSJ, WTGBSJ, 
       WCQK, LSJDH, SFBGTZ, TZBGZRR, 
       SJCNBGSJ, SJTZBGSJ, SJTZBGDH, 
       BGWCQK, CPJX, WTSFCFFS, SJQD, 
-      WTS,GZJD, BZ, JHWCSJ, LSH)
+      WTS,GZJD, GZNR, BZ, JHWCSJ, LSH, XMJL, XMJLNAME, BTSL, WXCJ)
     values (#{objectid,jdbcType=CHAR}, #{parentobjectid,jdbcType=CHAR}, #{createby,jdbcType=CHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, #{xh,jdbcType=INTEGER}, 
-      #{tbrq,jdbcType=TIMESTAMP}, #{khmc,jdbcType=VARCHAR}, #{cpmc,jdbcType=VARCHAR}, 
+      #{tbrq,jdbcType=TIMESTAMP}, #{khmc,jdbcType=VARCHAR}, #{xmmc,jdbcType=VARCHAR}, #{cpmc,jdbcType=VARCHAR}, 
       #{xmbh,jdbcType=VARCHAR}, #{tbr,jdbcType=CHAR}, #{xmjd,jdbcType=VARCHAR}, #{jjcd,jdbcType=CHAR}, 
       #{btmc,jdbcType=VARCHAR}, #{wtjth,jdbcType=VARCHAR}, #{wlbm,jdbcType=VARCHAR}, 
       #{wtms,jdbcType=VARCHAR}, #{wttp,jdbcType=VARCHAR}, #{wtvedio,jdbcType=VARCHAR}, 
       #{zrlb,jdbcType=CHAR}, #{wtlb,jdbcType=VARCHAR}, #{yyfx,jdbcType=VARCHAR}, #{clfa,jdbcType=VARCHAR}, 
-      #{zrr,jdbcType=CHAR}, #{fazxr,jdbcType=CHAR}, #{yqwcsj,jdbcType=TIMESTAMP}, #{sjwcsj,jdbcType=TIMESTAMP}, 
+      #{zrr,jdbcType=CHAR}, #{fazxr,jdbcType=CHAR}, #{yqwcsj,jdbcType=TIMESTAMP}, #{sjwcsj,jdbcType=TIMESTAMP},  #{wtgbsj,jdbcType=TIMESTAMP}, 
       #{wcqk,jdbcType=CHAR}, #{lsjdh,jdbcType=VARCHAR}, #{sfbgtz,jdbcType=CHAR}, #{tzbgzrr,jdbcType=CHAR}, 
       #{sjcnbgsj,jdbcType=TIMESTAMP}, #{sjtzbgsj,jdbcType=TIMESTAMP}, #{sjtzbgdh,jdbcType=VARCHAR}, 
       #{bgwcqk,jdbcType=CHAR}, #{cpjx,jdbcType=VARCHAR}, #{wtsfcffs,jdbcType=CHAR}, #{sjqd,jdbcType=VARCHAR}, 
-      #{wts,jdbcType=INTEGER}, #{gzjd,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR}, #{jhwcsj,jdbcType=TIMESTAMP}, #{lsh,jdbcType=VARCHAR});
+      #{wts,jdbcType=INTEGER}, #{gzjd,jdbcType=INTEGER}, #{gznr,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, 
+      #{jhwcsj,jdbcType=TIMESTAMP}, #{lsh,jdbcType=VARCHAR}, #{xmjl,jdbcType=VARCHAR}, #{xmjlname,jdbcType=VARCHAR}, #{btsl,jdbcType=INTEGER}, #{wxcj,jdbcType=VARCHAR});
       <!-- 插入图片 -->
       <if test="wttps != null" >
 	      
@@ -176,7 +205,8 @@
 	           ,[JJCSJHWCSJ]
 	           ,[JJCSJJWT]
 	           ,[JJCSWCSJ]
-	           ,[GZJD])
+	           ,[GZJD]
+	           ,[Sort])
 	     		VALUES  
 		        (newid(),
 		        #{implementations[${index}].parentobjectid},
@@ -191,7 +221,8 @@
 		        #{implementations[${index}].jjcsjhwcsj},
 		        #{implementations[${index}].jjcsjjwt},
 		        #{implementations[${index}].jjcswcsj},
-		        #{implementations[${index}].gzjd})  ;
+		        #{implementations[${index}].gzjd},
+		        #{implementations[${index}].sort})  ;
     	</foreach>
     </if>
   </insert>
@@ -230,6 +261,9 @@
       </if>
       <if test="khmc != null" >
         KHMC,
+      </if>
+      <if test="xmmc != null" >
+        XMMC,
       </if>
       <if test="cpmc != null" >
         CPMC,
@@ -288,6 +322,9 @@
       <if test="sjwcsj != null" >
         SJWCSJ,
       </if>
+      <if test="wtgbsj != null" >
+        WTGBSJ,
+      </if>
       <if test="wcqk != null" >
         WCQK,
       </if>
@@ -327,6 +364,9 @@
       <if test="gzjd != null" >
         GZJD,
       </if>
+      <if test="gznr != null" >
+        GZNR,
+      </if>
       <if test="bz != null" >
         BZ,
       </if>
@@ -335,6 +375,18 @@
       </if>
       <if test="lsh != null" >
         LSH,
+      </if>
+      <if test="xmjl != null" >
+        XMJL,
+      </if>
+      <if test="xmjlname != null" >
+        XMJLNAME,
+      </if>
+      <if test="btsl != null" >
+        BTSL,
+      </if>
+      <if test="wxcj != null" >
+        WXCJ,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -370,6 +422,9 @@
       </if>
       <if test="khmc != null" >
         #{khmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xmmc != null" >
+        #{xmmc,jdbcType=VARCHAR},
       </if>
       <if test="cpmc != null" >
         #{cpmc,jdbcType=VARCHAR},
@@ -428,6 +483,9 @@
       <if test="sjwcsj != null" >
         #{sjwcsj,jdbcType=TIMESTAMP},
       </if>
+      <if test="wtgbsj != null" >
+        #{wtgbsj,jdbcType=TIMESTAMP},
+      </if>
       <if test="wcqk != null" >
         #{wcqk,jdbcType=CHAR},
       </if>
@@ -467,6 +525,9 @@
       <if test="gzjd != null" >
        #{gzjd,jdbcType=INTEGER},
       </if>
+      <if test="gznr != null" >
+        #{gznr,jdbcType=VARCHAR},
+      </if>
       <if test="bz != null" >
         #{bz,jdbcType=VARCHAR},
       </if>
@@ -475,6 +536,18 @@
       </if>
       <if test="lsh != null" >
         #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="xmjl != null" >
+        #{xmjl,jdbcType=VARCHAR},
+      </if>
+      <if test="xmjlname != null" >
+        #{xmjlname,jdbcType=VARCHAR},
+      </if>
+      <if test="btsl != null" >
+        #{btsl,jdbcType=INTEGER},
+      </if>
+      <if test="wxcj != null" >
+        #{wxcj,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -510,6 +583,9 @@
       </if>
       <if test="khmc != null" >
         KHMC = #{khmc,jdbcType=VARCHAR},
+      </if>
+      <if test="cpmc != null" >
+        XMMC = #{xmmc,jdbcType=VARCHAR},
       </if>
       <if test="cpmc != null" >
         CPMC = #{cpmc,jdbcType=VARCHAR},
@@ -568,6 +644,9 @@
       <if test="sjwcsj != null" >
         SJWCSJ = #{sjwcsj,jdbcType=TIMESTAMP},
       </if>
+      <if test="wtgbsj != null" >
+        WTGBSJ = #{wtgbsj,jdbcType=TIMESTAMP},
+      </if>
       <if test="wcqk != null" >
         WCQK = #{wcqk,jdbcType=CHAR},
       </if>
@@ -607,6 +686,9 @@
       <if test="gzjd != null" >
         GZJD = #{gzjd,jdbcType=INTEGER},
       </if>
+      <if test="gznr != null" >
+        GZNR = #{gznr,jdbcType=VARCHAR},
+      </if>
       <if test="bz != null" >
         BZ = #{bz,jdbcType=VARCHAR},
       </if>
@@ -615,6 +697,18 @@
       </if>
       <if test="lsh != null" >
         LSH = #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="xmjl != null" >
+        XMJL = #{xmjl,jdbcType=VARCHAR},
+      </if>
+      <if test="xmjlname != null" >
+        XMJLNAME = #{xmjlname,jdbcType=VARCHAR},
+      </if>
+      <if test="btsl != null" >
+        BTSL = #{btsl,jdbcType=VARCHAR},
+      </if>
+      <if test="wxcj != null" >
+        WXCJ = #{wxcj,jdbcType=VARCHAR},
       </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
@@ -631,6 +725,7 @@
       XH = #{xh,jdbcType=INTEGER},
       TBRQ = #{tbrq,jdbcType=TIMESTAMP},
       KHMC = #{khmc,jdbcType=VARCHAR},
+      XMMC = #{xmmc,jdbcType=VARCHAR},
       CPMC = #{cpmc,jdbcType=VARCHAR},
       XMBH = #{xmbh,jdbcType=VARCHAR},
       TBR = #{tbr,jdbcType=CHAR},
@@ -650,6 +745,7 @@
       FAZXR = #{fazxr,jdbcType=CHAR},
       YQWCSJ = #{yqwcsj,jdbcType=TIMESTAMP},
       SJWCSJ = #{sjwcsj,jdbcType=TIMESTAMP},
+      WTGBSJ = #{wtgbsj,jdbcType=TIMESTAMP},
       WCQK = #{wcqk,jdbcType=CHAR},
       LSJDH = #{lsjdh,jdbcType=VARCHAR},
       SFBGTZ = #{sfbgtz,jdbcType=CHAR},
@@ -663,22 +759,43 @@
       SJQD = #{sjqd,jdbcType=VARCHAR},
       WTS = #{wts,jdbcType=INTEGER},
       GZJD = #{gzjd,jdbcType=INTEGER},
+      GZNR = #{gznr,jdbcType=VARCHAR},
       JHWCSJ = #{jhwcsj,jdbcType=TIMESTAMP},
       LSH = #{lsh,jdbcType=VARCHAR},
+      XMJL = #{xmjl,jdbcType=VARCHAR},
+      XMJLNAME = #{xmjlname,jdbcType=VARCHAR},
+      BTSL = #{btsl,jdbcType=INTEGER},
+      WXCJ = #{wxcj,jdbcType=VARCHAR},
       BZ = #{bz,jdbcType=VARCHAR}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
   <select id="selectUser" resultMap="com.mapper.UserMapper.BaseResultMap">
   	select * from FB_User where ObjectId = #{0}
   </select>
-  <select id="selectTaskByUserAndActivity" resultMap="ProjectListItem">
-  	select a.ObjectId objectid,c.ObjectId workitemid,a.XMBH xmbh,a.WTMS wtms, b.SequnceNo lsh, fqr.XM fqrxm, a.CreateTime createtime
+  <select id="selectTaskByUserAndActivity" resultMap="ProjectListItem"  parameterType="com.bean.ProjectListItem">
+  	select a.ObjectId objectid,c.ObjectId workitemid,a.XMBH xmbh,a.WTMS wtms, 
+  			b.SequnceNo lsh, fqr.XM fqrxm, a.CreateTime createtime
 	from I_ProjectIssueManage a
 	inner join FB_InstanceContext b on a.ObjectId = b.BizObjectId 
 	inner join FB_WorkItem c on c.BizObjectId = a.ObjectId
 	inner join FB_User u on c.Receiver = u.ObjectId
 	inner join FB_User fqr on fqr.ObjectId = a.CreateBy
-	where c.ActivityCode =  #{0}  and c.Receiver = #{1}  and c.State = #{2}  
+	where 1=1 and a.DeleteFlag = 0
+	<if test="activitycode != null and activitycode != ''">
+		and c.ActivityCode =  #{activitycode} 
+	</if>
+	<if test="receiver != null and receiver != ''">
+		and c.Receiver =  #{receiver} 
+	</if>
+	<if test="qrstate != null and qrstate != ''">
+		and c.State =  #{qrstate} 
+	</if>
+	<if test="objectids != null and objectids.size > 0" >
+    	and a.objectid in
+     	<foreach item="item" index="index" collection="objectids"  separator="," open="(" close=")" > 
+     		#{item}
+     	</foreach>
+    </if>
   </select>  
   <select id="searchPli" resultMap = "ProjectListItem"  parameterType="com.bean.ProjectListItem">
   	  select a.ObjectId objectid,
@@ -688,20 +805,37 @@
 		fqr.XM fqrxm, 
 		a.CreateTime createtime,
 		a.YQWCSJ yqwcsj,
-		wi.State qrstate
+		a.SJWCSJ sjwcsj,
+		a.State qrstate
 		from I_ProjectIssueManage a
 		inner join FB_InstanceContext b on a.ObjectId = b.BizObjectId 
 		inner join FB_User fqr on fqr.ObjectId = a.CreateBy
-		left join FB_WorkItem wi on wi.BizObjectId = a.ObjectId and wi.ActivityCode = 'WTGB' and wi.State = '3'
-		where 1=1
-	<if test="lsh != null" >
+		left join FB_User xmjl on xmjl.ObjectId = a.XMJL
+		left join FB_User zrr on zrr.ObjectId = a.zrr
+		where 1=1 and a.DeleteFlag = 0
+	<if test="lsh != null and lsh != ''">
         and b.SequnceNo like '%${lsh}%'
     </if>
-    <if test="xmbh != null" >
-        and a.xmbh like  '%${xmbh}%'
+    <if test="xmbh != null and  xmbh != ''" >
+        and a.xmbh like '%${xmbh}%'
     </if>
-    <if test="wtlb != null" >
-        and a.wtlb like '%${wtlb}%'
+    <if test="wtlb != null and  wtlb != ''" >
+        and a.wtlb = #{wtlb}
+    </if>
+    <if test="xmmc != null and  xmmc != ''" >
+        and a.xmmc like '%${xmmc}%'
+    </if>
+    <if test="cplb != null and  cplb != ''" >
+        and a.cpmc = #{cplb}
+    </if>
+    <if test="zrlb != null and  zrlb != ''" >
+        and a.zrlb = #{zrlb}
+    </if>
+    <if test="btmc != null and  btmc != ''" >
+        and a.btmc like '%${btmc}%'
+    </if>
+    <if test="state != null and state != ''" >
+        and a.state = #{state}
     </if>
     <if test="createtimeStart != null" >
         and a.createtime &gt;= #{createtimeStart,jdbcType=TIMESTAMP}
@@ -709,6 +843,217 @@
     <if test="createtimeEnd != null" >
         and a.createtime &lt;= #{createtimeEnd,jdbcType=TIMESTAMP}
     </if>
-	order by xmbh,lsh,a.JJCD
+    <if test="yqwcsj != null" >
+        and a.yqwcsj = #{yqwcsj,jdbcType=TIMESTAMP}
+    </if>
+    <if test="xmjl != null and xmjl != ''" >
+        and a.xmjl = #{xmjl,jdbcType=VARCHAR}
+    </if>
+    <if test="zrr != null and zrr != ''" >
+        and a.zrr = #{zrr,jdbcType=VARCHAR}
+    </if>
+    <if test="sfylsjlc != null and sfylsjlc != '' and sfylsjlc == '1'.toString()">
+    	and a.lsh in (select wth from I_LSJInfo where WTH is not null)
+    </if>
+    <if test="sfylsjlc != null and sfylsjlc != '' and sfylsjlc == '0'.toString()">
+    	and a.lsh not in (select wth from I_LSJInfo where WTH is not null)
+    </if>
+    <if test="wtsfcffs != null and wtsfcffs != ''">
+    	and a.wtsfcffs = #{wtsfcffs,jdbcType=VARCHAR}
+    </if>
+    <if test="xmjd != null and xmjd != ''">
+    	and a.xmjd = #{xmjd,jdbcType=VARCHAR}
+    </if>
+    <if test="fqr != null and fqr != ''">
+    	and (fqr.XM like '%${fqr}%' or a.objectid in (select bizobjectid from FB_WorkItem a inner join FB_User b on a.receiver = b.objectid where b.xm like '%${fqr}%'))
+    </if>
+	order by a.XMBH DESC, a.createtime 
+  </select>
+  <!-- 查询拖期问题数量 -->
+  <select id="selectOverProjectCount" resultMap="TQProject" parameterType="com.bean.TQProject">
+  	select 
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt;= 0 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 1
+			and a.State = 1
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as ytnwjj,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt; 1 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 3
+		and a.State = 1
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as stnwjj,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt; 3 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 5
+		and a.State = 1
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as wtnwjj,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) > 5
+		and a.State = 1
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as wtswjj,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt; 0 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 1
+			and a.State = 3
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as ytnwgb,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt; 1 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 3
+		and a.State = 3
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as stnwgb,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) &gt; 3 and  DATEDIFF(day, a.yqwcsj,getdate()) &lt;= 5
+		and a.State = 3
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as wtnwgb,
+		(select COUNT(a.objectid)
+		from I_ProjectIssueManage a
+		where DeleteFlag = 0 and DATEDIFF(day, a.yqwcsj,getdate()) > 5
+		and a.State = 3
+		<if test="xmjl != null and xmjl != ''">
+			and a.xmjl = #{xmjl}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and a.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+		) as wtswgb
+  </select>
+  <!-- 查询拖期问题 -->
+  <select id="selectOverProject" resultMap="ProjectListItem" parameterType="com.bean.TQProject">
+  	select 
+		b.ObjectId objectid,
+		b.XMBH xmbh,
+		b.WTMS wtms,
+		c.SequnceNo lsh,
+		ufqr.XM fqrxm,
+		b.CreateTime createtime
+	from I_ProjectIssueManage b 
+	inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+	left join FB_User ufqr on ufqr.ObjectId = c.Originator
+	where B.DeleteFlag = 0
+		<if test="wtstate != null and wtstate != ''">
+			and b.State = #{wtstate}
+		</if>
+		<if test="xmjl != null and xmjl != ''">
+			and b.xmjl = #{xmjl,jdbcType=VARCHAR} 
+		</if>
+		<if test="start != null">
+			and DATEDIFF(day, b.yqwcsj,getdate()) &gt; #{start,jdbcType=INTEGER}
+		</if>
+		<if test="end != null">
+			and DATEDIFF(day, b.yqwcsj,getdate()) &lt;= #{end,jdbcType=INTEGER}
+		</if>
+		<if test="unitcode != null and unitcode != ''">
+			and b.objectid in (select bizobjectid from I_WorkUserUnit where code like '${unitcode}%')
+		</if>
+  </select>
+  <!-- 查询待办任务，拖期任务1天内，3天内，5天内，5天以上数量 -->
+  <select id="selectOverTaskCount" resultMap="OverTaskParam" parameterType="java.lang.String">
+  	select 
+  		(select 
+			COUNT(a.ObjectId)
+		from FB_WorkItem a
+		inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+		inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+		where a.Receiver = #{0} and b.DeleteFlag = 0 and
+				(a.State = 1 or a.State = 2) ) as dbrw,
+		(select 
+			COUNT(a.ObjectId)
+		from FB_WorkItem a
+		inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+		inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+		where a.Receiver = #{0} and b.DeleteFlag = 0 and 
+				(a.State = 1 or a.State = 2) and DATEDIFF(day, b.yqwcsj,getdate()) between 0 and 1) as ytn,
+		(select 
+			COUNT(a.ObjectId)
+		from FB_WorkItem a
+		inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+		inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+		where a.Receiver = #{0} and b.DeleteFlag = 0 and 
+				(a.State = 1 or a.State = 2) and DATEDIFF(day, b.yqwcsj,getdate()) between 1 and 3) as stn,
+		(select 
+			COUNT(a.ObjectId)
+		from FB_WorkItem a
+		inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+		inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+		where a.Receiver = #{0} and b.DeleteFlag = 0 and 
+				(a.State = 1 or a.State = 2) and DATEDIFF(day, b.yqwcsj,getdate()) between 3 and 5) as wtn,
+		(select 
+			COUNT(a.ObjectId)
+		from FB_WorkItem a
+		inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+		inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+		where a.Receiver = #{0} and b.DeleteFlag = 0 and 
+				(a.State = 1 or a.State = 2) and DATEDIFF(day, b.yqwcsj,getdate()) > 5) as wts
+  
+  </select>
+  <select id="selectOverTask" parameterType="com.bean.OverTaskParam" resultMap="ProjectListItem">
+  	select 
+		b.ObjectId objectid,
+		a.ObjectId workitemid,
+		a.ActivityCode activitycode,
+		a.BizObjectSchemaCode bizschemacode,
+		b.XMBH xmbh,
+		b.WTMS wtms,
+		c.SequnceNo lsh,
+		ufqr.XM fqrxm,
+		b.CreateTime createtime
+	from FB_WorkItem a
+	inner join I_ProjectIssueManage b on a.BizObjectId = b.ObjectId
+	inner join FB_InstanceContext c on c.BizObjectId = b.ObjectId
+	left join FB_User ufqr on ufqr.ObjectId = c.Originator
+	where (a.State = 1 or a.State = 2) and B.DeleteFlag = 0
+		<if test="receiver != null and receiver != ''">
+			and a.Receiver = #{receiver,jdbcType=VARCHAR} 
+		</if>
+		<if test="start != null">
+			and DATEDIFF(day, b.yqwcsj,getdate()) &gt;= #{start,jdbcType=INTEGER}
+		</if>
+		<if test="end != null">
+			and DATEDIFF(day, b.yqwcsj,getdate()) &lt;= #{end,jdbcType=INTEGER}
+		</if>
   </select>
 </mapper>

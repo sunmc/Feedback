@@ -52,9 +52,9 @@
 									<%= Common.wtgb %>
 								</a>
 							</li>
-							<li class="mui-table-view-cell" id="wtgz">
+							<li class="mui-table-view-cell" id="wtcx">
 								<a class="mui-navigate-right">
-									<%= Common.wtgz %>
+									<%= Common.wtcx %>
 								</a>
 							</li>
 						</ul>
@@ -180,10 +180,10 @@
 					}
 				});
 			})
-			document.getElementById('wtgz').addEventListener('tap', function() {
+			document.getElementById('wtcx').addEventListener('tap', function() {
 				mui.openWindow({
-					url : '/Feedback/wtgz.do',
-					id : 'wtgz',
+					url : '/Feedback/wtcx.do',
+					id : 'wtcx',
 					show : {
 						aniShow : 'pop-in'
 					},

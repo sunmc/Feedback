@@ -6,14 +6,13 @@
     <result column="khmc" property="khmc" jdbcType="NVARCHAR" />
     <result column="cpmc" property="cpmc" jdbcType="NVARCHAR" />
     <result column="cpjd" property="cpjd" jdbcType="NVARCHAR" />
+    <result column="xmjlname" property="xmjlname" jdbcType="NVARCHAR" />
+    <result column="xmjl" property="xmjl" jdbcType="NVARCHAR" />
   </resultMap>
   <select id="selectByXMBH" parameterType="String" resultMap="XMXXMap" >
     select top 5 * 
     from I_XMXX 
     where XMBH like #{text,jdbcType=NVARCHAR}
-    	or khmc like #{text,jdbcType=NVARCHAR}
-    	or cpmc like #{text,jdbcType=NVARCHAR}
-    	or cpjd like #{text,jdbcType=NVARCHAR}
     order by xmbh
   </select>
 </mapper>

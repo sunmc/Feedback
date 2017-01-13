@@ -34,7 +34,11 @@ public class A3WTZGController extends BaseController{
 	@RequestMapping
 	public ModelAndView index(HttpSession session){
 		User user = (User)session.getAttribute("user");
-		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(ProjectState.WTZG, user.getObjectid(), ProjectState.START);
+		ProjectListItem pli = new ProjectListItem();
+		pli.setActivitycode(ProjectState.WTZG);
+		pli.setReceiver(user.getObjectid());
+		pli.setQrstate(ProjectState.START);
+		Result<List<ProjectListItem>> res = projectService.selectTaskByUserActivity(pli);
 		ModelAndView model = null;
 		if(res.isFlag()){
 			model = new ModelAndView("mobile/a3wtzg/wtzglist");

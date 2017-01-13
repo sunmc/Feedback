@@ -11,14 +11,15 @@
     <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="State" property="state" jdbcType="INTEGER" />
     <result column="DeleteFlag" property="deleteflag" jdbcType="INTEGER" />
-    <result column="value" property="value" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="descripe" property="descripe" jdbcType="VARCHAR" />
     <result column="BelongTo" property="belongto" jdbcType="CHAR" />
+    <result column="Sort" property="sort" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     ObjectId, ParentObjectId, BizObjectId, CreateBy, CreateTime, UpdateBy, UpdateTime, 
-    State, DeleteFlag, value, text, descripe, BelongTo
+    State, DeleteFlag, value, text, descripe, BelongTo, Sort
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -31,12 +32,26 @@
     <include refid="Base_Column_List" />
     from I_WTData
     where BelongTo = #{belongTo,jdbcType=CHAR} and DeleteFlag = 0
+    order by Sort
+  </select>
+  <select id="selectAll"  resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from I_WTData
+    where DeleteFlag = 0
+    order by Sort
   </select>
   <select id="selectByFlagValue"  resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from I_WTData
     where BelongTo = #{0} and value = #{1} and DeleteFlag = 0
+    order by Sort
+  </select>
+  <select id="selectWtlb" resultType="java.lang.String">
+  	select distinct BelongTo
+	from I_WTData
+	where DeleteFlag = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from I_WTData
@@ -47,12 +62,12 @@
       CreateBy, CreateTime, UpdateBy, 
       UpdateTime, State, DeleteFlag, 
       value, text, descripe, 
-      BelongTo)
+      BelongTo,Sort)
     values (NEWID(), #{parentobjectid,jdbcType=CHAR}, #{bizobjectid,jdbcType=CHAR}, 
       #{createby,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
       #{updatetime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{deleteflag,jdbcType=INTEGER}, 
-      #{value,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{descripe,jdbcType=VARCHAR}, 
-      #{belongto,jdbcType=CHAR})
+      #{value,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{descripe,jdbcType=VARCHAR}, 
+      #{belongto,jdbcType=CHAR}, #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bean.Wtdata" >
     insert into I_WTData
@@ -94,6 +109,9 @@
       <if test="belongto != null" >
         BelongTo,
       </if>
+      <if test="sort != null" >
+        Sort,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
         NEWID(),
@@ -122,7 +140,7 @@
         #{deleteflag,jdbcType=INTEGER},
       </if>
       <if test="value != null" >
-        #{value,jdbcType=INTEGER},
+        #{value,jdbcType=VARCHAR},
       </if>
       <if test="text != null" >
         #{text,jdbcType=VARCHAR},
@@ -132,6 +150,9 @@
       </if>
       <if test="belongto != null" >
         #{belongto,jdbcType=CHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -163,7 +184,7 @@
         DeleteFlag = #{deleteflag,jdbcType=INTEGER},
       </if>
       <if test="value != null" >
-        value = #{value,jdbcType=INTEGER},
+        value = #{value,jdbcType=VARCHAR},
       </if>
       <if test="text != null" >
         text = #{text,jdbcType=VARCHAR},
@@ -173,6 +194,9 @@
       </if>
       <if test="belongto != null" >
         BelongTo = #{belongto,jdbcType=CHAR},
+      </if>
+      <if test="sort != null" >
+        Sort = #{sort,jdbcType=CHAR},
       </if>
     </set>
     where ObjectId = #{objectid,jdbcType=CHAR}
@@ -187,10 +211,11 @@
       UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
       State = #{state,jdbcType=INTEGER},
       DeleteFlag = #{deleteflag,jdbcType=INTEGER},
-      value = #{value,jdbcType=INTEGER},
+      value = #{value,jdbcType=VARCHAR},
       text = #{text,jdbcType=VARCHAR},
       descripe = #{descripe,jdbcType=VARCHAR},
-      BelongTo = #{belongto,jdbcType=CHAR}
+      BelongTo = #{belongto,jdbcType=CHAR},
+      Sort = #{sort,jdbcType=CHAR}
     where ObjectId = #{objectid,jdbcType=CHAR}
   </update>
 </mapper>

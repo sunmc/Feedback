@@ -25,25 +25,36 @@ public class UserController  extends BaseController{
 	
 	@RequestMapping("LoginValidate")
 	public ModelAndView LoginValidate(String code,String passwd, HttpSession session){
+		ModelAndView model = null;
 		if(code != null && code.length() > 0){
 			Result<User> res = new Result<User>();
 			res = userService.loginValidate(code, passwd);
 			if(res.isFlag()){
 				User user = res.getData();
 				session.setAttribute("user", user);
+				if(passwd.equals("123456")){
+					return new ModelAndView("/mobile/user/updatepwd");
+				}
 				if(session.getAttribute("url") != null){
 					String url = session.getAttribute("url").toString();	
-					if(url.length() > 0 && !url.contains("login")){
+					if(url.length() > 0 && !url.contains("log")){
 						url = URLDecoder.decode(url);
 						return new ModelAndView("redirect:" + url);
 					}
 				}
 				
-				return new ModelAndView("/mobile/wtcx/wtcx");
+				return new ModelAndView("/mobile/a6wtcx/wtcxlist");
+			}else{
+				model = new ModelAndView("/mobile/login");
+				model.addObject("error", res.getMessage());
+				return model;
 			}
+		}else{
+			model = new ModelAndView("/mobile/login");
+			model.addObject("error", "请输入用户名");
+			return model;
 		}
 		
-		return new ModelAndView("/mobile/login");
 	}
 	@ResponseBody
 	@RequestMapping("search")
@@ -66,5 +77,20 @@ public class UserController  extends BaseController{
 	public ModelAndView logout(HttpSession session){
 		session.setAttribute("user", null);
 		return new ModelAndView("mobile/login");
+	}
+	@RequestMapping("update")
+	public ModelAndView update(User user, HttpSession session){
+		ModelAndView model = null;
+		User u = (User)session.getAttribute("user");
+		user.setObjectid(u.getObjectid());
+		Result<User> res = userService.update(user);
+		if(res.isFlag()){
+			session.setAttribute("user", res.getData());
+			return new ModelAndView("/mobile/a6wtcx/wtcxlist");
+		}else{
+			model = new ModelAndView("/mobile/error");
+			model.addObject("error", res.getMessage());
+		}
+		return model;
 	}
 }

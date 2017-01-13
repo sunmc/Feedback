@@ -18,7 +18,7 @@
 
 	<body>
 		<div align="center" style="margin-top: 240px">
-		提交成功！<br/>
+		提交成功！<span id="time">5</span>秒后跳转到查询页面<br/>
 		<button type="button" data-loading-icon-position="right" class="mui-btn" id="bt">点击查看问题明细</button>
 		</div>
 		<div hidden="hidden">
@@ -29,7 +29,7 @@
 		<script type="text/javascript">
 			document.getElementById('bt').addEventListener('tap', function() {
 				var objectid = $("#objectid").val();
-				var urls = '/Feedback/wtgz/wtgz.do?objectid='+objectid;
+				var urls = '/Feedback/wtcx/wtcx.do?objectid='+objectid;
 				mui.openWindow({
 					url : urls,
 					id : 'wtgz',
@@ -41,6 +41,17 @@
 					}
 				});
 			})
+			$(document).ready(function(){
+				var count = 5;
+				setInterval(function(){
+					if(count == 0){
+						window.location = "/Feedback/common.do";
+					}else{
+						count--;
+						document.getElementById("time").innerHTML = count;
+					}
+				}, 1000);
+			});
 		</script>
 	</body>
 </html>

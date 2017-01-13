@@ -8,6 +8,10 @@ public class XMXX {
     private String cpmc;
 
     private String cpjd;
+    
+    private String xmjlname;
+    
+    private String xmjl;
 
     public String getXmbh() {
         return xmbh;
@@ -40,4 +44,20 @@ public class XMXX {
     public void setCpjd(String cpjd) {
         this.cpjd = cpjd == null ? null : cpjd.trim();
     }
+
+	public String getXmjl() {
+		return xmjl;
+	}
+
+	public void setXmjl(String xmjl) {
+		this.xmjl = xmjl;
+	}
+
+	public String getXmjlname() {
+		return xmjlname;
+	}
+
+	public void setXmjlname(String xmjlname) {
+		this.xmjlname = xmjlname;
+	}
 }

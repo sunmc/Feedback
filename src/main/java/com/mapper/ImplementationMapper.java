@@ -1,6 +1,7 @@
 package com.mapper;
 
 import com.bean.Implementation;
+import com.bean.ProjectIssueManage;
 
 public interface ImplementationMapper {
     int deleteByPrimaryKey(String objectid);
@@ -14,4 +15,6 @@ public interface ImplementationMapper {
     int updateByPrimaryKeySelective(Implementation record);
 
     int updateByPrimaryKey(Implementation record);
+    
+    int updateImplementations(ProjectIssueManage project);
 }

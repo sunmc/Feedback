@@ -35,7 +35,7 @@
 					</div>
 					
 					<div class="mui-content-padded oauth-area">
-		
+						<label style="color: red;">${error }</label>
 					</div>
 					<div class="mui-button-row">
 						<input type="submit" class="mui-btn mui-btn-primary" >
@@ -43,8 +43,6 @@
 				</div>
 			</form>
 		</div>
-		<script src="js/mui.min.js"></script>
-		<script src="js/app.js"></script>
 		<script>
 		</script>
 	</body>

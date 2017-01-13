@@ -1,10 +1,13 @@
 package com.qq.weixin.mp.aes;
 
+import java.util.Date;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.qq.weixin.mp.aes.bean.DepartmentList;
 import com.qq.weixin.mp.aes.bean.NewsMessage;
+import com.qq.weixin.mp.aes.bean.Ticket;
 import com.qq.weixin.mp.aes.bean.Token;
 import com.qq.weixin.mp.aes.bean.UserId;
 import com.qq.weixin.mp.aes.bean.UserInfo;
@@ -13,8 +16,12 @@ import com.util.HttpUtil;
 public class WXService {
 
 	private final static String corpId = "wx46be78f8feff44a2";
-	private final static String sercret = "W3krKxBeYGcNxEqUsPbRumRQ86qQc8Xj8EAhXTUKHIbFTEkKuJsswM2SIgIOql7R";
+	private final static String sercret = "1Ts0fAWOI2AOgjimeyGLq0DVNnISbiu2TivlQXVlWDJ7nZM_arYqJsuSeNCk_dLX";
 	public static String token = "";
+	public static String ticket = "";
+	public static String noncestr = "Wm3WZYTPz0wzccnW";
+	public static String timestamp= "";
+	public static String signature = "";
 	private final static String sendMessageUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=";
 	static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 	//获取token
@@ -25,6 +32,21 @@ public class WXService {
 		Token t = gson.fromJson(res, new TypeToken<Token>(){}.getType());
 		token = t.access_token;
 		return token;
+	}
+	//获取ticket
+	public static String getTicket(){
+		if(token == null || token.length() < 2){
+			getToken();
+		}
+		timestamp = new Date().getTime() + "";
+		String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket";
+		String param = "access_token=" + token;
+		String res = HttpUtil.sendGet(url, param);
+		Ticket t = gson.fromJson(res, new TypeToken<Ticket>(){}.getType());
+		ticket = t.ticket;
+		String str = "jsapi_ticket="+ticket+"&noncestr="+noncestr+"&timestamp="+timestamp+"&url=http://mp.weixin.qq.com";
+		//signature = SHA1.getSHA1(str);
+		return ticket;
 	}
 	//获取员工id
 	public static UserId getUserId(String code){
@@ -72,5 +94,11 @@ public class WXService {
 		String res = HttpUtil.sendPost(url, datajson);
 		return res;
 	}
+	//更新成员信息
+	public static String updateUser(){
+		
+		return "";
+	}
+	
 	
 }
